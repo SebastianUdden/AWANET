@@ -1,0 +1,36 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+@model LoginVM
+    @{
+        Layout = "_LoginLayout";
+    }
+
+    <head>
+        <title>Aw academy Login</title>
+    </head>
+    <body>
+        <div class="container text-center" style="margin:auto">
+            <br />
+            <br />
+            <h1>Inloggning</h1>'
+            <div style="width:32%; margin:auto">
+                <form asp-controller="Account" asp-action="Login">
+                    <div asp-validation-summary="ValidationSummary.All"></div>
+                    <label asp-for="EMail"></label>
+                    <input asp-for="EMail" class="form-control">
+                    <span asp-validation-for="EMail"></span>
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control">
+                    <span asp-validation-for="Password"></span>
+                    <div class="modal-footer">
+                        <input id="submitAdmin" type="submit" class="btn btn-success" value="Logga in" />
+                    </div>
+                </form>
+            </div>
+            <br /><br />
+            <br /><br />
+            <br /><br />
+            <br /><br />
+            <br />
+        </div>
+    </body>
+</html>

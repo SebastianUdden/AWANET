@@ -1,0 +1,17 @@
+﻿@model CreateUserVM
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Create User</title>
+</head>
+<body>
+    <h1>Create user</h1>
+    <div asp-validation-summary="ValidationSummary.All"></div>
+    <form asp-controller="Admin" asp-action="CreateUser">
+        <label asp-for="EMail"></label>
+        <input asp-for="EMail" />
+        <span asp-validation-for="EMail"></span>
+        <br />
+        <input type="submit" value="Create user" />
+    </form>
+</body>
+</html>
