@@ -1,0 +1,63 @@
+﻿@model EditAccountVM
+<script src="~/scripts/jquery.validate.js"></script>
+<script src="~/scripts/jquery.validate.unobtrusive.min.js"></script>
+<div class="container">
+    <h2>Mina sidor</h2>
+    <p>Här kan du ändra din information.</p>
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">E-mail:   @Model.EMail</a>
+                </h4>
+            </div>
+            @*Collapsade edit-formulär för olika personuppgifter*@
+            <div id="collapse1" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <form asp-controller="Account" asp-action="EditSomething">
+                        <div asp-validation-summary="ValidationSummary.All"></div>
+                        <label asp-for="EMail"></label>
+                        <input asp-for="EMail" class="form-control">
+                        <span asp-validation-for="EMail"></span>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Ändra lösenord</a>
+                </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @Html.Partial("_ChangePasswordPartial", Model.ChangePassword)
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Ändra namn</a>
+                </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <form asp-controller="Account" asp-action="EditSomething">
+                        <div asp-validation-summary="ValidationSummary.All"></div>
+                        <label asp-for="FirstName"></label>
+                        <input asp-for="FirstName" class="form-control" placeholder="Förnamn">
+                        <span asp-validation-for="FirstName"></span>
+                        <br />
+                        <label asp-for="LastName"></label>
+                        <input asp-for="LastName" class="form-control" placeholder="Efternamn">
+                        <span asp-validation-for="LastName"></span>
+                        <br />
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

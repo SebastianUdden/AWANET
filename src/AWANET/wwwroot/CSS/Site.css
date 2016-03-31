@@ -1,0 +1,8 @@
+﻿ .field-validation-error {
+            color: red;
+            font-weight: bold;
+        }
+ #validation ul{
+     color:red;
+     list-style-type:none;
+ }

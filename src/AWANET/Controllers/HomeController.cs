@@ -7,7 +7,7 @@ using Microsoft.AspNet.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace AWANET.Controllers
+namespace AWANET.ViewModels
 {
     [Authorize]
     public class HomeController : Controller
@@ -20,6 +20,7 @@ namespace AWANET.Controllers
         [AllowAnonymous]
         public IActionResult Redirect()
         {
+            //Den här metoden tillåter ej inloggade användare att riktas om till logga in sidan. Enda metoden som är tillåten för ej inloggade användare.
             return RedirectToAction("Login", "Account");
         }
     }

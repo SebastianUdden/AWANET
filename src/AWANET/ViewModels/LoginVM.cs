@@ -8,12 +8,14 @@ namespace AWANET.ViewModels
 {
     public class LoginVM
     {
+        [Display(Name ="E-post")]
         [Required]
         [EmailAddress (ErrorMessage = "Ange giltig email adress, email@academic.se")]
         public string EMail { get; set; }
 
+        [Display(Name = "Lösenord")]
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "Field can't be empty")]
+        [Required(ErrorMessage = "Fältet kan inte vara tomt")]
         [StringLength(20, MinimumLength = 6)]
         public string Password { get; set; }
     }
