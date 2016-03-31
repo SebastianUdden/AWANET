@@ -1,17 +1,18 @@
 ﻿@model CreateUserVM
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Create User</title>
-</head>
-<body>
-    <h1>Create user</h1>
-    <div asp-validation-summary="ValidationSummary.All"></div>
+@{
+    ViewBag.Title = "Skapa ny användare";
+}
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/scripts/jquery.validate.unobtrusive.min.js"></script>
+<div class="extraTopPadding">
+    <h1 class="logoColorFont">Skapa ny användare</h1>
+
+    <div asp-validation-summary="ValidationSummary.ModelOnly"></div>
     <form asp-controller="Admin" asp-action="CreateUser">
-        <label asp-for="EMail"></label>
-        <input asp-for="EMail" />
+        <label asp-for="EMail">E-post</label>
+        <input asp-for="EMail" class="form-control" placeholder="elev@academy.se" />
         <span asp-validation-for="EMail"></span>
         <br />
-        <input type="submit" value="Create user" />
+        <input type="submit" value="Skapa användare" class="btn logoColorBackground" />
     </form>
-</body>
-</html>
+</div>

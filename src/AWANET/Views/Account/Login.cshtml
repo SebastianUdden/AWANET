@@ -14,16 +14,20 @@
             <h1 style="color:#00AA3C">Inloggning</h1>
             <div style="width:32%; margin:auto">
                 <form asp-controller="Account" asp-action="Login">
+                    <br />
                     <label asp-for="EMail"></label>
                     <input asp-for="EMail" class="form-control">
                     <span asp-validation-for="EMail"></span>
+                    <br />
                     <label asp-for="Password"></label>
                     <input asp-for="Password" class="form-control">
                     <span asp-validation-for="Password"></span>
+                    <br />
                     <div class="modal-footer">
-                        <a href="/account/resetPassword">Glömt lösenordet?</a>
-                        <input id="submitAdmin" type="submit" class="btn btn-success" value="Logga in" />
-                    </div>
+                        <div style="float:left"><a href="/account/resetPassword">Glömt lösenordet?</a></div>
+                        <div style="float:right">
+                            <input id="submitAdmin" type="submit" class="btn btn-success" value="Logga in" />
+                        </div></div>
                     <div id="validation" asp-validation-summary="ValidationSummary.All"></div>
                 </form>
             </div>

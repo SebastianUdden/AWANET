@@ -39,6 +39,5 @@ namespace AWANET.ViewModels
         public string LastName { get; set; }
         [Display(Name = "Adress")]
         public string Address { get; set; }
-
     }
 }

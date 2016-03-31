@@ -7,6 +7,7 @@ using AWANET.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Authorization;
+using AWANET.Models;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -69,21 +70,30 @@ namespace AWANET.ViewModels
         [HttpPost]
         public async Task<IActionResult> MyPages(ChangePasswordVM model)
         {
-            
-                if (!ModelState.IsValid)
-                    return View(model);
 
-                bool result = await ChangePassword(model);
-                if (result)
-                {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            bool result = await ChangePassword(model);
+            if (result)
+            {
 
                 var pageModel = new EditAccountVM();
                 pageModel.EMail = User.Identity.Name;
                 return View(pageModel);
             }
-            
+
             return PartialView("_ChangePasswordPartial", model);
         }
+
+        //public async Task<IActionResult> MyPages(EditContactDetailsVM model)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return View(model);
+        //    var user = await userManager.FindByNameAsync(User.Identity.Name);
+        //    string userId = user.Id;
+
+        //}
 
         private async Task<bool> ChangePassword(ChangePasswordVM editModel)
         {
@@ -95,6 +105,40 @@ namespace AWANET.ViewModels
 
             ModelState.AddModelError("errormessage", result.Errors.First().Description);
             return false;
+        }
+
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await userManager.FindByNameAsync(model.EMail);
+            if (user != null)
+            {
+
+                await userManager.RemovePasswordAsync(user);
+                string password = CreatePassword.CreateNewPassword();
+                var result = await userManager.AddPasswordAsync(user, password);
+                //var result = await userManager.CreateAsync(new IdentityUser(model.EMail), password);
+                ////Returnerar ett felmeddelande och vy-modellen ifall skapandet av användare misslyckats
+                if (!result.Succeeded)
+                {
+                    ModelState.AddModelError("Email", result.Errors.First().Description);
+                    return View(model);
+                }
+                //Kolla resultat på mailutskicket??
+                //Metod som skickar ett lösenord till specificerad emailadress
+                MailSender.SendTo(model.EMail, password);
+                return RedirectToAction(nameof(Login));
+            }
+            ModelState.AddModelError("error", "Hittar ej E-post");
+            return View(model);
         }
     }
 }

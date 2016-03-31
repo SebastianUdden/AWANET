@@ -6,3 +6,18 @@
      color:red;
      list-style-type:none;
  }
+
+ .logoColorFont {
+     color:#00AA3C;
+ }
+
+ .logoColorBackground {
+     background-color:#00AA3C;
+     color:#FFFFFF;
+ }
+
+ .extraTopPadding {
+     padding-top:9%;
+     width:40%;
+     margin:auto;
+ }

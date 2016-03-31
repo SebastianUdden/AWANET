@@ -8,8 +8,8 @@ namespace AWANET.ViewModels
 {
     public class CreateUserVM
     {
-        [Required]
-        [EmailAddress(ErrorMessage = "Ange giltig email adress, email@academic.se")]
+        [Required(ErrorMessage = "Lägg in E-postadress.")]
+        [EmailAddress(ErrorMessage = "Ange giltig E-postadress, email@academic.se")]
         public string EMail { get; set; }
     }
 }

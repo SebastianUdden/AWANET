@@ -8,9 +8,9 @@ using System.Net.Mail;
 
 namespace AWANET.Models
 {
-    public class MailSender
+    public static class MailSender
     {
-        public void SendTo(string address,string password)
+        public static void SendTo(string address,string password)
         {
             //lägga in kontroll av formatet för att säkra E-post
             try
@@ -41,14 +41,12 @@ namespace AWANET.Models
                 mail.Body += "\n Framtiden är här";
                 //Skicka mail!
                 client.SendAsync(mail, null);
-                
             }
             catch (Exception ex)
             {
                 //implementera loggfunktion för fel!
                 //MessageBox.Show(ex.Message); 
             }
-            
         }
     }
 }
