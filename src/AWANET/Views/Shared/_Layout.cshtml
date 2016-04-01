@@ -38,9 +38,12 @@
                     <li>
                         <a href="/Kontaktlista">Kontaktlista</a>
                     </li>
-                    <li>
-                        <a href="/Admin/Createuser">Skapa Användare</a>
-                    </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>
+                            <a href="/Admin/Createuser">Skapa Användare</a>
+                        </li>
+                    }
                     <li>
                         <a href="/Account/Logout">Logga Ut</a>
                     </li>
@@ -48,9 +51,9 @@
             </div>
         </div>
     </div>
-        <div class="container">
-            @RenderBody()
-        </div>
+    <div class="container">
+        @RenderBody()
+    </div>
 </body>
 </html>
 
