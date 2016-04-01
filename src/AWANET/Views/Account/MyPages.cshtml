@@ -3,16 +3,12 @@
 <script src="~/scripts/jquery.validate.unobtrusive.min.js"></script>
 <div class="container">
     <h2>Mina sidor</h2>
-    @if (ViewData["Password"] != null)
-    {
-        <div class="logoColorFont">Lösenordet uppdaterades. ☺</div>
-    }
     <p>Här kan du ändra din information.</p>
-    <div class="panel-group" id="accordion">
+    <div class="panel-group" id="accordionDetails">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">E-mail:   @Model.EMail</a>
+                    <a data-toggle="collapse" data-parent="#accordionDetails" href="#collapse1">E-mail:   @Model.EMail</a>
                 </h4>
             </div>
             @*Collapsade edit-formulär för olika personuppgifter*@
@@ -30,7 +26,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Ändra lösenord</a>
+                    <a data-toggle="collapse" data-parent="#accordionDetails" href="#collapse2">Ändra lösenord</a>
                 </h4>
             </div>
             <div id="collapse2" class="panel-collapse collapse">
@@ -42,7 +38,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Ändra namn</a>
+                    <a data-toggle="collapse" data-parent="#accordionDetails" href="#collapse3">Ändra info</a>
                 </h4>
             </div>
             <div id="collapse3" class="panel-collapse collapse">

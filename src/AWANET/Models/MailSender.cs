@@ -36,9 +36,9 @@ namespace AWANET.Models
                 //skapa body i mailet.
 
                 //Lägger in namn , adresser och telefonnummer i mailet.
-                mail.Body = $"Välkommen till AWAnet! Ditt användarnamn är {address}.\n Ditt lösenord är {password}.";
+                mail.Body = $"Välkommen till AWAnet! Ditt användarnamn är {address}.\n Ditt lösenord är {password}";
                 
-                mail.Body += "\n Framtiden är här";
+                mail.Body += "\nFramtiden är här ☺";
                 //Skicka mail!
                 client.SendAsync(mail, null);
             }

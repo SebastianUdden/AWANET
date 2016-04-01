@@ -19,10 +19,10 @@ namespace AWANET.ViewModels
     {
         UserManager<IdentityUser> userManager;
         SignInManager<IdentityUser> signInManager;
-        IdentityDbContext context;
+        AWAnetContext context;
         
         public AdminController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager, IdentityDbContext context)
+            SignInManager<IdentityUser> signInManager, AWAnetContext context)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;

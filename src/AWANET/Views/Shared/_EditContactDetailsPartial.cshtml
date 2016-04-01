@@ -3,27 +3,27 @@
     <div style="float:left; width:40%">
         <form onsubmit="editUserInfo(event);" id="userDetails">
             <label asp-for="FirstName"></label>
-            <input asp-for="FirstName" class="form-control">
+            <input asp-for="FirstName" id="firstName" class="form-control">
             <span asp-validation-for="FirstName"></span>
             <br />
             <label asp-for="LastName"></label>
-            <input asp-for="LastName" class="form-control">
+            <input asp-for="LastName" id="lastName" class="form-control">
             <span asp-validation-for="LastName"></span>
             <br />
             <label asp-for="Phone"></label>
-            <input asp-for="Phone" class="form-control">
+            <input asp-for="Phone" id="phone" class="form-control">
             <span asp-validation-for="Phone"></span>
             <br />
             <label asp-for="Street"></label>
-            <input asp-for="Street" class="form-control">
+            <input asp-for="Street" id="street" class="form-control">
             <span asp-validation-for="Street"></span>
             <br />
             <label asp-for="Zip"></label>
-            <input asp-for="Zip" class="form-control">
+            <input asp-for="Zip" id="zip" class="form-control">
             <span asp-validation-for="Zip"></span>
             <br />
             <label asp-for="City"></label>
-            <input asp-for="City" class="form-control">
+            <input asp-for="City" id="city" class="form-control">
             <span asp-validation-for="City"></span>
             <br />
             <div asp-validation-summary="ValidationSummary.ModelOnly"></div>
@@ -34,7 +34,7 @@
             }
 
             <div class="modal-footer">
-                <input id="submitChanges" type="submit" class="btn btn-success" value="Ändra kontaktuppgifter" />
+                <input id="submitChanges" class="btn btn-success" value="Ändra kontaktuppgifter" onclick="editUserInfo(event)"/>
             </div>
         </form>
     </div>

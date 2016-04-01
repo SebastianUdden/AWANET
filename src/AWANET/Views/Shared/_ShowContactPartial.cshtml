@@ -1,0 +1,48 @@
+﻿@model ContactInfoVM
+
+<!-- Modal -->
+<div id="contactModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@Model.FirstName&nbsp;@Model.LastName</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <table>
+                        <tr>
+                            <td>
+                                <h4>E-post:</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@Model.EMail</td>
+                        </tr>
+                        <tr>
+                            <td><h4>Telefonnummer:</h4></td>
+                        </tr>
+                        <tr>
+                            <td>@Model.Phone</td>
+                        </tr>
+                        <tr>
+                            <td><h4>Adress:</h4></td>
+                        </tr>
+                        <tr>
+                            <td>@Model.Street</td>
+                        </tr>
+                        <tr>
+                            <td>@Model.Zip&nbsp;@Model.City </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -92,14 +92,13 @@ namespace AWANET.ViewModels
             bool result = await ChangePassword(model);
             if (result)
             {
-
                 var pageModel = new EditAccountVM();
-                pageModel.EMail = User.Identity.Name;
+               
                 ViewData["Password"] = "1";
-                return View(pageModel);
+                return PartialView("_ChangePasswordPartial");
             }
-
-            return PartialView("_ChangePasswordPartial", model);
+            ModelState.AddModelError("Error", "Lösenordet måste innehålla gemener, versaler och minst en siffra.");
+            return PartialView("_ChangePasswordPartial");
         }
         [HttpPost]
         [ActionName("EditDetails")]
