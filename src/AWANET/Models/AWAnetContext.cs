@@ -9,6 +9,12 @@ namespace AWANET.Models
 {
     public class AWAnetContext : IdentityDbContext
     {
+        public DbSet<UserDetail> UserDetails { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<UserDetail>().ToTable("UserInformation");
+        }
     }
 }

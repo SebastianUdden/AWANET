@@ -13,24 +13,8 @@ namespace AWANET.ViewModels
         [EmailAddress]
         public string EMail { get; set; }
         public ChangePasswordVM ChangePassword { get; set; }
-        //[Display(Name = "Nuvarande lösenord")]
-        //[DataType(DataType.Password)]
-        //[Required(ErrorMessage = "Fältet kan inte vara tomt")]
-        //[StringLength(20, MinimumLength = 6)]
-        //public string OldPassword { get; set; }
 
-        //[Display(Name = "Nytt lösenord")]
-        //[DataType(DataType.Password)]
-        //[Required(ErrorMessage = "Fältet kan inte vara tomt")]
-        //[StringLength(20, MinimumLength = 6)]
-        //public string NewPassword { get; set; }
-
-        //[CompareAttribute("NewPassword", ErrorMessage = "Lösenorden matchar inte.")]
-        //[Display(Name = "Bekräfta nytt lösenord")]
-        //[DataType(DataType.Password)]
-        //[Required(ErrorMessage = "Fältet kan inte vara tomt")]
-        //[StringLength(20, MinimumLength = 6)]
-        //public string ConfirmNewPassword { get; set; }
+        public EditContactDetailsVM ContactDetails{ get; set; }
 
         //Lägg in övriga proppar som ska synas på mina sidor
         [Display(Name = "Förnamn")]

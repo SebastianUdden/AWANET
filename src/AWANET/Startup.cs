@@ -23,7 +23,7 @@ namespace AWANET
 
             // Lägger till Mvc, Entity och Identity
             services.AddMvc();
-            services.AddEntityFramework().AddSqlServer().AddDbContext<IdentityDbContext>(o => o.UseSqlServer(connString));
+            services.AddEntityFramework().AddSqlServer().AddDbContext<AWAnetContext>(o => o.UseSqlServer(connString));
             // Identity kopplar upp sig mot en databas, skapar nya tabeller om det inte finns tidigare. 
             // - IdentityUser är användaren, skickas in och säger vad tabellen ska innehålla. IdentityRole är ?
             // - AddEntityFrameworkStores talar om var de ska finnas persisterade, Context.
@@ -32,7 +32,7 @@ namespace AWANET
             {
                 o.Password.RequiredLength = 6;
                 o.Password.RequireNonLetterOrDigit = false;                
-            } ).AddEntityFrameworkStores<IdentityDbContext>().AddDefaultTokenProviders();
+            } ).AddEntityFrameworkStores<AWAnetContext>().AddDefaultTokenProviders();
 
             //services.AddTransient<IUserRepository, DbUserRepository>();
         }

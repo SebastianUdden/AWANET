@@ -19,15 +19,20 @@ namespace AWANET.ViewModels
         // - SignInManager är en klass för att hantera in och utloggning, autentisering
         SignInManager<IdentityUser> signInManager;
         // - Databaskopplingen
-        IdentityDbContext context;
+        AWAnetContext context;
+        //IdentityDbContext identityContext;
         UserManager<IdentityUser> userManager;
+        EditUser editUser;
 
         public AccountController(SignInManager<IdentityUser> signInManager,
-            IdentityDbContext context, UserManager<IdentityUser> userManager)
+            AWAnetContext context, /*IdentityDbContext idcontext,*/ UserManager<IdentityUser> userManager)
         {
             this.signInManager = signInManager;
             this.context = context;
             this.userManager = userManager;
+            editUser = new EditUser(context);
+            //identityContext = idcontext;
+
         }
         // GET: /<controller>/
         public IActionResult Login()
@@ -60,14 +65,24 @@ namespace AWANET.ViewModels
             // Skickar användaren till inloggninssidan, nameof används för att använda action inom nuvarande controller istället för en absolut URL.
             return RedirectToAction(nameof(Login));
         }
-        public IActionResult MyPages()
+        public async Task<IActionResult> MyPages()
         {
             var model = new EditAccountVM();
             model.EMail = User.Identity.Name;
+            string id = await GetUserId();
+            var editContact = editUser.GetUser(id);
+            model.ContactDetails = editContact;
             return View(model);
         }
 
+        private async Task<string> GetUserId()
+        {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            return user.Id;
+        }
+
         [HttpPost]
+        [ActionName("EditPassword")]
         public async Task<IActionResult> MyPages(ChangePasswordVM model)
         {
 
@@ -80,20 +95,25 @@ namespace AWANET.ViewModels
 
                 var pageModel = new EditAccountVM();
                 pageModel.EMail = User.Identity.Name;
+                ViewData["Password"] = "1";
                 return View(pageModel);
             }
 
             return PartialView("_ChangePasswordPartial", model);
         }
-
-        //public async Task<IActionResult> MyPages(EditContactDetailsVM model)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return View(model);
-        //    var user = await userManager.FindByNameAsync(User.Identity.Name);
-        //    string userId = user.Id;
-
-        //}
+        [HttpPost]
+        [ActionName("EditDetails")]
+        public async Task<IActionResult> MyPages(EditContactDetailsVM model)
+        {
+            if (!ModelState.IsValid)
+                return PartialView("_EditContactDetailsPartial", model);
+            var userId = await GetUserId();
+            EditUser editUser = new EditUser(context);
+            editUser.UpdateUserDetails(model, userId);
+            ViewData["Message"] = "1";
+            //return PartialView("_EditContactDetailsPartial",model);
+            return PartialView("_EditContactDetailsPartial", model);
+        }
 
         private async Task<bool> ChangePassword(ChangePasswordVM editModel)
         {
