@@ -14,7 +14,7 @@ namespace AWANET.Models
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<UserDetail>().ToTable("UserDetails");
+            builder.Entity<UserDetail>().ToTable("UserInformation");
         }
     }
 }

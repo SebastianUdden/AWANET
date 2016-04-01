@@ -3,6 +3,10 @@
 <script src="~/scripts/jquery.validate.unobtrusive.min.js"></script>
 <div class="container">
     <h2>Mina sidor</h2>
+    @if (ViewData["Password"] != null)
+    {
+        <div class="logoColorFont">Lösenordet uppdaterades. ☺</div>
+    }
     <p>Här kan du ändra din information.</p>
     <div class="panel-group" id="accordion">
         <div class="panel panel-default">
@@ -43,17 +47,7 @@
             </div>
             <div id="collapse3" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <form asp-controller="Account" asp-action="EditSomething">
-                        <div asp-validation-summary="ValidationSummary.All"></div>
-                        <label asp-for="FirstName"></label>
-                        <input asp-for="FirstName" class="form-control" placeholder="Förnamn">
-                        <span asp-validation-for="FirstName"></span>
-                        <br />
-                        <label asp-for="LastName"></label>
-                        <input asp-for="LastName" class="form-control" placeholder="Efternamn">
-                        <span asp-validation-for="LastName"></span>
-                        <br />
-                    </form>
+                    @Html.Partial("_EditContactDetailsPartial", Model.ContactDetails)
                 </div>
             </div>
         </div>

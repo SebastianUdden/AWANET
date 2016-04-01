@@ -20,17 +20,19 @@ namespace AWANET.ViewModels
         SignInManager<IdentityUser> signInManager;
         // - Databaskopplingen
         AWAnetContext context;
+        //IdentityDbContext identityContext;
         UserManager<IdentityUser> userManager;
         EditUser editUser;
 
         public AccountController(SignInManager<IdentityUser> signInManager,
-            AWAnetContext context, UserManager<IdentityUser> userManager)
+            AWAnetContext context, /*IdentityDbContext idcontext,*/ UserManager<IdentityUser> userManager)
         {
             this.signInManager = signInManager;
             this.context = context;
             this.userManager = userManager;
             editUser = new EditUser(context);
-            
+            //identityContext = idcontext;
+
         }
         // GET: /<controller>/
         public IActionResult Login()
@@ -65,10 +67,11 @@ namespace AWANET.ViewModels
         }
         public async Task<IActionResult> MyPages()
         {
-            //var model = new EditAccountVM();
-            //model.EMail = User.Identity.Name;
-            string id =await GetUserId();
-            var model =editUser.GetUser(id);
+            var model = new EditAccountVM();
+            model.EMail = User.Identity.Name;
+            string id = await GetUserId();
+            var editContact = editUser.GetUser(id);
+            model.ContactDetails = editContact;
             return View(model);
         }
 
@@ -79,6 +82,7 @@ namespace AWANET.ViewModels
         }
 
         [HttpPost]
+        [ActionName("EditPassword")]
         public async Task<IActionResult> MyPages(ChangePasswordVM model)
         {
 
@@ -91,20 +95,24 @@ namespace AWANET.ViewModels
 
                 var pageModel = new EditAccountVM();
                 pageModel.EMail = User.Identity.Name;
+                ViewData["Password"] = "1";
                 return View(pageModel);
             }
 
             return PartialView("_ChangePasswordPartial", model);
         }
         [HttpPost]
+        [ActionName("EditDetails")]
         public async Task<IActionResult> MyPages(EditContactDetailsVM model)
         {
             if (!ModelState.IsValid)
-                return View(model);
+                return PartialView("_EditContactDetailsPartial", model);
             var userId = await GetUserId();
-            EditUser editUser=new EditUser(context);
+            EditUser editUser = new EditUser(context);
             editUser.UpdateUserDetails(model, userId);
-            return View(model);
+            ViewData["Message"] = "1";
+            //return PartialView("_EditContactDetailsPartial",model);
+            return PartialView("_EditContactDetailsPartial", model);
         }
 
         private async Task<bool> ChangePassword(ChangePasswordVM editModel)
