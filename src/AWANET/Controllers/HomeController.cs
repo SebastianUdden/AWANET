@@ -23,5 +23,10 @@ namespace AWANET.ViewModels
             //Den här metoden tillåter ej inloggade användare att riktas om till logga in sidan. Enda metoden som är tillåten för ej inloggade användare.
             return RedirectToAction("Login", "Account");
         }
+
+        public IActionResult Calendar()
+        {
+            return View();
+        }
     }
 }

@@ -17,7 +17,8 @@
     "Microsoft.AspNet.Tooling.Razor": "1.0.0-rc1-final",
     "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-rc1-final",
     "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
-    "Microsoft.AspNet.SignalR": "2.2.0"
+    "Microsoft.AspNet.SignalR": "2.2.0",
+    "Microsoft.AspNet.SignalR.Core": "2.2.0"
   },
 
   "commands": {

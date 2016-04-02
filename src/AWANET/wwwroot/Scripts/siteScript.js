@@ -31,7 +31,6 @@ function editPassword(e) {
 function getcontactbymail(Email,Id) {
 
     $.get("/ContactList/GetContact", {'Email':Email,'UserId':Id} , function (data) {
-        alert("vafan händer");
         $("#renderModal").html(data);
         $("#contactModal").modal('show');
     });

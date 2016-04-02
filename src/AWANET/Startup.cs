@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using AWANET.Models;
+using Owin;
 
 namespace AWANET
 {
@@ -46,7 +47,6 @@ namespace AWANET
             app.UseIdentity().UseCookieAuthentication(o => o.AutomaticChallenge = true); 
             app.UseDeveloperExceptionPage();
             app.UseMvcWithDefaultRoute();
-             
         }
 
         // Entry point for the application.
