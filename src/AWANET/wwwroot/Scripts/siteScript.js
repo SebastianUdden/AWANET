@@ -53,6 +53,7 @@ function ConfirmUserCreation() {
         if (resultCategory) {
             $("#createUserForm").submit();
         }
+
     }
     else {
         $("#createUserForm").submit();

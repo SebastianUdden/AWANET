@@ -7,28 +7,26 @@
 <div class="extraTopPadding">
     <h1 class="logoColorFont">Skapa ny användare</h1>
 
-    <div asp-validation-summary="ValidationSummary.ModelOnly"></div>
-    <form asp-controller="Admin" asp-action="CreateUser">
+    <form asp-controller="Admin" asp-action="CreateUser" id="createUserForm" >
+        <div asp-validation-summary="ValidationSummary.ModelOnly"></div>
         <label asp-for="EMail">E-post</label>
         <input asp-for="EMail" class="form-control" placeholder="elev@academy.se" />
         <span asp-validation-for="EMail"></span>
         <br />
-                <br />
-            <div class="dropdown has-feedback">
-                <label asp-for="CategoryName"></label>
-                <input asp-for="CategoryName" type="text" id="Category" placeholder="Kategori" class="form-control dropdown-menu-right dropdown-toggle" data-toggle="dropdown" data-val="true" name="CategoryName" /><i id="arrow" class="glyphicon glyphicon-triangle-bottom form-control-feedback"></i>
-                <span asp-validation-for="CategoryName"></span>
-                <ul id="listCategory" class="dropdown-menu">
-                    @foreach (var c in Model.CategoryList)
-                    {
-                        <li id="@c" class="listObject" onclick="ChooseCategory('@c')">@c</li>
-                    }
-                </ul>
-            </div>
+        <br />
+        <div class="dropdown has-feedback">
+            <label asp-for="CategoryName"></label>
+            <input asp-for="CategoryName" type="text" id="Category" placeholder="Kategori" class="form-control dropdown-menu-right dropdown-toggle" data-toggle="dropdown" data-val="true" name="CategoryName" /><i id="arrow" class="glyphicon glyphicon-triangle-bottom form-control-feedback"></i>
+            <span asp-validation-for="CategoryName"></span>
+            <ul id="listCategory" class="dropdown-menu">
+                @foreach (var c in Model.CategoryList)
+                {
+                    <li id="@c" class="listObject" onclick="ChooseCategory('@c')">@c</li>
+                }
+            </ul>
+        </div>
         <br />
         <br />
         <input value="Skapa användare" class="btn logoColorBackground" onclick="ConfirmUserCreation()" />
-
-        <input type="submit" value="Skapa användare" class="btn logoColorBackground" />
     </form>
 </div>
