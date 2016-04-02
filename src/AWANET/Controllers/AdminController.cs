@@ -32,7 +32,11 @@ namespace AWANET.ViewModels
         // GET: /<controller>/
         public IActionResult CreateUser()
         {
-            return View();
+            var list = context.UserCategory.Select(o => o.CategoryName).ToList();
+            CreateUserVM newUser = new CreateUserVM();
+            newUser.CategoryList = list;
+       
+            return View(newUser);
         }
         //Metoden är satt till async task för att metoden i sig är en async metod. Task säger att metoden är en asynkron operation.
         [HttpPost]
