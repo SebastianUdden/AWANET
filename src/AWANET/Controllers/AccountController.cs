@@ -159,5 +159,14 @@ namespace AWANET.ViewModels
             ModelState.AddModelError("error", "Hittar ej E-post");
             return View(model);
         }
+
+        [HttpPost]
+        public ActionResult Index(HttpPostedFileBase file)
+        {
+            string path = System.IO.Path.Combine(Server.MapPath("~/Images"), System.IO.Path.GetFileName(file.FileName));
+            file.SaveAs(path);
+            ViewBag.Message = "File uploaded successfully";
+            return View();
+        }
     }
 }
