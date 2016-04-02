@@ -10,11 +10,13 @@ namespace AWANET.Models
     public class AWAnetContext : IdentityDbContext
     {
         public DbSet<UserDetail> UserDetails { get; set; }
+        public DbSet<UserCategory> UserCategory { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             builder.Entity<UserDetail>().ToTable("UserInformation");
+            builder.Entity<UserCategory>().ToTable("UserCategory");
         }
     }
 }

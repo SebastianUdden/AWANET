@@ -20,7 +20,7 @@ namespace AWANET.ViewModels
         UserManager<IdentityUser> userManager;
         SignInManager<IdentityUser> signInManager;
         AWAnetContext context;
-        
+
         public AdminController(UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager, AWAnetContext context)
         {
@@ -44,13 +44,35 @@ namespace AWANET.ViewModels
 
             await context.Database.EnsureCreatedAsync();
             string password = CreatePassword.CreateNewPassword();
-            var result = await userManager.CreateAsync(new IdentityUser(model.EMail), password);
+            IdentityUser newUser = new IdentityUser(model.EMail);
+            var result = await userManager.CreateAsync(newUser, password);
 
             //Returnerar ett felmeddelande och vy-modellen ifall skapandet av användare misslyckats
             if (!result.Succeeded)
             {
                 ModelState.AddModelError("Email", result.Errors.First().Description);
                 return View(model);
+            }
+            var userId = await userManager.GetUserIdAsync(newUser);
+
+            var category = context.UserCategory.Where(x => x.CategoryName == model.CategoryName).SingleOrDefault();
+
+            UserDetail userDetail = new UserDetail();
+            userDetail.Id = userId;
+
+            if (category != null)
+            {
+                userDetail.SemesterId = category.Id;
+                context.UserDetails.Add(userDetail);
+                context.SaveChanges();
+            }
+            else
+            {
+                UserCategory userCategory = new UserCategory();
+                userCategory.CategoryName = model.CategoryName;
+                context.UserCategory.Add(userCategory);
+                context.SaveChanges();
+                userDetail.SemesterId = userCategory.Id;
             }
 
             //Kolla resultat på mailutskicket??
@@ -61,12 +83,12 @@ namespace AWANET.ViewModels
 
         public async Task<IActionResult> AdminTemp()
         {
-            var rmgr = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context),null,null,null,null,null);
+            var rmgr = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context), null, null, null, null, null);
 
             await rmgr.CreateAsync(new IdentityRole("Admin"));
             var user = await userManager.FindByNameAsync("jonas@meljoner.se");
             var result = await userManager.AddToRoleAsync(user, "Admin");
-            
+
             return Content(result.Succeeded.ToString());
         }
     }

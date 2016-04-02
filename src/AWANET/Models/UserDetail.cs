@@ -14,5 +14,6 @@ namespace AWANET.Models
         public string Zip { get; set; }
         public string City { get; set; }
         public string Id { get; set; }
+        public int SemesterId { get; set; }
     }
 }

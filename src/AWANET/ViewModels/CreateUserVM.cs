@@ -11,5 +11,9 @@ namespace AWANET.ViewModels
         [Required(ErrorMessage = "Lägg in E-postadress.")]
         [EmailAddress(ErrorMessage = "Ange giltig E-postadress, email@academic.se")]
         public string EMail { get; set; }
+
+        [Required(ErrorMessage = "Kategori måste anges")]
+
+        public string CategoryName { get; set; }
     }
 }
