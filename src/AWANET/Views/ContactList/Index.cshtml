@@ -1,0 +1,29 @@
+﻿@model ContactListVM[]
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Förnamn
+        </th>
+        <th>
+            Efternamn
+        </th>
+        <th>
+            Telefonnummer
+        </th>
+        <th>
+            E-post
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var contact in Model)
+    {
+    <tr>
+        <td>@contact.FirstName</td>
+        <td>@contact.LastName</td>
+        <td>@contact.Phone</td>
+        <td>@contact.EMail</td>
+        <td><button type="button" class="btn btn-success" onclick="getcontactbymail('@contact.EMail','@contact.Id')">Visa</button></td>
+    </tr>
+    }
+</table>

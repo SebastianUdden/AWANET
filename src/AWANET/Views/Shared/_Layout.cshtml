@@ -28,16 +28,16 @@
                         <a href="/">Nyhetsflöde</a>
                     </li>
                     <li>
-                        <a href="/Klass">Klass</a>
+                        <a href="/Class/Index">Klass</a>
                     </li>
                     <li>
                         <a href="/Account/MyPages">Mina Sidor</a>
                     </li>
                     <li>
-                        <a href="/Lärare">Lärare</a>
+                        <a href="/Teachers/Index">Lärare</a>
                     </li>
                     <li>
-                        <a href="/Kontaktlista">Kontaktlista</a>
+                        <a href="/ContactList/Index">Kontaktlista</a>
                     </li>
                     @if (User.IsInRole("Admin"))
                     {
@@ -55,6 +55,7 @@
     <div class="container">
         @RenderBody()
     </div>
+    <div id="renderModal"></div>
 </body>
 </html>
 

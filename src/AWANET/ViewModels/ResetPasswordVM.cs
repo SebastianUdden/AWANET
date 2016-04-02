@@ -10,6 +10,7 @@ namespace AWANET.ViewModels
     {
         [Required]
         [EmailAddress]
+        [Display(Name ="Ange din e-postadress")]
         public string EMail { get; set; }
     }
 }
