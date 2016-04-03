@@ -8,6 +8,10 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Authorization;
 using AWANET.Models;
+using Microsoft.AspNet.Http;
+using System.IO;
+using Microsoft.Net.Http.Headers;
+using Microsoft.AspNet.Hosting;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,15 +27,16 @@ namespace AWANET.ViewModels
         //IdentityDbContext identityContext;
         UserManager<IdentityUser> userManager;
         EditUser editUser;
+        private IHostingEnvironment _environment;
 
         public AccountController(SignInManager<IdentityUser> signInManager,
-            AWAnetContext context, /*IdentityDbContext idcontext,*/ UserManager<IdentityUser> userManager)
+            AWAnetContext context, /*IdentityDbContext idcontext,*/ UserManager<IdentityUser> userManager, IHostingEnvironment environment)
         {
             this.signInManager = signInManager;
             this.context = context;
             this.userManager = userManager;
             editUser = new EditUser(context);
-            //identityContext = idcontext;
+            _environment = environment;
 
         }
         // GET: /<controller>/
@@ -93,7 +98,7 @@ namespace AWANET.ViewModels
             if (result)
             {
                 var pageModel = new EditAccountVM();
-               
+
                 ViewData["Password"] = "1";
                 return PartialView("_ChangePasswordPartial");
             }
@@ -158,6 +163,19 @@ namespace AWANET.ViewModels
             }
             ModelState.AddModelError("error", "Hittar ej E-post");
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadProfilePicture(IFormFile file)
+        {
+            var profilePictures = Path.Combine(_environment.WebRootPath, "ProfilePictures");
+
+            if (file.Length > 0)
+            {
+                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                await file.SaveAsAsync(Path.Combine(profilePictures, fileName));
+            }
+            return PartialView("_UploadPicturePartial");
         }
     }
 }

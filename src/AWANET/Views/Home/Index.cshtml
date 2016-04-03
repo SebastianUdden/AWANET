@@ -1,17 +1,22 @@
-﻿<div class="container">
-    <table>
-        @*@foreach (var message in messageCollection)
-        {
+﻿@model List<MessageVM>
 
+<div class="container">
+    <table class="table-bordered">
+        @foreach (var message in Model)
+        {
             <tr>
                 <td>
-                    <h4>@Model.Sender @Model.DateTime @Model.Picture</h4>
+                    <h4>@message.FullName @message.TimeCreated </h4>
                 </td>
             </tr>
             <tr>
-                <td>@Model.Message</td>
+                <td>
+                    <p>@message.ImageLink</p>
+                </td>
             </tr>
-        }*@
-
+            <tr>
+                <td>@message.MessageBody</td>
+            </tr>
+        }
     </table>
 </div>

@@ -11,12 +11,14 @@ namespace AWANET.Models
     {
         public DbSet<UserDetail> UserDetails { get; set; }
         public DbSet<UserCategory> UserCategory { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             builder.Entity<UserDetail>().ToTable("UserInformation");
             builder.Entity<UserCategory>().ToTable("UserCategory");
+            builder.Entity<Message>().ToTable("Messages");
         }
     }
 }
