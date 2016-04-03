@@ -14,6 +14,11 @@
     <script src="~/scripts/sitescript.js"></script>
 </head>
 <body>
+    <script>
+        $(document).ready(function () {
+            $("#loader").toggle();
+        });
+    </script>
     <nav id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -83,6 +88,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="centered" style="z-index:100; max-width:100px; height:auto;" id="loader">
+        <img class="img-responsive" src="~/profilepictures/circle-loader.gif" />
     </div>
 </body>
 </html>

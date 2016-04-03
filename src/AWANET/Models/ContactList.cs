@@ -47,13 +47,13 @@ namespace AWANET.Models
             var x = context.UserDetails.Where(o => o.Id == userId).SingleOrDefault();
             if (x != null)
             {
+                user.Id = x.Id; // För bild
                 user.FirstName = x.FirstName != null ? x.FirstName : "Förnamn ej ifyllt";
                 user.LastName = x.LastName != null ? x.LastName : "Efternamn ej ifyllt";
                 user.Phone = x.Phone != null ? x.Phone : "Telefonnumer ej ifyllt";
                 user.Street = x.Street != null ? x.Street : "Gata ej ifyllt";
                 user.Zip = x.Zip != null ? x.Zip : "Postnummer ej ifyllt";
                 user.City = x.City != null ? x.City : "Stad ej ifyllt";
-                //Lägg till Bild senare!!!!!!!!!!
             }
             return user;
         }

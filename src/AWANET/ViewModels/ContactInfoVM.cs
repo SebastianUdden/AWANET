@@ -8,6 +8,7 @@ namespace AWANET.ViewModels
 {
     public class ContactInfoVM
     {
+        public string Id { get; set; }
         [Display(Name = "Förnamn")]
         public string FirstName { get; set; }
 

@@ -29,9 +29,9 @@ namespace AWANET.Controllers
             var listUser = contactList.GetAllContacts(context, userManager);
             return View(listUser);
         }
-        public IActionResult GetContact(string Email,string UserId)
+        public IActionResult GetContact(string Email, string UserId)
         {
-            var model = contactList.GetContact(Email, UserId,context);
+            var model = contactList.GetContact(Email, UserId, context);
             return PartialView("_ShowContactPartial", model);
         }
 

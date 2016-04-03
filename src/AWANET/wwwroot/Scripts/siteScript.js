@@ -61,28 +61,29 @@ function ConfirmUserCreation() {
 }
 
 function submitPicture() {
-    //lägg till loadgif
+    $("#loader").toggle();
     var data = new FormData();
     var files = $("#uploadPicture").get(0).files;
     if (files.length > 0) {
         data.append('file', files[0]);
-
+    }
         $.ajax({
             url: '/account/UploadProfilePicture',
             type: "POST",
             processData: false,
             contentType: false,
             data: data,
-            success: function (response) {
-                //Visa vyn tom med statusmessage
-                //ta bort loadgif
+            success: function (partial) {
+                $("#uploadPictureDiv").html(partial);
+                $("#loader").toggle();
 
             },
             error: function (er) {
+                $("#loader").toggle();
                 alert(er);
             }
 
         });
 
-    }
+    
 }

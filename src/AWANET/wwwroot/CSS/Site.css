@@ -146,3 +146,8 @@
      color:#000000;
      cursor:pointer !important;
  }
+ .centered {
+  position: fixed; /* or absolute */
+  top: 50%;
+  left: 50%;
+}
