@@ -170,19 +170,18 @@ namespace AWANET.ViewModels
         public async Task<IActionResult> UploadProfilePicture(IFormFile file)
         {
             var profilePictures = Path.Combine(_environment.WebRootPath, "ProfilePictures");
-
-            if (file.Length > 0)
+            if (file != null)
             {
-                Thread.Sleep(100);
-                string fileNameId = context.Users.Where(o => o.UserName == User.Identity.Name).Select(x => x.Id).SingleOrDefault();
-                await file.SaveAsAsync(Path.Combine(profilePictures, fileNameId + ".jpg"));
+                if (file.Length > 0)
+                {
+                    Thread.Sleep(100);
+                    string fileNameId = context.Users.Where(o => o.UserName == User.Identity.Name).Select(x => x.Id).SingleOrDefault();
+                    await file.SaveAsAsync(Path.Combine(profilePictures, fileNameId + ".jpg"));
+                    ViewData["Status"] = "Ny profilbild uppladdad!";
+                    return PartialView("_UploadPicturePartial");
+                }
             }
-            else
-            {
-                ViewData["Status"] = "Uppladdning misslyckades!";
-                return PartialView("_UploadPicturePartial");
-            }
-            ViewData["Status"] = "Ny profilbild uppladdad!";
+            ViewData["Status"] = "Uppladdning misslyckades!";
             return PartialView("_UploadPicturePartial");
         }
     }

@@ -3,15 +3,15 @@
 <script src="~/scripts/jquery.validate.unobtrusive.min.js"></script>
 <div class="container">
     <h2>Mina sidor</h2>
-    <p>Här kan du ändra din information.</p>
+    <p>Här kan du ändra information för konto tillhörande @Model.EMail.</p>
     <div class="panel-group" id="accordionDetails">
-        <div class="panel panel-default">
+        @*<div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordionDetails" href="#collapse1">E-mail:   @Model.EMail</a>
+                    <a data-toggle="collapse" data-parent="#accordionDetails" href="#collapse1">E-Post:   @Model.EMail</a>
                 </h4>
             </div>
-            @*Collapsade edit-formulär för olika personuppgifter*@
+            Collapsade edit-formulär för olika personuppgifter
             <div id="collapse1" class="panel-collapse collapse in">
                 <div class="panel-body">
                     <form asp-controller="Account" asp-action="EditSomething">
@@ -22,7 +22,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div>*@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -46,19 +46,21 @@
                     @Html.Partial("_EditContactDetailsPartial", Model.ContactDetails)
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordionDetails" href="#collapse4">Ladda upp profilbild</a>
-                    </h4>
-                </div>
-                <div id="collapse4" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        @Html.Partial("_UploadPicturePartial")
-                    </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordionDetails" href="#collapse4">Ladda upp profilbild</a>
+                </h4>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @Html.Partial("_UploadPicturePartial")
                 </div>
             </div>
+        </div>
 
     </div>
 </div>
+
 

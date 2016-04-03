@@ -1,37 +1,4 @@
-﻿ /*.field-validation-error {
-            color: red;
-            font-weight: bold;
-        }
- #validation ul{
-     color:red;
-     list-style-type:none;
- }
-
- .logoColorFont {
-     color:#00AA3C;
- }
-
- .logoColorBackground {
-     background-color:#00AA3C;
-     color:#FFFFFF;
- }
-
- .extraTopPadding {
-     padding-top:9%;
-     width:40%;
-     margin:auto;
- }
-
- @media (max-width: 550px) {
-     .big-container {
-         display: none;
-     }
- }
- @media (min-width: 550px) {
-     .small-container {
-         display: none;
-     }
- }
+﻿
  /* Responsive iFrame */
  .responsive-iframe-container {
      position: relative;
@@ -60,7 +27,6 @@
     right: 0;
     min-width: 100%;
     min-height: 100%;
-    font-size: 100px;
     text-align: right;
     filter: alpha(opacity=0);
     opacity: 0;
@@ -146,8 +112,11 @@
      color:#000000;
      cursor:pointer !important;
  }
- .centered {
+ #loader {
   position: fixed; /* or absolute */
-  top: 50%;
-  left: 50%;
+  top: 45%;
+  left: 45%;
+  z-index:100;
+  max-width:100px;
+  height:auto;
 }

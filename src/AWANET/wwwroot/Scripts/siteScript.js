@@ -79,8 +79,9 @@ function submitPicture() {
 
             },
             error: function (er) {
+                $("#uploadPictureDiv").html(partial);
                 $("#loader").toggle();
-                alert(er);
+                //alert(er);
             }
 
         });
