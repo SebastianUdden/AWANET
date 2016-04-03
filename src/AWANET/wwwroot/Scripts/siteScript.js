@@ -59,3 +59,26 @@ function ConfirmUserCreation() {
         $("#createUserForm").submit();
     }
 }
+
+function submitPicture() {
+    var data = new FormData();
+    var files = $("#uploadEditorImage").get(0).files;
+    if (files.length > 0) {
+        data.append("HelpSectionImages", files[0]);
+    }
+    $.ajax({
+        url: resolveUrl("~/account/UploadProfilePicture"),
+        type: "POST",
+        processData: false,
+        contentType: false,
+        data: data,
+        success: function (response) {
+            //code after success
+
+        },
+        error: function (er) {
+            alert(er);
+        }
+
+    });
+});
