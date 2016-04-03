@@ -173,7 +173,7 @@ namespace AWANET.ViewModels
             if (file.Length > 0)
             {
                 var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                await file.SaveAsAsync(Path.Combine(profilePictures, fileName));
+                await file.SaveAsAsync(Path.Combine(profilePictures, "Testaomfilnamnkraschar.jpg"));
             }
             return PartialView("_UploadPicturePartial");
         }

@@ -65,6 +65,7 @@ function submitPicture() {
     var data = new FormData();
     var files = $("#uploadPicture").get(0).files;
     if (files.length > 0) {
+        data.append('file', files[0]);
 
         $.ajax({
             url: '/account/UploadProfilePicture',
