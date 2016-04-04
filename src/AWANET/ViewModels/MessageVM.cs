@@ -13,5 +13,8 @@ namespace AWANET.ViewModels
         public DateTime TimeCreated { get; set; }
         public string MessageBody { get; set; }
         public string ImageLink { get; set; }
+        [Display(Name = "Wharsch ska he va? på förstn?")]
+        public bool OnFirstPage { get; set; }
+
     }
 }

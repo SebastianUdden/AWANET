@@ -109,3 +109,11 @@ function TerminateUser(eMail) {
         });
     }
 }
+function showMessageModal() {
+    $("#loader").show();
+    $.get("/Home/PostMessage", null, function (data) {
+        $("#editor").html(data);
+        $("#messageModal").modal('show');
+        $("#loader").hide();
+    });
+}

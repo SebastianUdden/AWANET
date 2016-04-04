@@ -50,5 +50,16 @@ namespace AWANET.ViewModels
         {
             return View();
         }
+
+        public IActionResult PostMessage()
+        {
+            return PartialView("_EditorPartial");
+        }
+        [HttpPost]
+        public IActionResult PostMessage(MessageVM message)
+        {
+            var 
+            return Content(message.MessageBody);
+        }
     }
 }

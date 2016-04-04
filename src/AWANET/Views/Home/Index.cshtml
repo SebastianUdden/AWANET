@@ -1,6 +1,7 @@
 ﻿@model List<MessageVM>
 
 <div class="container">
+    <button onclick="showMessageModal()" class="btn logoColorBackground">Skriv meddelande</button>
     <table class="table-bordered">
         @foreach (var message in Model)
         {
