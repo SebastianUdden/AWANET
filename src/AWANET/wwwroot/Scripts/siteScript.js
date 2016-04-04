@@ -73,23 +73,23 @@ function submitPicture() {
     if (files.length > 0) {
         data.append('file', files[0]);
     }
-        $.ajax({
-            url: '/account/UploadProfilePicture',
-            type: "POST",
-            processData: false,
-            contentType: false,
-            data: data,
-            success: function (partial) {
-                $("#uploadPictureDiv").html(partial);
-                $("#loader").hide();
+    $.ajax({
+        url: '/account/UploadProfilePicture',
+        type: "POST",
+        processData: false,
+        contentType: false,
+        data: data,
+        success: function (partial) {
+            $("#uploadPictureDiv").html(partial);
+            $("#loader").hide();
 
-            },
-            error: function (er) {
-                $("#uploadPictureDiv").html(partial);
-                $("#loader").hide();
-                //alert(er);
-            }
-        });
+        },
+        error: function (er) {
+            $("#uploadPictureDiv").html(partial);
+            $("#loader").hide();
+            //alert(er);
+        }
+    });
 }
 function ToggleAdmin(eMail, adminAction) {
     $("#loader").show();
@@ -100,9 +100,12 @@ function ToggleAdmin(eMail, adminAction) {
 }
 
 function TerminateUser(eMail) {
-    $("#loader").show();
-    $.get("/Admin/TerminateUser", { 'eMail': eMail }, function (data) {
-        $("#contactList").html(data);
-        $("#loader").hide();
-    });
+    var answer = confirm('Vill du verkligen ta bort användaren ' + eMail + '?');
+    if (answer) {
+        $("#loader").show();
+        $.get("/Admin/TerminateUser", { 'eMail': eMail }, function (data) {
+            $("#contactList").html(data);
+            $("#loader").hide();
+        });
+    }
 }

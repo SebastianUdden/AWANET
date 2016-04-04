@@ -141,7 +141,12 @@ namespace AWANET.ViewModels
                 context.SaveChanges();
             }
 
-            await userManager.DeleteAsync(user);
+
+            var result = await userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                ViewData["AdminAction"] = "Användaren " + eMail + " är borttagen.";
+            }
             ContactList contactList = new ContactList();
             var model = await contactList.GetAllContacts(context, userManager);
             return PartialView("_ContactListPartial", model);
