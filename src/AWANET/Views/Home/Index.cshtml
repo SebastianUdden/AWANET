@@ -4,9 +4,25 @@
     <button onclick="showMessageModal()" class="btn logoColorBackground">Skriv meddelande</button>
     <br />
     <div class="list-group-item-heading">
+        @*@{
+            int counter = 0;
+            string jumbotronClass = "";
+        }*@
         @foreach (var message in Model)
         {
-            <div class="jumbotron ourJumbotron">
+            //if (counter % 2 > 0)
+            //{
+            //    jumbotronClass = "ourJumbotron1";
+            //}
+            //else
+            //{
+            //    jumbotronClass = "ourJumbotron2";
+
+            //}
+            //counter++;
+            <div class="jumbotron ourJumbotron1">
+
+
                 <div>
                     <h2 class="label label-info">@message.FullName</h2>
                     <hr />
@@ -19,7 +35,6 @@
                 <div>@Html.Raw(message.MessageBody)</div>
 
                 <div style="text-align: right" class="timeStamp">
-                    <hr />
                     @message.TimeCreated <span class="glyphicon glyphicon-time"></span>
                 </div>
             </div>

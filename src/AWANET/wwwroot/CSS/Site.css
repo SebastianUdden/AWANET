@@ -1,26 +1,30 @@
 ﻿
- /* Responsive iFrame */
- .responsive-iframe-container {
-     position: relative;
-     padding-bottom: 56.25%;
-     padding-top: 30px;
-     height: 0;
-     overflow: hidden;
- }
- .responsive-iframe-container iframe,   
- .vresponsive-iframe-container object,  
- .vresponsive-iframe-container embed {
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
- }*/
- /*CSS för fileupload*/
- .btn-file {
+/* Responsive iFrame */
+.responsive-iframe-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+
+    .responsive-iframe-container iframe,
+    .vresponsive-iframe-container object,
+    .vresponsive-iframe-container embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+*/
+/*CSS för fileupload*/
+.btn-file {
     position: relative;
     overflow: hidden;
 }
+
 .btn-file input[type=file] {
     position: absolute;
     top: 0;
@@ -36,97 +40,113 @@
     display: block;
 }
 
- .field-validation-error {
-            color: red;
-            font-weight: bold;
-        }
- #validation ul{
-     color:red;
-     list-style-type:none;
- }
-
- .logoColorFont {
-     color:#00AA3C;
- }
-
- .logoColorBackground {
-     background-color:#00AA3C;
-     color:#FFFFFF !important;
- }
-
- .logoColorBackground:hover {
-     background-color:#00AA3C;
-     color:#FFFFFF !important;
- }
-
- .extraTopPadding {
-     padding-top:9%;
-     width:40%;
-     margin:auto;
- }
-
- @media (max-width: 550px) {
-     .big-container {
-         display: none;
-     }
- }
- @media (min-width: 550px) {
-     .small-container {
-         display: none;
-     }
- }
- /* Responsive iFrame */
- .responsive-iframe-container {
-     position: relative;
-     padding-bottom: 56.25%;
-     padding-top: 30px;
-     height: 0;
-     overflow: hidden;
- }
- .responsive-iframe-container iframe,   
- .vresponsive-iframe-container object,  
- .vresponsive-iframe-container embed {
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
- }
-
- .listObject {
-     background-color: #fff;
-     padding:8px;
- }
-
- .listObject:hover {
-     background-color: #ece8e5;
-     font-weight:bold;
-     cursor:pointer;
- }
-
- #arrow {
-     color:#808080;
- }
-
- #arrow:hover {
-     color:#000000;
-     cursor:pointer !important;
- }
- #loader {
-  position: fixed; /* or absolute */
-  top: 45%;
-  left: 45%;
-  z-index:100;
-  max-width:100px;
-  height:auto;
+.field-validation-error {
+    color: red;
+    font-weight: bold;
 }
 
- .ourJumbotron {
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
-  margin-bottom: 20px !important;
-  background-color: #f7f6f5 !important;
+#validation ul {
+    color: red;
+    list-style-type: none;
 }
-  .ourJumbotron hr{
-    border-color: #ece8e5;
+
+.logoColorFont {
+    color: #00AA3C;
 }
+
+.logoColorBackground {
+    background-color: #00AA3C;
+    color: #FFFFFF !important;
+}
+
+    .logoColorBackground:hover {
+        background-color: #00AA3C;
+        color: #FFFFFF !important;
+    }
+
+.extraTopPadding {
+    padding-top: 9%;
+    width: 40%;
+    margin: auto;
+}
+
+@media (max-width: 550px) {
+    .big-container {
+        display: none;
+    }
+}
+
+@media (min-width: 550px) {
+    .small-container {
+        display: none;
+    }
+}
+/* Responsive iFrame */
+.responsive-iframe-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+
+    .responsive-iframe-container iframe,
+    .vresponsive-iframe-container object,
+    .vresponsive-iframe-container embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+.listObject {
+    background-color: #fff;
+    padding: 8px;
+}
+
+    .listObject:hover {
+        background-color: #ece8e5;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+#arrow {
+    color: #808080;
+}
+
+    #arrow:hover {
+        color: #000000;
+        cursor: pointer !important;
+    }
+
+#loader {
+    position: fixed; /* or absolute */
+    top: 45%;
+    left: 45%;
+    z-index: 100;
+    max-width: 100px;
+    height: auto;
+}
+
+.ourJumbotron1 {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 20px !important;
+    background-color: #ffffff !important;
+}
+
+    .ourJumbotron1 hr {
+        border-color: #ebeae8;
+    }
+
+.ourJumbotron2 {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 20px !important;
+    background-color: #fafafa !important;
+}
+
+    .ourJumbotron2 hr {
+        border-color: #ebeae8;
+    }
