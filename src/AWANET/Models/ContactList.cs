@@ -30,6 +30,14 @@ namespace AWANET.Models
                         u.Phone = user.Phone != null ? user.Phone : String.Empty;
                     }
                 }
+                foreach (var uRole in userList)
+                {
+                    var userRole = context.Roles.Where(o => o.Id == uRole.Id).SingleOrDefault();
+                    if (userRole != null)
+                    {
+                        uRole.Role = userRole.Name != null ? userRole.Name : String.Empty;
+                    }
+                }
                 return userList;
             }
             catch (Exception)
@@ -54,6 +62,7 @@ namespace AWANET.Models
                 user.Street = x.Street != null ? x.Street : "Gata ej ifyllt";
                 user.Zip = x.Zip != null ? x.Zip : "Postnummer ej ifyllt";
                 user.City = x.City != null ? x.City : "Stad ej ifyllt";
+                
             }
             return user;
         }

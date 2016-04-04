@@ -1,5 +1,6 @@
 ﻿function editUserInfo(e) {
     //e.preventDefault();
+    $("#loader").show();
     $.post("/account/EditDetails", {
         'FirstName': $('#firstName').val(),
         'LastName': $('#lastName').val(),
@@ -9,12 +10,14 @@
         'City': $('#city').val()
     }, function (partial) {
         $("#editUserDiv").html(partial);
+        $("#loader").hide();
         //$("#accordionDetails").accordion().activate(3);
     });
 }
 
 function editPassword(e) {
     //e.preventDefault();
+    $("#loader").toggle();
     $.post("/account/EditPassword", {
         'OldPassword': $('#oldPassword').val(),
         'NewPassword': $('#newPassword').val(),
@@ -22,6 +25,7 @@ function editPassword(e) {
     }, function (partial) {
         $("#editPasswordDiv").html(partial);
         $.validator.unobtrusive.parse($("#editPasswordDiv"));
+        $("#loader").toggle();
         //$("#accordionDetails").accordion().activate(3);
     });
 }

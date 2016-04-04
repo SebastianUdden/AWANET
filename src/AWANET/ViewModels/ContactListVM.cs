@@ -20,6 +20,7 @@ namespace AWANET.ViewModels
 
         [Display(Name = "E-post")]
         public string EMail { get; set; }
+        public string Role { get; set; }
 
     }
 }
