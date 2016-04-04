@@ -113,6 +113,7 @@ function showMessageModal() {
     $("#loader").show();
     $.get("/Home/PostMessage", null, function (data) {
         $("#editor").html(data);
+        $.validator.unobtrusive.parse($("#messageModal"));
         $("#messageModal").modal('show');
         $("#loader").hide();
     });

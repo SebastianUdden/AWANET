@@ -4,40 +4,40 @@
     <button onclick="showMessageModal()" class="btn logoColorBackground">Skriv meddelande</button>
     <br />
     <div class="list-group-item-heading">
-        @*@{
-            int counter = 0;
-            string jumbotronClass = "";
-        }*@
         @foreach (var message in Model)
         {
-            //if (counter % 2 > 0)
-            //{
-            //    jumbotronClass = "ourJumbotron1";
-            //}
-            //else
-            //{
-            //    jumbotronClass = "ourJumbotron2";
-
-            //}
-            //counter++;
-            <div class="jumbotron ourJumbotron1">
-
-
+            <div class="container">
                 <div>
-                    <h2 class="label label-info">@message.FullName</h2>
-                    <hr />
+                    <h3>@message.Title</h3>
+                    <br />
                 </div>
 
-                <div>
-                    <p>@message.ImageLink</p>
+                <div class="col-lg-3">
+                    <img class="img-responsive" src="~/profilepictures/af013b64-4df1-4548-8811-6da31208830a.jpg" />
+
                 </div>
 
-                <div>@Html.Raw(message.MessageBody)</div>
+                <div class="col-lg-7">
+                    @Html.Raw(message.MessageBody)
+                </div>
 
-                <div style="text-align: right" class="timeStamp">
-                    @message.TimeCreated <span class="glyphicon glyphicon-time"></span>
+                @{
+                    string profilePicture = "~/profilepictures/" + @message.Sender + ".jpg";
+                }
+                <div style="text-align: right" class="col-lg-2 timeStamp">
+                    <img class="img-responsive" src="@profilePicture" />
+
+                    <h3></h3>
+                    <h3>
+                        <span class="label label-info">
+                            @message.FullName
+                        </span>
+                    </h3>
+                    <h5>
+                        @message.TimeCreated <span class="glyphicon glyphicon-time"></span>
+                    </h5>
                 </div>
             </div>
-        }
+                    }
     </div>
 </div>

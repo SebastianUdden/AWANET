@@ -31,6 +31,7 @@ namespace AWANET.ViewModels
             var listMessages = context.Messages.Where(o=>o.OnFirstPage == true).Select(o => new MessageVM
             {
                 Sender = o.Sender,
+                Title = o.Title,
                 MessageBody = o.MessageBody,
                 TimeCreated = o.TimeCreated,
                 ImageLink = o.ImageLink != String.Empty ? o.ImageLink : String.Empty
@@ -63,9 +64,14 @@ namespace AWANET.ViewModels
         [HttpPost]
         public async Task<IActionResult> PostMessage(MessageVM message)
         {
+            if (!ModelState.IsValid)
+            {
+                return Content("false");
+            }
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             var userId = await userManager.GetUserIdAsync(user);
             Message newMessage = new Message();
+            newMessage.Title = message.Title;
             newMessage.MessageBody = message.MessageBody;
             newMessage.OnFirstPage = message.OnFirstPage;
             newMessage.Sender = userId;
