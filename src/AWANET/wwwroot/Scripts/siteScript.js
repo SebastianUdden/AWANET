@@ -17,7 +17,7 @@
 
 function editPassword(e) {
     //e.preventDefault();
-    $("#loader").toggle();
+    $("#loader").show();
     $.post("/account/EditPassword", {
         'OldPassword': $('#oldPassword').val(),
         'NewPassword': $('#newPassword').val(),
@@ -25,15 +25,17 @@ function editPassword(e) {
     }, function (partial) {
         $("#editPasswordDiv").html(partial);
         $.validator.unobtrusive.parse($("#editPasswordDiv"));
-        $("#loader").toggle();
+        $("#loader").hide();
         //$("#accordionDetails").accordion().activate(3);
     });
 }
 
 function getcontactbymail(Email, Id) {
+    $("#loader").show();
     $.get("/ContactList/GetContact", { 'Email': Email, 'UserId': Id }, function (data) {
         $("#renderModal").html(data);
         $("#contactModal").modal('show');
+        $("#loader").hide();
     });
 }
 
@@ -65,7 +67,7 @@ function ConfirmUserCreation() {
 }
 
 function submitPicture() {
-    $("#loader").toggle();
+    $("#loader").show();
     var data = new FormData();
     var files = $("#uploadPicture").get(0).files;
     if (files.length > 0) {
@@ -79,16 +81,28 @@ function submitPicture() {
             data: data,
             success: function (partial) {
                 $("#uploadPictureDiv").html(partial);
-                $("#loader").toggle();
+                $("#loader").hide();
 
             },
             error: function (er) {
                 $("#uploadPictureDiv").html(partial);
-                $("#loader").toggle();
+                $("#loader").hide();
                 //alert(er);
             }
-
         });
+}
+function ToggleAdmin(eMail, adminAction) {
+    $("#loader").show();
+    $.get("/Admin/ToggleAdmin", { 'eMail': eMail, 'adminAction': adminAction }, function (data) {
+        $("#contactList").html(data);
+        $("#loader").hide();
+    });
+}
 
-    
+function TerminateUser(eMail) {
+    $("#loader").show();
+    $.get("/Admin/TerminateUser", { 'eMail': eMail }, function (data) {
+        $("#contactList").html(data);
+        $("#loader").hide();
+    });
 }

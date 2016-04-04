@@ -20,10 +20,7 @@ namespace AWANET.Models
                     temp.EMail = user.UserName;
                     var isInRole = await userManager.IsInRoleAsync(user, "Admin");
                     temp.Role = isInRole ? "Admin" : String.Empty;
-                    
-                    
                     userList.Add(temp);
-
                 }
 
                 foreach (var u in userList)
