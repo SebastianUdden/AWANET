@@ -6,6 +6,7 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
 using AWANET.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,9 +16,13 @@ namespace AWANET.ViewModels
     public class HomeController : Controller
     {
         AWAnetContext context;
+        UserManager<IdentityUser> userManager;
+        SignInManager<IdentityUser> signInManager;
 
-        public HomeController(AWAnetContext context)
+        public HomeController(AWAnetContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
+            this.userManager = userManager;
+            this.signInManager = signInManager;
             this.context = context;
         }
         // GET: /<controller>/
@@ -56,9 +61,35 @@ namespace AWANET.ViewModels
             return PartialView("_EditorPartial");
         }
         [HttpPost]
-        public IActionResult PostMessage(MessageVM message)
+        public async Task<IActionResult> PostMessage(MessageVM message)
         {
-            return Content(message.MessageBody);
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            var userId = await userManager.GetUserIdAsync(user);
+            Message newMessage = new Message();
+            newMessage.MessageBody = message.MessageBody;
+            newMessage.OnFirstPage = message.OnFirstPage;
+            newMessage.Sender = userId;
+            newMessage.Receiver = "All";
+            newMessage.TimeCreated = DateTime.Now;
+            if (message.ImageLink != null)
+            {
+                newMessage.ImageLink = message.ImageLink;
+            }
+
+
+
+            context.Messages.Add(newMessage);
+            var result = await context.SaveChangesAsync();
+            if(result > 0)
+            {
+                ViewData["MessageData"] = "Meddelande sparat.";
+            }
+            else
+            {
+                ViewData["MessageData"] = "It went to shajt!!";
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
