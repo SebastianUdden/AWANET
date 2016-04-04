@@ -120,3 +120,13 @@
   max-width:100px;
   height:auto;
 }
+
+ .ourJumbotron {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  margin-bottom: 20px !important;
+  background-color: #f7f6f5 !important;
+}
+  .ourJumbotron hr{
+    border-color: #ece8e5;
+}

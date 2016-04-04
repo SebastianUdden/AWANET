@@ -34,7 +34,7 @@ namespace AWANET.ViewModels
                 MessageBody = o.MessageBody,
                 TimeCreated = o.TimeCreated,
                 ImageLink = o.ImageLink != String.Empty ? o.ImageLink : String.Empty
-            }).OrderBy(o=>o.TimeCreated).ToList();
+            }).OrderByDescending(o=>o.TimeCreated).ToList();
 
             foreach (var message in listMessages)
             {

@@ -3,22 +3,26 @@
 <div class="container">
     <button onclick="showMessageModal()" class="btn logoColorBackground">Skriv meddelande</button>
     <br />
-    <table class="list-group-item-heading">
+    <div class="list-group-item-heading">
         @foreach (var message in Model)
         {
-            <tr>
-                <td>
-                    <h4 class="text-center">@message.FullName @message.TimeCreated </h4>
-                </td>
-            </tr>
-            <tr>
-                <td>
+            <div class="jumbotron ourJumbotron">
+                <div>
+                    <h2 class="label label-info">@message.FullName</h2>
+                    <hr />
+                </div>
+
+                <div>
                     <p>@message.ImageLink</p>
-                </td>
-            </tr>
-            <tr>
-                <td>@(message.MessageBody)</td>
-            </tr>
+                </div>
+
+                <div>@Html.Raw(message.MessageBody)</div>
+
+                <div style="text-align: right" class="timeStamp">
+                    <hr />
+                    @message.TimeCreated <span class="glyphicon glyphicon-time"></span>
+                </div>
+            </div>
         }
-    </table>
+    </div>
 </div>
