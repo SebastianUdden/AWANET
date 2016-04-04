@@ -58,7 +58,6 @@ namespace AWANET.ViewModels
         [HttpPost]
         public IActionResult PostMessage(MessageVM message)
         {
-            var 
             return Content(message.MessageBody);
         }
     }
