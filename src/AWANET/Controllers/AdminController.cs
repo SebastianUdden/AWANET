@@ -35,7 +35,7 @@ namespace AWANET.ViewModels
             var list = context.UserCategory.Select(o => o.CategoryName).ToList();
             CreateUserVM newUser = new CreateUserVM();
             newUser.CategoryList = list;
-       
+
             return View(newUser);
         }
         //Metoden är satt till async task för att metoden i sig är en async metod. Task säger att metoden är en asynkron operation.
@@ -95,5 +95,19 @@ namespace AWANET.ViewModels
 
             return Content(result.Succeeded.ToString());
         }
+        //public async Task<IActionResult> UserTemp()
+        //{
+        //    var rmgr = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context), null, null, null, null, null);
+
+        //    await rmgr.CreateAsync(new IdentityRole("User"));
+        //    foreach (var u in context.Users)
+        //    {
+        //        await userManager.Add
+        //    }
+        //        var user = await userManager.FindByNameAsync("jonas@meljoner.se");
+        //        var result = await userManager.AddToRoleAsync(user, "Admin");
+
+        //    return Content(result.Succeeded.ToString());
+        //}
     }
 }

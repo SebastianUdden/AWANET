@@ -20,7 +20,7 @@ namespace AWANET
         public void ConfigureServices(IServiceCollection services)
         {
             // Vår connection-string till Azure-databasen. 
-            const string connString = "Server=tcp:oscarii.database.windows.net,1433;Database=AWANET;User ID=awanet@oscarii;Password=awa2016!;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            const string connString = "Server=tcp:oscarii.database.windows.net,1433;Database=AWANET;User ID=awanet@oscarii;Password=awa2016!;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;MultipleActiveResultSets=True";
 
             // Lägger till Mvc, Entity och Identity
             services.AddMvc();

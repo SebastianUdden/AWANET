@@ -10,15 +10,21 @@ namespace AWANET.Models
 {
     public class ContactList
     {
-        public ContactListVM[] GetAllContacts(AWAnetContext context, UserManager<IdentityUser> userManager)
+        public async Task<List<ContactListVM>> GetAllContacts(AWAnetContext context, UserManager<IdentityUser> userManager)
         {
-            try
-            {
-                var userList = context.Users.Select(o => new ContactListVM
+                List<ContactListVM> userList = new List<ContactListVM>();
+                foreach (var user in context.Users)
                 {
-                    Id = o.Id,
-                    EMail = o.UserName //Email
-                }).ToArray();
+                    var temp = new ContactListVM();
+                    temp.Id = user.Id;
+                    temp.EMail = user.UserName;
+                    var isInRole = await userManager.IsInRoleAsync(user, "Admin");
+                    temp.Role = isInRole ? "Admin" : String.Empty;
+                    
+                    
+                    userList.Add(temp);
+
+                }
 
                 foreach (var u in userList)
                 {
@@ -30,12 +36,9 @@ namespace AWANET.Models
                         u.Phone = user.Phone != null ? user.Phone : String.Empty;
                     }
                 }
+
                 return userList;
-            }
-            catch (Exception)
-            {
-                return new ContactListVM[0];
-            }
+            
         }
 
         public ContactInfoVM GetContact(string email, string userId, AWAnetContext context)
@@ -54,6 +57,7 @@ namespace AWANET.Models
                 user.Street = x.Street != null ? x.Street : "Gata ej ifyllt";
                 user.Zip = x.Zip != null ? x.Zip : "Postnummer ej ifyllt";
                 user.City = x.City != null ? x.City : "Stad ej ifyllt";
+
             }
             return user;
         }
