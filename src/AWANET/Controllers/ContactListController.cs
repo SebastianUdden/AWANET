@@ -24,9 +24,9 @@ namespace AWANET.Controllers
             contactList = new ContactList();
         }
         // GET: /<controller>/
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var listUser = contactList.GetAllContacts(context, userManager);
+            var listUser = await contactList.GetAllContacts(context, userManager);
             return View(listUser);
         }
         public IActionResult GetContact(string Email, string UserId)
