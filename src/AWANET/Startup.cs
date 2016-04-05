@@ -23,7 +23,7 @@ namespace AWANET
             const string connString = "Server=tcp:oscarii.database.windows.net,1433;Database=AWANET;User ID=awanet@oscarii;Password=awa2016!;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;MultipleActiveResultSets=True";
 
             // Lägger till Mvc, Entity och Identity
-            services.AddMvc();
+            services.AddMvc(); 
             services.AddEntityFramework().AddSqlServer().AddDbContext<AWAnetContext>(o => o.UseSqlServer(connString));
             // Identity kopplar upp sig mot en databas, skapar nya tabeller om det inte finns tidigare. 
             // - IdentityUser är användaren, skickas in och säger vad tabellen ska innehålla. IdentityRole är ?
