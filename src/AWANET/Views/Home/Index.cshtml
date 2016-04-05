@@ -10,14 +10,27 @@
         {
             <div class="container">
                 <div style="margin-left:15px">
-                    <h3>@message.Title</h3>
+                    <h3>
+                        @message.Title @if (User.IsInRole("Admin"))
+                        {
+                            <a href="/Admin/RemoveMessage/@message.Id" class="btn btn-xs btn-danger">Ta bort meddelande</a>
+                        }
+                    </h3>
                 </div>
 
                 @{
-                    string messagePicture = "~/messagepictures/" + message.ImageLink;
+                    string messagePicture;
+                    if (!String.IsNullOrEmpty(message.ImageLink))
+                    {
+                        messagePicture = "~/messagepictures/" + message.ImageLink;
+                    }
+                    else
+                    {
+                        messagePicture = "~/messagepictures/defaultpicture.jpg";
+                    }
                 }
                 <div class="col-lg-3">
-                    <img class="img-responsive" src="@messagePicture" />
+                    <img class="img-responsive img-rounded" src="@messagePicture" />
                 </div>
 
                 <div class="col-lg-7">
@@ -28,11 +41,11 @@
                     string profilePicture = "~/profilepictures/" + message.Sender + ".jpg";
                 }
                 <div style="text-align: center" class="col-lg-2 timeStamp">
-                    <img class="img-responsive" src="@profilePicture" />
+                    <img class="img-responsive img-rounded" src="@profilePicture" />
                     <h4>@message.UserRole</h4>
 
                     @if (message.UserRole == "Academic Work")
-                    {
+                {
                         <h3 style="margin-top:0px;">
                             <span class="label logoColorBackground">
                                 @message.FullName
@@ -66,7 +79,10 @@
                     <h5>
                         @message.TimeCreated <span class="glyphicon glyphicon-time"></span>
                     </h5>
+                    <br />
+
                 </div>
+
             </div>
             <br />
                     }

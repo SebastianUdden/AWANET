@@ -35,6 +35,7 @@ namespace AWANET.ViewModels
         {
             var listMessages = context.Messages.Where(o => o.OnFirstPage == true).Select(o => new MessageVM
             {
+                Id = o.Id,
                 Sender = o.Sender,
                 Title = o.Title,
                 MessageBody = o.MessageBody,

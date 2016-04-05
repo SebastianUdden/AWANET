@@ -9,6 +9,7 @@ namespace AWANET.ViewModels
 {
     public class MessageVM
     {
+        public int Id { get; set; }
         public string UserRole { get; set; }
         public string Sender { get; set; }
         public string FullName { get; set; }
