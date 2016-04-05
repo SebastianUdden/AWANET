@@ -1,96 +1,99 @@
-﻿@model List<MessageVM>
+﻿@model HomeVM
 
 <div class="container">
     <ul class="nav nav-tabs">
-        <li><a href="#">Klassen</a></li>
-        <li><a href="#">Projekt3Awanet</a></li>
+        @foreach (var group in Model.GroupVMList)
+        {
+
+            <li><a href="/home/index/@group.Id">@group.GroupName</a></li>
+        }
     </ul>
     <div style="float:right">
         <button onclick="showMessageModal()" class="btn logoColorBackground">Skriv meddelande</button>
     </div>
     <br />
     <div class="list-group-item-heading">
-        @foreach (var message in Model)
+        @foreach (var message in Model.MessageVMList)
         {
             <div class="container">
                 <div style="margin-left:15px">
                     <h3>
                         @message.Title
                     </h3>
-                
-              
+
+
                     @if (User.IsInRole("Admin"))
                     {
                         <a href="/Admin/RemoveMessage/@message.Id"><span class="glyphicon glyphicon-trash"></span></a>
                     }
                 </div>
-             
-                    @{
-                        string messagePicture;
-                        if (!String.IsNullOrEmpty(message.ImageLink))
-                        {
-                            messagePicture = "~/messagepictures/" + message.ImageLink;
-                        }
-                        else
-                        {
-                            messagePicture = "~/messagepictures/defaultpicture.jpg";
-                        }
+
+                @{
+                    string messagePicture;
+                    if (!String.IsNullOrEmpty(message.ImageLink))
+                    {
+                        messagePicture = "~/messagepictures/" + message.ImageLink;
                     }
-                    <div class="col-lg-3">
-                        <img class="img-responsive img-rounded" src="@messagePicture" />
-                    </div>
-
-                    <div class="col-lg-7">
-                        @Html.Raw(message.MessageBody)
-                    </div>
-
-                    @{
-                        string profilePicture = "~/profilepictures/" + message.Sender + ".jpg";
+                    else
+                    {
+                        messagePicture = "~/messagepictures/defaultpicture.jpg";
                     }
-                    <div style="text-align: center" class="col-lg-2 timeStamp">
-                        <img class="img-responsive img-rounded" src="@profilePicture" />
-                        <h4>@message.UserRole</h4>
-
-                        @if (message.UserRole == "Academic Work")
-                {
-                            <h3>
-                                <span class="label logoColorBackground">
-                                    @message.FullName
-                                </span>
-                            </h3>
-                        }
-                        else if (message.UserRole == "Academy Personal")
-                        {
-                            <h3>
-                                <span class="label label-warning">
-                                    @message.FullName
-                                </span>
-                            </h3>
-                        }
-                        else if (message.UserRole == "Academy Lärare")
-                        {
-                            <h3>
-                                <span class="label label-danger">
-                                    @message.FullName
-                                </span>
-                            </h3>
-                        }
-                        else
-                        {
-                            <h3>
-                                <span class="label label-info">
-                                    @message.FullName
-                                </span>
-                            </h3>
-                        }
-                        <h5>
-                            @message.TimeCreated <span class="glyphicon glyphicon-time"></span>
-                        </h5>
-                        <br />
-
-                    </div>
+                }
+                <div class="col-lg-3">
+                    <img class="img-responsive img-rounded" src="@messagePicture" />
                 </div>
-            <br />
-                        }
+
+                <div class="col-lg-7">
+                    @Html.Raw(message.MessageBody)
+                </div>
+
+                @{
+                    string profilePicture = "~/profilepictures/" + message.Sender + ".jpg";
+                }
+                <div style="text-align: center" class="col-lg-2 timeStamp">
+                    <img class="img-responsive img-rounded" src="@profilePicture" />
+                    <h4>@message.UserRole</h4>
+
+                    @if (message.UserRole == "Academic Work")
+                {
+                        <h3>
+                            <span class="label logoColorBackground">
+                                @message.FullName
+                            </span>
+                        </h3>
+                    }
+                    else if (message.UserRole == "Academy Personal")
+                    {
+                        <h3>
+                            <span class="label label-warning">
+                                @message.FullName
+                            </span>
+                        </h3>
+                    }
+                    else if (message.UserRole == "Academy Lärare")
+                    {
+                        <h3>
+                            <span class="label label-danger">
+                                @message.FullName
+                            </span>
+                        </h3>
+                    }
+                    else
+                    {
+                        <h3>
+                            <span class="label label-info">
+                                @message.FullName
+                            </span>
+                        </h3>
+                    }
+                    <h5>
+                        @message.TimeCreated <span class="glyphicon glyphicon-time"></span>
+                    </h5>
+                    <br />
+
+                </div>
+            </div>
+                <br />
+                    }
     </div>
 </div>

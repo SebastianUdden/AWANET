@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AWANET.Models
+namespace AWANET.ViewModels
 {
-    public class Group
+    public class GroupVM
     {
         public int Id { get; set; }
         public string GroupName { get; set; }
-        public string GroupDescription { get; set; }
-        public string CreatorId { get; set; }
-        public bool IsOpen { get; set; }
-
     }
 }

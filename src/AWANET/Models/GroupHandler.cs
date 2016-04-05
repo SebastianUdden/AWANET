@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AWANET.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,13 +8,15 @@ namespace AWANET.Models
 {
     public class GroupHandler
     {
-        public List<string> GetUserGroups(AWAnetContext context, string userId)
+        public List<GroupVM> GetUserGroups(AWAnetContext context, string userId)
         {
-            var listOfGroups = context.UserGroups.Where(x => x.UserId == userId).ToList();
-            var listOfGroupNames = new List<string>();
+            var listOfGroups = context.UserGroups.Where(x => x.UserId == userId).Select(o => o.GroupId).ToList();
+            var listOfGroupNames = new List<GroupVM>();
             foreach (var group in listOfGroups)
             {
-                listOfGroupNames.Add(context.Groups.Where(x => x.Id == group.GroupId).Select(x => x.GroupName).SingleOrDefault());
+                    
+                    var tmp = (context.Groups.Where(x => x.Id == group).SingleOrDefault());
+                listOfGroupNames.Add(new GroupVM { Id = tmp.Id, GroupName = tmp.GroupName });
             }
             return listOfGroupNames;
         }

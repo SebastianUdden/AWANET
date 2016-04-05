@@ -31,22 +31,51 @@ namespace AWANET.ViewModels
             this.context = context;
         }
         // GET: /<controller>/
-        public IActionResult Index()
+        public IActionResult Index(int id = 1)
         {
-            var id = context.Users.Where(x => x.Email == User.Identity.Name).Select(x => x.Id).SingleOrDefault();
+            var userId = context.Users.Where(x => x.UserName == User.Identity.Name).SingleOrDefault();
             GroupHandler groupHandler = new GroupHandler();
-            var listOfGroupNames = groupHandler.GetUserGroups(context, id);
-            
-            var listMessages = context.Messages.Where(o => o.OnFirstPage == true || listOfGroupNames.Contains(o.Receiver)).Select(o => new MessageVM 
+            var listOfGroupVM = groupHandler.GetUserGroups(context, userId.Id);
+            List<string> listOfGroupNames = new List<string>();
+
+            foreach (var group in listOfGroupVM)
             {
-                Id = o.Id,
-                Sender = o.Sender,
-                Title = o.Title,
-                Receiver = o.Receiver,
-                MessageBody = o.MessageBody,
-                TimeCreated = o.TimeCreated,
-                ImageLink = o.ImageLink != String.Empty ? o.ImageLink : String.Empty,
-            }).OrderByDescending(o => o.TimeCreated).ToList();
+                listOfGroupNames.Add(group.GroupName);
+            }
+
+            List<MessageVM> listMessages = new List<MessageVM>();
+            // || listOfGroupNames.Contains(o.Receiver)
+            if (id == 1)
+            {
+                listMessages = context.Messages.Where(o => o.OnFirstPage == true).Select(o => new MessageVM
+                {
+                    Id = o.Id,
+                    Sender = o.Sender,
+                    Title = o.Title,
+                    Receiver = o.Receiver,
+                    MessageBody = o.MessageBody,
+                    TimeCreated = o.TimeCreated,
+                    ImageLink = o.ImageLink != String.Empty ? o.ImageLink : String.Empty,
+                }).OrderByDescending(o => o.TimeCreated).ToList();
+            }
+            else
+            {
+                var groupname = listOfGroupVM.Where(x => x.Id == id).Select(x => x.GroupName).SingleOrDefault();
+                listMessages = context.Messages.Where(o => o.Receiver == groupname).Select(o => new MessageVM
+                {
+                    Id = o.Id,
+                    Sender = o.Sender,
+                    Title = o.Title,
+                    Receiver = o.Receiver,
+                    MessageBody = o.MessageBody,
+                    TimeCreated = o.TimeCreated,
+                    ImageLink = o.ImageLink != String.Empty ? o.ImageLink : String.Empty,
+                }).OrderByDescending(o => o.TimeCreated).ToList();
+            }   
+            // Sortera på id
+
+
+            
 
             foreach (var message in listMessages)
             {
@@ -62,10 +91,12 @@ namespace AWANET.ViewModels
                 }
             }
 
-            
+            HomeVM homeVM = new HomeVM();
+            homeVM.GroupVMList = listOfGroupVM;
+            homeVM.MessageVMList = listMessages;
 
 
-            return View(listMessages);
+            return View(homeVM);
         }
         [AllowAnonymous]
         public IActionResult Redirect()
@@ -144,6 +175,12 @@ namespace AWANET.ViewModels
             }
             ViewData["MessageStatus"] = "Uppladdning misslyckades!";
             return false;
+        }
+
+        public IActionResult GetMessagesByGroupId(int id)
+        {
+            
+            return Content(id.ToString());
         }
     }
 }
