@@ -36,23 +36,23 @@
                     <li>
                         <a href="/">Nyhetsflöde</a>
                     </li>
-                    <li>
-                        <a href="/Class/Index">Klass</a>
-                    </li>
+                    @*<li>
+                            <a href="/Class/Index">Klass</a>
+                        </li>*@
                     <li>
                         <a href="/Account/MyPages">Mina Sidor</a>
                     </li>
-                    <li>
-                        <a href="/Teachers/Index">Lärare</a>
-                    </li>
+                    @*<li>
+                            <a href="/Teachers/Index">Lärare</a>
+                        </li>*@
                     <li>
                         <a href="/ContactList/Index">Kontaktlista</a>
                     </li>
                     @if (User.IsInRole("Admin"))
                     {
-                    <li>
-                        <a href="/Admin/Createuser">Skapa Användare</a>
-                    </li>
+                        <li>
+                            <a href="/Admin/Createuser">Skapa Användare</a>
+                        </li>
                     }
                     <li>
                         <a href="#" data-toggle="modal" data-target="#calendarModal">Kalender</a>
@@ -90,11 +90,11 @@
             </div>
         </div>
     </div>
-    <div id="loader" >
+    <div id="loader">
         <img class="img-responsive" src="~/profilepictures/circle-loader.gif" />
     </div>
     <div id="editor">
-        
+
     </div>
 </body>
 </html>

@@ -1,6 +1,10 @@
 ﻿@model List<MessageVM>
 
 <div class="container">
+    <ul class="nav nav-tabs">
+        <li><a href="#">Klassen</a></li>
+        <li><a href="#">Projekt3Awanet</a></li>
+    </ul>
     <div style="float:right">
         <button onclick="showMessageModal()" class="btn logoColorBackground">Skriv meddelande</button>
     </div>
@@ -46,7 +50,7 @@
 
                     @if (message.UserRole == "Academic Work")
                 {
-                        <h3 style="margin-top:0px;">
+                        <h3>
                             <span class="label logoColorBackground">
                                 @message.FullName
                             </span>
@@ -54,7 +58,7 @@
                     }
                     else if (message.UserRole == "Academy Personal")
                     {
-                        <h3 style="margin-top:0px;">
+                        <h3>
                             <span class="label label-warning">
                                 @message.FullName
                             </span>

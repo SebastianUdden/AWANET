@@ -6,11 +6,13 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using AWANET.Models;
+using Microsoft.AspNet.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace AWANET.Controllers
 {
+    [Authorize]
     public class ContactListController : Controller
     {
         UserManager<IdentityUser> userManager;

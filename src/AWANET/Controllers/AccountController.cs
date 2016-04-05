@@ -18,6 +18,7 @@ using System.Threading;
 
 namespace AWANET.ViewModels
 {
+    [Authorize]
     public class AccountController : Controller
     {
         // Använder Identity-ramverket
@@ -41,10 +42,12 @@ namespace AWANET.ViewModels
 
         }
         // GET: /<controller>/
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM loginvm)
         {
