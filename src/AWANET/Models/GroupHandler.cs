@@ -20,5 +20,10 @@ namespace AWANET.Models
             }
             return listOfGroupNames;
         }
+        public List<string> GetAllGroups(AWAnetContext context)
+        {
+            return context.Groups.Where(o=>o.IsOpen==true).Select(o => o.GroupName).ToList();
+
+        }
     }
 }

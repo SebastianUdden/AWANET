@@ -75,7 +75,7 @@ namespace AWANET.ViewModels
                 UserCategory userCategory = new UserCategory();
                 userCategory.CategoryName = model.CategoryName;
                 context.UserCategory.Add(userCategory);
-                context.SaveChanges();
+                context.SaveChanges(); 
                 userDetail.SemesterId = userCategory.Id;
             }
 
@@ -141,23 +141,10 @@ namespace AWANET.ViewModels
                 context.SaveChanges();
             }
 
-
-            var result = await userManager.DeleteAsync(user);
-            if (result.Succeeded)
-            {
-                ViewData["AdminAction"] = "Användaren " + eMail + " är borttagen.";
-            }
+            await userManager.DeleteAsync(user);
             ContactList contactList = new ContactList();
             var model = await contactList.GetAllContacts(context, userManager);
             return PartialView("_ContactListPartial", model);
-        }
-
-        public IActionResult RemoveMessage(int id)
-        {
-            var message = context.Messages.Where(o => o.Id == id).SingleOrDefault();
-            context.Messages.Remove(message);
-            context.SaveChanges();
-            return RedirectToAction("Index", "Home");
         }
     }
 }

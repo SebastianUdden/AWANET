@@ -42,7 +42,9 @@ function getcontactbymail(Email, Id) {
 function ChooseCategory(c) {
     $("#Category").val(c);
 }
-
+function ChooseReceiver(c) {
+    $("#receiver").val(c);
+}
 function ConfirmUserCreation() {
     var list = document.getElementById('listCategory');
     var inputValue = $("#Category").val();
@@ -63,6 +65,28 @@ function ConfirmUserCreation() {
     }
     else {
         $("#createUserForm").submit();
+    }
+}
+function ConfirmMessagePost() {
+    var list = document.getElementById('listReceiver');
+    var inputValue = $("#receiver").val();
+    var isNew = true;
+
+    $("#listReceiver li").each(function () {
+        if ($(this).attr('id') == inputValue) {
+            isNew = false;
+        }
+    });
+
+    if (isNew) {
+        var resultCategory = confirm("Vill du skapa ett nytt gruppflöde? Ditt nya gruppflöde är " + inputValue + ".");
+        if (resultCategory) {
+            $("#newMessageForm").submit();
+        }
+
+    }
+    else {
+        $("#newMessageForm").submit();
     }
 }
 

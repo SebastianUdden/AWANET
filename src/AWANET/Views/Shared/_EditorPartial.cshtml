@@ -40,7 +40,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="messageModal-label">Skriv inlägg</h4>
             </div>
-            <form asp-controller="Home" asp-action="PostMessage" enctype="multipart/form-data">
+            <form asp-controller="Home" asp-action="PostMessage" enctype="multipart/form-data" id="newMessageForm">
                 <div class="modal-body">
                     <label asp-for="Title"></label>
                     <div style="width:40%">
@@ -51,6 +51,17 @@
                     <textarea id="mytextarea" asp-for="MessageBody"></textarea>
                     <label asp-for="OnFirstPage"></label>
                     <input asp-for="OnFirstPage" />
+                    <div class="dropdown has-feedback">
+                        <label asp-for="Receiver"></label>
+                        <input asp-for="Receiver" type="text" id="receiver" placeholder="Mottagare" class="form-control dropdown-menu-right dropdown-toggle" data-toggle="dropdown" data-val="true" name="Receiver" /><i id="arrow" class="glyphicon glyphicon-triangle-bottom form-control-feedback"></i>
+                        <span asp-validation-for="Receiver"></span>
+                        <ul id="listReceiver" class="dropdown-menu">
+                            @foreach (var c in Model.Groups)
+                            {
+                                <li id="@c" class="listObject" onclick="ChooseReceiver('@c')">@c</li>
+                            }
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="modal-footer">
@@ -70,7 +81,7 @@
                     </div>
                     <div style="float:right">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Avbryt</button>
-                        <button type="submit" class="btn logoColorBackground">Post</button>
+                        <input value="Post" class="btn logoColorBackground" onclick="ConfirmMessagePost()"/>
                     </div>
                 </div>
             </form>

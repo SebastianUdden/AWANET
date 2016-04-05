@@ -71,11 +71,11 @@ namespace AWANET.ViewModels
                     TimeCreated = o.TimeCreated,
                     ImageLink = o.ImageLink != String.Empty ? o.ImageLink : String.Empty,
                 }).OrderByDescending(o => o.TimeCreated).ToList();
-            }   
+            }
             // Sortera på id
 
 
-            
+
 
             foreach (var message in listMessages)
             {
@@ -112,7 +112,10 @@ namespace AWANET.ViewModels
 
         public IActionResult PostMessage()
         {
-            return PartialView("_EditorPartial");
+            var groupHandler = new GroupHandler();
+            var groupList = groupHandler.GetAllGroups(context);
+            var model = new MessageVM { Groups = groupList };
+            return PartialView("_EditorPartial", model);
         }
 
         [HttpPost]
@@ -125,14 +128,27 @@ namespace AWANET.ViewModels
             }
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             var userId = await userManager.GetUserIdAsync(user);
+            if (context.Groups.Where(o => o.GroupName == message.Receiver).Count() < 1)
+            {
+                var newGroup = new Group();
+                newGroup.GroupName = message.Receiver;
+                newGroup.CreatorId = context.Users.Where(o => o.UserName == User.Identity.Name).Select(o => o.Id).SingleOrDefault();
+                context.Groups.Add(newGroup);
+                context.SaveChanges();
+                context.UserGroups.Add(new UserGroup
+                {
+                    GroupId = newGroup.Id,
+                    UserId = newGroup.CreatorId
+                });
+            }
             Message newMessage = new Message();
             newMessage.Title = message.Title;
             newMessage.MessageBody = message.MessageBody;
             newMessage.OnFirstPage = message.OnFirstPage;
             newMessage.Sender = userId;
-            newMessage.Receiver = "All";
+            newMessage.Receiver = message.Receiver;
             newMessage.TimeCreated = DateTime.Now;
-            
+
             if (message.ImageLink != null)
             {
                 newMessage.ImageLink = message.ImageLink;
@@ -179,7 +195,7 @@ namespace AWANET.ViewModels
 
         public IActionResult GetMessagesByGroupId(int id)
         {
-            
+
             return Content(id.ToString());
         }
     }
