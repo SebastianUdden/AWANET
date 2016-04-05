@@ -40,23 +40,25 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="messageModal-label">Skriv inlägg</h4>
             </div>
-            <form asp-controller="Home" asp-action="PostMessage">
+            <form asp-controller="Home" asp-action="PostMessage" enctype="multipart/form-data">
                 <div class="modal-body">
                     <label asp-for="Title"></label>
-                    <input asp-for="Title" />
+                    <div style="width:40%">
+                        <input asp-for="Title" class="form-control" />
+                    </div>
+                    <br />
                     <span asp-validation-for="Title"></span>
                     <textarea id="mytextarea" asp-for="MessageBody"></textarea>
                     <label asp-for="OnFirstPage"></label>
                     <input asp-for="OnFirstPage" />
-
                 </div>
 
                 <div class="modal-footer">
-                    <div style="float:left width:40%" >
+                    <div style="float:left; width:40%" >
                         <div class="input-group">
                             <span class="input-group-btn">
                                 <span class="btn logoColorBackground btn-file">
-                                    Välj Bild&hellip;<input id="uploadPicture" type="file" formenctype="multipart/form-data">
+                                    Välj Bild&hellip;<input name="messagePicture" id="uploadPicture" type="file" />
                                 </span>
                             </span>
                             <input type="text" class="form-control" readonly>
@@ -66,7 +68,6 @@
                             @ViewData["messageStatus"];
                         }
                     </div>
-                    <br />
                     <div style="float:right">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Avbryt</button>
                         <button type="submit" class="btn logoColorBackground">Post</button>

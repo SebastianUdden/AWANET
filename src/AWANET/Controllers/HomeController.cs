@@ -7,6 +7,9 @@ using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
 using AWANET.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Http;
+using Microsoft.AspNet.Hosting;
+using System.IO;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,12 +18,14 @@ namespace AWANET.ViewModels
     [Authorize]
     public class HomeController : Controller
     {
+        IHostingEnvironment _environment;
         AWAnetContext context;
         UserManager<IdentityUser> userManager;
         SignInManager<IdentityUser> signInManager;
 
-        public HomeController(AWAnetContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public HomeController(AWAnetContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IHostingEnvironment _environment)
         {
+            this._environment = _environment;
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.context = context;
@@ -68,9 +73,11 @@ namespace AWANET.ViewModels
         {
             return PartialView("_EditorPartial");
         }
+
         [HttpPost]
         public async Task<IActionResult> PostMessage(MessageVM message)
         {
+
             if (!ModelState.IsValid)
             {
                 return Content("false");
@@ -84,25 +91,49 @@ namespace AWANET.ViewModels
             newMessage.Sender = userId;
             newMessage.Receiver = "All";
             newMessage.TimeCreated = DateTime.Now;
+            
             if (message.ImageLink != null)
             {
                 newMessage.ImageLink = message.ImageLink;
             }
-
-
-
             context.Messages.Add(newMessage);
             var result = await context.SaveChangesAsync();
+            bool isPictureSaved = await UploadMessagePicture(message.MessagePicture, newMessage.Id);
+
             if (result > 0)
             {
                 ViewData["MessageData"] = "Meddelande sparat.";
+                if (isPictureSaved)
+                {
+                    ViewData["MessageData"] = "Meddelande och bild sparad.";
+                }
             }
             else
             {
-                ViewData["MessageData"] = "It went to shajt!!";
+                ViewData["MessageData"] = "Meddelande ej sparat!!";
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private async Task<bool> UploadMessagePicture(IFormFile file, int id)
+        {
+            var messagePicture = Path.Combine(_environment.WebRootPath, "MessagePictures");
+
+            if (file != null)
+            {
+                if (file.Length > 0)
+                {
+                    await file.SaveAsAsync(Path.Combine(messagePicture, id.ToString() + ".jpg"));
+                    ViewData["MessageStatus"] = "Ny meddelandebild uppladdad!";
+                    var message = context.Messages.Where(o => o.Id == id).SingleOrDefault();
+                    message.ImageLink = id.ToString() + ".jpg";
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            ViewData["MessageStatus"] = "Uppladdning misslyckades!";
+            return false;
         }
     }
 }

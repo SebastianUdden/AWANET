@@ -174,7 +174,6 @@ namespace AWANET.ViewModels
             {
                 if (file.Length > 0)
                 {
-                    Thread.Sleep(100);
                     string fileNameId = context.Users.Where(o => o.UserName == User.Identity.Name).Select(x => x.Id).SingleOrDefault();
                     await file.SaveAsAsync(Path.Combine(profilePictures, fileNameId + ".jpg"));
                     ViewData["Status"] = "Ny profilbild uppladdad!";

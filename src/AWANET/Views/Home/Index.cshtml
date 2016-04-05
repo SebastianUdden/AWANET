@@ -1,7 +1,9 @@
 ﻿@model List<MessageVM>
 
 <div class="container">
-    <button onclick="showMessageModal()" class="btn logoColorBackground">Skriv meddelande</button>
+    <div style="float:right">
+        <button onclick="showMessageModal()" class="btn logoColorBackground">Skriv meddelande</button>
+    </div>
     <br />
     <div class="list-group-item-heading">
         @foreach (var message in Model)
@@ -12,7 +14,7 @@
                 </div>
 
                 @{
-                    string messagePicture = "~/messagePicture/" + message.ImageLink + ".jpg";
+                    string messagePicture = "~/messagepictures/" + message.ImageLink;
                 }
                 <div class="col-lg-3">
                     <img class="img-responsive" src="@messagePicture" />
@@ -25,13 +27,13 @@
                 @{
                     string profilePicture = "~/profilepictures/" + message.Sender + ".jpg";
                 }
-                <div style="text-align: right" class="col-lg-2 timeStamp">
+                <div style="text-align: center" class="col-lg-2 timeStamp">
                     <img class="img-responsive" src="@profilePicture" />
-                    <h3>@message.UserRole</h3>
+                    <h4>@message.UserRole</h4>
 
                     @if (message.UserRole == "Academic Work")
                     {
-                        <h3>
+                        <h3 style="margin-top:0px;">
                             <span class="label logoColorBackground">
                                 @message.FullName
                             </span>
@@ -39,7 +41,7 @@
                     }
                     else if (message.UserRole == "Academy Personal")
                     {
-                        <h3>
+                        <h3 style="margin-top:0px;">
                             <span class="label label-warning">
                                 @message.FullName
                             </span>
