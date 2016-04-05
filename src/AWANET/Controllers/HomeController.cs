@@ -34,18 +34,15 @@ namespace AWANET.ViewModels
         public IActionResult Index()
         {
             var id = context.Users.Where(x => x.Email == User.Identity.Name).Select(x => x.Id).SingleOrDefault();
-
-            var listOfGroups = context.UserGroups.Where(x => x.UserId == id).ToList();
-            var listOfGroupNames = new List<string>();
-            foreach (var group in listOfGroups)
-            {
-                listOfGroupNames.Add(context.Groups.Where(x => x.Id == group.GroupId).Select(x => x.GroupName).SingleOrDefault());
-            }
-            var listMessages = context.Messages.Where(o => o.OnFirstPage == true).Select(o => new MessageVM
+            GroupHandler groupHandler = new GroupHandler();
+            var listOfGroupNames = groupHandler.GetUserGroups(context, id);
+            
+            var listMessages = context.Messages.Where(o => o.OnFirstPage == true || listOfGroupNames.Contains(o.Receiver)).Select(o => new MessageVM 
             {
                 Id = o.Id,
                 Sender = o.Sender,
                 Title = o.Title,
+                Receiver = o.Receiver,
                 MessageBody = o.MessageBody,
                 TimeCreated = o.TimeCreated,
                 ImageLink = o.ImageLink != String.Empty ? o.ImageLink : String.Empty,
