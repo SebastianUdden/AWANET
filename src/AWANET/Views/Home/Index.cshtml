@@ -7,13 +7,15 @@
         @foreach (var message in Model)
         {
             <div class="container">
-                <div>
+                <div style="margin-left:15px">
                     <h3>@message.Title</h3>
-                    <br />
                 </div>
 
+                @{
+                    string messagePicture = "~/messagePicture/" + message.ImageLink + ".jpg";
+                }
                 <div class="col-lg-3">
-                    <img class="img-responsive" src="~/profilepictures/af013b64-4df1-4548-8811-6da31208830a.jpg" />
+                    <img class="img-responsive" src="@messagePicture" />
                 </div>
 
                 <div class="col-lg-7">
@@ -21,7 +23,7 @@
                 </div>
 
                 @{
-                    string profilePicture = "~/profilepictures/" + @message.Sender + ".jpg";
+                    string profilePicture = "~/profilepictures/" + message.Sender + ".jpg";
                 }
                 <div style="text-align: right" class="col-lg-2 timeStamp">
                     <img class="img-responsive" src="@profilePicture" />
@@ -64,6 +66,7 @@
                     </h5>
                 </div>
             </div>
+            <br />
                     }
     </div>
 </div>

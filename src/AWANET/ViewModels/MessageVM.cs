@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace AWANET.ViewModels
         public string FullName { get; set; }
         public DateTime TimeCreated { get; set; }
 
-        [Required(ErrorMessage ="Meddelandet får inte var tom")]
+        [Required(ErrorMessage ="Meddelandet får inte vara tomt")]
         public string MessageBody { get; set; }
         public string ImageLink { get; set; }
         [Display(Name = "På förstasidan?")]
@@ -24,5 +25,6 @@ namespace AWANET.ViewModels
         [StringLength(50, MinimumLength = 4, ErrorMessage = "Titeln måste vara 4 till 50 tecken lång.")]
         public string Title { get; set; }
 
+        public IFormFile messagePicture { get; set; }
     }
 }
