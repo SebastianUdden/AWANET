@@ -1,0 +1,38 @@
+﻿@model MessageVM
+<script src="~/scripts/tinymce/tinymce.min.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/scripts/jquery.validate.unobtrusive.js"></script>
+<script>
+    tinymce.init({
+        selector: '#mytextarea',
+        height: "400",
+        fontsize_format: '12pt',
+        toolbar: 'undo redo bold italic bullist numlist outdent indent code',
+        menubar: ''
+    });
+</script>
+
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModal-label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="messageModal-label">Skriv inlägg</h4>
+            </div>
+            <form asp-controller="Home" asp-action="PostMessage">
+                <div class="modal-body">
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title" />
+                    <span asp-validation-for="Title"></span>
+                    <textarea id="mytextarea" asp-for="MessageBody"></textarea>
+                    <label asp-for="OnFirstPage"></label>
+                    <input asp-for="OnFirstPage" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Avbryt</button>
+                    <button type="submit" class="btn logoColorBackground">Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

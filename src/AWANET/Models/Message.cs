@@ -14,5 +14,6 @@ namespace AWANET.Models
         public bool OnFirstPage { get; set; }
         public string Sender { get; set; }
         public string Receiver { get; set; }
+        public string Title { get; set; }
     }
 }

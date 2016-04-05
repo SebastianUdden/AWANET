@@ -1,0 +1,56 @@
+﻿@model List<ContactListVM>
+
+<div id="contactList">
+    <h2>@ViewData["AdminAction"]</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Förnamn
+            </th>
+            <th>
+                Efternamn
+            </th>
+            <th>
+                Telefonnummer
+            </th>
+            <th>
+                E-post
+            </th>
+            <th></th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th></th>
+                <th></th>
+            }
+        </tr>
+        @foreach (var contact in Model)
+        {
+            <tr>
+                <td>@contact.FirstName</td>
+                <td>@contact.LastName</td>
+                <td>@contact.Phone</td>
+                <td>@contact.EMail</td>
+                <td>
+                    <button type="button" class="btn btn-success" onclick="getcontactbymail('@contact.EMail','@contact.Id')">Visa</button>
+                </td>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        @if (contact.Role == "Admin")
+                    {
+                            <button type="button" class="btn btn-danger" onclick="ToggleAdmin('@contact.EMail','removeAdmin')">Ta bort adminrättigheter</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-warning" onclick="ToggleAdmin('@contact.EMail','addAdmin')">Gör till admin</button>
+                        }
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" onclick="TerminateUser('@contact.EMail')">Ta bort användare</button>
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>

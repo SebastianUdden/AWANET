@@ -35,7 +35,7 @@ namespace AWANET.ViewModels
             var list = context.UserCategory.Select(o => o.CategoryName).ToList();
             CreateUserVM newUser = new CreateUserVM();
             newUser.CategoryList = list;
-       
+
             return View(newUser);
         }
         //Metoden är satt till async task för att metoden i sig är en async metod. Task säger att metoden är en asynkron operation.
@@ -94,6 +94,62 @@ namespace AWANET.ViewModels
             var result = await userManager.AddToRoleAsync(user, "Admin");
 
             return Content(result.Succeeded.ToString());
+        }
+        public async Task<IActionResult> ToggleAdmin(string eMail, string adminAction)
+        {
+            var rmgr = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context), null, null, null, null, null);
+
+            if (adminAction == "addAdmin")
+            {
+                var user = await userManager.FindByNameAsync(eMail);
+                var result = await userManager.AddToRoleAsync(user, "Admin");
+                if (result.Succeeded)
+                {
+                    ViewData["AdminAction"] = "Adminrättighet tillagd för " + eMail;
+                }
+                else
+                {
+                    ViewData["AdminAction"] = result.Errors.First().ToString();
+                }
+            }
+            else if (adminAction == "removeAdmin")
+            {
+                var user = await userManager.FindByNameAsync(eMail);
+                var result = await userManager.RemoveFromRoleAsync(user, "Admin");
+                if (result.Succeeded)
+                {
+                    ViewData["AdminAction"] = "Adminrättighet borttagen för " + eMail;
+                }
+                else
+                {
+                    ViewData["AdminAction"] = result.Errors.First().ToString();
+                }
+            }
+
+            rmgr.Dispose();
+            ContactList contactList = new ContactList();
+            var model = await contactList.GetAllContacts(context, userManager);
+            return PartialView("_ContactListPartial", model);
+        }
+        public async Task<IActionResult> TerminateUser(string eMail)
+        {
+            var user = await userManager.FindByNameAsync(eMail);
+            var tmp = context.UserDetails.Where(o => o.Id == user.Id).SingleOrDefault();
+            if (tmp != null)
+            {
+                context.UserDetails.Remove(tmp);
+                context.SaveChanges();
+            }
+
+
+            var result = await userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                ViewData["AdminAction"] = "Användaren " + eMail + " är borttagen.";
+            }
+            ContactList contactList = new ContactList();
+            var model = await contactList.GetAllContacts(context, userManager);
+            return PartialView("_ContactListPartial", model);
         }
     }
 }

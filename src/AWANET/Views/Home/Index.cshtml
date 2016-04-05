@@ -1,22 +1,43 @@
 ﻿@model List<MessageVM>
 
 <div class="container">
-    <table class="table-bordered">
+    <button onclick="showMessageModal()" class="btn logoColorBackground">Skriv meddelande</button>
+    <br />
+    <div class="list-group-item-heading">
         @foreach (var message in Model)
         {
-            <tr>
-                <td>
-                    <h4>@message.FullName @message.TimeCreated </h4>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>@message.ImageLink</p>
-                </td>
-            </tr>
-            <tr>
-                <td>@message.MessageBody</td>
-            </tr>
-        }
-    </table>
+            <div class="container">
+                <div>
+                    <h3>@message.Title</h3>
+                    <br />
+                </div>
+
+                <div class="col-lg-3">
+                    <img class="img-responsive" src="~/profilepictures/af013b64-4df1-4548-8811-6da31208830a.jpg" />
+
+                </div>
+
+                <div class="col-lg-7">
+                    @Html.Raw(message.MessageBody)
+                </div>
+
+                @{
+                    string profilePicture = "~/profilepictures/" + @message.Sender + ".jpg";
+                }
+                <div style="text-align: right" class="col-lg-2 timeStamp">
+                    <img class="img-responsive" src="@profilePicture" />
+
+                    <h3></h3>
+                    <h3>
+                        <span class="label label-info">
+                            @message.FullName
+                        </span>
+                    </h3>
+                    <h5>
+                        @message.TimeCreated <span class="glyphicon glyphicon-time"></span>
+                    </h5>
+                </div>
+            </div>
+                    }
+    </div>
 </div>
