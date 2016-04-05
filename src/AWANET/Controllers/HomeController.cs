@@ -28,20 +28,27 @@ namespace AWANET.ViewModels
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var listMessages = context.Messages.Where(o=>o.OnFirstPage == true).Select(o => new MessageVM
+            var listMessages = context.Messages.Where(o => o.OnFirstPage == true).Select(o => new MessageVM
             {
                 Sender = o.Sender,
                 Title = o.Title,
                 MessageBody = o.MessageBody,
                 TimeCreated = o.TimeCreated,
-                ImageLink = o.ImageLink != String.Empty ? o.ImageLink : String.Empty
-            }).OrderByDescending(o=>o.TimeCreated).ToList();
+                ImageLink = o.ImageLink != String.Empty ? o.ImageLink : String.Empty,
+            }).OrderByDescending(o => o.TimeCreated).ToList();
 
             foreach (var message in listMessages)
             {
                 var temp = context.UserDetails.Where(u => u.Id == message.Sender).SingleOrDefault();
                 if (temp != null)
+                {
+                    message.UserRole = context.UserCategory
+                        .Where(o => o.Id == temp.SemesterId)
+                        .Select(x => x.CategoryName)
+                        .SingleOrDefault();
+
                     message.FullName = temp.FirstName + " " + temp.LastName;
+                }
             }
             return View(listMessages);
         }
@@ -86,7 +93,7 @@ namespace AWANET.ViewModels
 
             context.Messages.Add(newMessage);
             var result = await context.SaveChangesAsync();
-            if(result > 0)
+            if (result > 0)
             {
                 ViewData["MessageData"] = "Meddelande sparat.";
             }

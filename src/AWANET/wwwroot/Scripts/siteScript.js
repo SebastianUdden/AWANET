@@ -91,6 +91,7 @@ function submitPicture() {
         }
     });
 }
+
 function ToggleAdmin(eMail, adminAction) {
     $("#loader").show();
     $.get("/Admin/ToggleAdmin", { 'eMail': eMail, 'adminAction': adminAction }, function (data) {

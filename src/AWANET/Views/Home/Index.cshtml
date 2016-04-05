@@ -14,7 +14,6 @@
 
                 <div class="col-lg-3">
                     <img class="img-responsive" src="~/profilepictures/af013b64-4df1-4548-8811-6da31208830a.jpg" />
-
                 </div>
 
                 <div class="col-lg-7">
@@ -26,13 +25,40 @@
                 }
                 <div style="text-align: right" class="col-lg-2 timeStamp">
                     <img class="img-responsive" src="@profilePicture" />
+                    <h3>@message.UserRole</h3>
 
-                    <h3></h3>
-                    <h3>
-                        <span class="label label-info">
-                            @message.FullName
-                        </span>
-                    </h3>
+                    @if (message.UserRole == "Academic Work")
+                    {
+                        <h3>
+                            <span class="label logoColorBackground">
+                                @message.FullName
+                            </span>
+                        </h3>
+                    }
+                    else if (message.UserRole == "Academy Personal")
+                    {
+                        <h3>
+                            <span class="label label-warning">
+                                @message.FullName
+                            </span>
+                        </h3>
+                    }
+                    else if (message.UserRole == "Academy Lärare")
+                    {
+                        <h3>
+                            <span class="label label-danger">
+                                @message.FullName
+                            </span>
+                        </h3>
+                    }
+                    else
+                    {
+                        <h3>
+                            <span class="label label-info">
+                                @message.FullName
+                            </span>
+                        </h3>
+                    }
                     <h5>
                         @message.TimeCreated <span class="glyphicon glyphicon-time"></span>
                     </h5>
