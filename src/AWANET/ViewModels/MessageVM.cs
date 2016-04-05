@@ -25,7 +25,7 @@ namespace AWANET.ViewModels
         [Required(ErrorMessage ="Fyll i en titel")]
         [StringLength(50, MinimumLength = 4, ErrorMessage = "Titeln måste vara 4 till 50 tecken lång.")]
         public string Title { get; set; }
-
         public IFormFile MessagePicture { get; set; }
+        public List<string> Groups { get; set; }
     }
 }

@@ -15,80 +15,82 @@
             <div class="container">
                 <div style="margin-left:15px">
                     <h3>
-                        @message.Title @if (User.IsInRole("Admin"))
-                        {
-                            <a href="/Admin/RemoveMessage/@message.Id" class="btn btn-xs btn-danger">Ta bort meddelande</a>
-                        }
+                        @message.Title
                     </h3>
-                </div>
-
-                @{
-                    string messagePicture;
-                    if (!String.IsNullOrEmpty(message.ImageLink))
+                
+              
+                    @if (User.IsInRole("Admin"))
                     {
-                        messagePicture = "~/messagepictures/" + message.ImageLink;
+                        <a href="/Admin/RemoveMessage/@message.Id"><span class="glyphicon glyphicon-trash"></span></a>
                     }
-                    else
-                    {
-                        messagePicture = "~/messagepictures/defaultpicture.jpg";
+                </div>
+             
+                    @{
+                        string messagePicture;
+                        if (!String.IsNullOrEmpty(message.ImageLink))
+                        {
+                            messagePicture = "~/messagepictures/" + message.ImageLink;
+                        }
+                        else
+                        {
+                            messagePicture = "~/messagepictures/defaultpicture.jpg";
+                        }
                     }
-                }
-                <div class="col-lg-3">
-                    <img class="img-responsive img-rounded" src="@messagePicture" />
-                </div>
+                    <div class="col-lg-3">
+                        <img class="img-responsive img-rounded" src="@messagePicture" />
+                    </div>
 
-                <div class="col-lg-7">
-                    @Html.Raw(message.MessageBody)
-                </div>
+                    <div class="col-lg-7">
+                        @Html.Raw(message.MessageBody)
+                    </div>
 
-                @{
-                    string profilePicture = "~/profilepictures/" + message.Sender + ".jpg";
-                }
-                <div style="text-align: center" class="col-lg-2 timeStamp">
-                    <img class="img-responsive img-rounded" src="@profilePicture" />
-                    <h4>@message.UserRole</h4>
+                    @{
+                        string profilePicture = "~/profilepictures/" + message.Sender + ".jpg";
+                    }
+                    <div style="text-align: center" class="col-lg-2 timeStamp">
+                        <img class="img-responsive img-rounded" src="@profilePicture" />
+                        <h4>@message.UserRole</h4>
 
-                    @if (message.UserRole == "Academic Work")
+                        @if (message.UserRole == "Academic Work")
                 {
-                        <h3>
-                            <span class="label logoColorBackground">
-                                @message.FullName
-                            </span>
-                        </h3>
-                    }
-                    else if (message.UserRole == "Academy Personal")
-                    {
-                        <h3>
-                            <span class="label label-warning">
-                                @message.FullName
-                            </span>
-                        </h3>
-                    }
-                    else if (message.UserRole == "Academy Lärare")
-                    {
-                        <h3>
-                            <span class="label label-danger">
-                                @message.FullName
-                            </span>
-                        </h3>
-                    }
-                    else
-                    {
-                        <h3>
-                            <span class="label label-info">
-                                @message.FullName
-                            </span>
-                        </h3>
-                    }
-                    <h5>
-                        @message.TimeCreated <span class="glyphicon glyphicon-time"></span>
-                    </h5>
-                    <br />
+                            <h3>
+                                <span class="label logoColorBackground">
+                                    @message.FullName
+                                </span>
+                            </h3>
+                        }
+                        else if (message.UserRole == "Academy Personal")
+                        {
+                            <h3>
+                                <span class="label label-warning">
+                                    @message.FullName
+                                </span>
+                            </h3>
+                        }
+                        else if (message.UserRole == "Academy Lärare")
+                        {
+                            <h3>
+                                <span class="label label-danger">
+                                    @message.FullName
+                                </span>
+                            </h3>
+                        }
+                        else
+                        {
+                            <h3>
+                                <span class="label label-info">
+                                    @message.FullName
+                                </span>
+                            </h3>
+                        }
+                        <h5>
+                            @message.TimeCreated <span class="glyphicon glyphicon-time"></span>
+                        </h5>
+                        <br />
 
+                    </div>
                 </div>
-
-            </div>
             <br />
-                    }
+                        }
     </div>
 </div>
