@@ -33,6 +33,14 @@ namespace AWANET.ViewModels
         // GET: /<controller>/
         public IActionResult Index()
         {
+            var id = context.Users.Where(x => x.Email == User.Identity.Name).Select(x => x.Id).SingleOrDefault();
+
+            var listOfGroups = context.UserGroups.Where(x => x.UserId == id).ToList();
+            var listOfGroupNames = new List<string>();
+            foreach (var group in listOfGroups)
+            {
+                listOfGroupNames.Add(context.Groups.Where(x => x.Id == group.GroupId).Select(x => x.GroupName).SingleOrDefault());
+            }
             var listMessages = context.Messages.Where(o => o.OnFirstPage == true).Select(o => new MessageVM
             {
                 Id = o.Id,
@@ -56,6 +64,10 @@ namespace AWANET.ViewModels
                     message.FullName = temp.FirstName + " " + temp.LastName;
                 }
             }
+
+            
+
+
             return View(listMessages);
         }
         [AllowAnonymous]

@@ -12,6 +12,8 @@ namespace AWANET.Models
         public DbSet<UserDetail> UserDetails { get; set; }
         public DbSet<UserCategory> UserCategory { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<UserGroup> UserGroups { get; set; }
+        public DbSet<Group> Groups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -19,6 +21,9 @@ namespace AWANET.Models
             builder.Entity<UserDetail>().ToTable("UserInformation");
             builder.Entity<UserCategory>().ToTable("UserCategory");
             builder.Entity<Message>().ToTable("Messages");
+            builder.Entity<UserGroup>().ToTable("UserGroups");
+            builder.Entity<Group>().ToTable("Groups");
+
         }
     }
 }
