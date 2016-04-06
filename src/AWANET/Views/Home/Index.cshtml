@@ -5,11 +5,13 @@
         @foreach (var group in Model.GroupVMList)
         {
 
-            <li><a href="/home/index/@group.Id">@group.GroupName</a></li>
+            <li ><a class="logoColorBackground" href="/home/index/@group.Id">@group.GroupName</a></li>
         }
-        <li>
-            <a href="" onclick="showMessageModal()">Skriv meddelande <span class="glyphicon glyphicon-pencil"></span></a>
+        <li><a style="background-color:gray" onclick="showGroupModal()">+</a></li>
+        <li >
+            <a class="logoColorFont" onclick="showMessageModal()">Skriv meddelande <span class="glyphicon glyphicon-pencil"></span></a>
         </li>
+        
     </ul>
     
     <br />

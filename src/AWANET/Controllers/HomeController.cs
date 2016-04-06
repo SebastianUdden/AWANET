@@ -193,10 +193,25 @@ namespace AWANET.ViewModels
             return false;
         }
 
-        public IActionResult GetMessagesByGroupId(int id)
+        public IActionResult JoinGroup()
         {
+            var groupHandler = new GroupHandler();
+            var groupVMList = groupHandler.GetAllGroupVMs(context);
+            return PartialView("_GroupPartial", groupVMList);
+        }
 
-            return Content(id.ToString());
+        [HttpPost]
+        public async Task<IActionResult> JoinGroup(int id)
+        {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            var userId = await userManager.GetUserIdAsync(user);
+            context.UserGroups.Add(new UserGroup
+            {
+                UserId = userId,
+                GroupId = id
+            });
+            context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

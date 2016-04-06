@@ -14,16 +14,25 @@ namespace AWANET.Models
             var listOfGroupNames = new List<GroupVM>();
             foreach (var group in listOfGroups)
             {
-                    
-                    var tmp = (context.Groups.Where(x => x.Id == group).SingleOrDefault());
-                listOfGroupNames.Add(new GroupVM { Id = tmp.Id, GroupName = tmp.GroupName });
+                var tmp = (context.Groups.Where(x => x.Id == group).SingleOrDefault());
+                if (tmp != null)
+                    listOfGroupNames.Add(new GroupVM { Id = tmp.Id, GroupName = tmp.GroupName });
             }
             return listOfGroupNames;
         }
         public List<string> GetAllGroups(AWAnetContext context)
         {
-            return context.Groups.Where(o=>o.IsOpen==true).Select(o => o.GroupName).ToList();
+            return context.Groups.Where(o => o.IsOpen == true).Select(o => o.GroupName).ToList();
 
+        }
+
+        public List<GroupVM> GetAllGroupVMs(AWAnetContext context)
+        {
+            return context.Groups.Where(o => o.IsOpen == true).Select(o => new GroupVM
+            {
+                Id = o.Id,
+                GroupName = o.GroupName
+            }).ToList();
         }
     }
 }

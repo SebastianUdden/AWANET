@@ -143,3 +143,53 @@ function showMessageModal() {
         $("#loader").hide();
     });
 }
+
+function showGroupModal() {
+    $("#loader").show();
+    $.get("/Home/JoinGroup", null, function (data) {
+        $("#joingroupdiv").html(data);
+        $.validator.unobtrusive.parse($("#joinGroupModal"));
+        $("#joinGroupModal").modal('show');
+        $("#loader").hide();
+    });
+}
+
+function ConfirmGroupJoin() {
+    var list = $('#Groups').val();
+    var inputValue = $('#groupInput').val();
+    var isNew = true;
+
+    var groupId = 0;
+
+    $('#Groups option').each(function () {
+        if ($(this).val() == inputValue) {
+            groupId = $(this).attr('id');
+            isNew = false;
+        }
+    });
+
+    //.attr('id') 
+
+    if (isNew) {
+        $("#errorMessageGroup").html('Du kan bara välja grupper ur listan.');
+    }
+    else {
+        JoinGroup(groupId);
+    }
+}
+function JoinGroup(gid) {
+    $("#loader").show();
+
+    $.post("/Home/JoinGroup", { 'id': gid }, function (data) {
+        location.reload();
+        $("#loader").hide();
+    });
+
+}
+
+
+//Om groupInput == GroupVM.GroupName
+//Ta ut GroupVM.Id
+//var groupId = GroupVM.Id;
+
+//skicka med groupId => ConfirmGroupJoin(groupId);
