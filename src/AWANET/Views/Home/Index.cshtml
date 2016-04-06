@@ -7,10 +7,11 @@
 
             <li><a href="/home/index/@group.Id">@group.GroupName</a></li>
         }
+        <li>
+            <a href="" onclick="showMessageModal()">Skriv meddelande <span class="glyphicon glyphicon-pencil"></span></a>
+        </li>
     </ul>
-    <div style="float:right">
-        <button onclick="showMessageModal()" class="btn logoColorBackground">Skriv meddelande</button>
-    </div>
+    
     <br />
     <div class="list-group-item-heading">
         @foreach (var message in Model.MessageVMList)
