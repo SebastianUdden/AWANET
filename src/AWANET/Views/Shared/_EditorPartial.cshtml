@@ -40,7 +40,13 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="messageModal-label">Skriv inlägg</h4>
             </div>
-            <form asp-controller="Home" asp-action="PostMessage" enctype="multipart/form-data" id="newMessageForm">
+            @{ string aspAction = "postMessage";}
+            @if (Model.IsEdit)
+            {
+                aspAction = "editMessage/" + Model.Id;
+            }
+
+            <form asp-controller="Home" asp-action="@aspAction" enctype="multipart/form-data" id="newMessageForm">
                 <div class="modal-body">
                     <label asp-for="Title"></label>
                     <div style="width:40%">
@@ -65,7 +71,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <div style="float:left; width:40%" >
+                    <div style="float:left; width:40%">
                         <div class="input-group">
                             <span class="input-group-btn">
                                 <span class="btn logoColorBackground btn-file">
@@ -81,7 +87,7 @@
                     </div>
                     <div style="float:right">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Avbryt</button>
-                        <input value="Post" class="btn logoColorBackground" onclick="ConfirmMessagePost()"/>
+                        <input value="Post" class="btn logoColorBackground" onclick="ConfirmMessagePost()" />
                     </div>
                 </div>
             </form>

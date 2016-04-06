@@ -139,6 +139,7 @@ function TerminateUser(eMail) {
         });
     }
 }
+
 function showMessageModal() {
     $("#loader").show();
     $.get("/Home/PostMessage", null, function (data) {
@@ -189,9 +190,17 @@ function JoinGroup(gid) {
         location.reload();
         $("#loader").hide();
     });
-
 }
 
+function editMessageModal(id) {
+    $("#loader").show();
+    $.get("/Home/EditMessage", { "id": id }, function (data) {
+        $("#editor").html(data);
+        $.validator.unobtrusive.parse($("#messageModal"));
+        $("#messageModal").modal('show');
+        $("#loader").hide();
+    });
+}
 
 //Om groupInput == GroupVM.GroupName
 //Ta ut GroupVM.Id

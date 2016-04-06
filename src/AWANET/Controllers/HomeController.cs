@@ -226,5 +226,82 @@ namespace AWANET.ViewModels
             //Just nu kommer man till index, vi vill komma till den fliken vi var i.
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> EditMessage(MessageVM message, int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Content("false");
+            }
+
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            var userId = await userManager.GetUserIdAsync(user);
+
+            if (context.Groups.Where(o => o.GroupName == message.Receiver).Count() < 1)
+            {
+                var newGroup = new Group();
+                newGroup.GroupName = message.Receiver;
+                newGroup.CreatorId = context.Users.Where(o => o.UserName == User.Identity.Name).Select(o => o.Id).SingleOrDefault();
+                context.Groups.Add(newGroup);
+                context.SaveChanges();
+                context.UserGroups.Add(new UserGroup
+                {
+                    GroupId = newGroup.Id,
+                    UserId = newGroup.CreatorId
+                });
+            }
+
+            var oldMessage = context.Messages.Where(o => o.Id == id).SingleOrDefault();
+
+            oldMessage.Title = message.Title;
+            oldMessage.MessageBody = message.MessageBody;
+            oldMessage.OnFirstPage = message.OnFirstPage;
+            oldMessage.Receiver = message.Receiver;
+
+            context.Messages.Update(oldMessage);
+            var result = await context.SaveChangesAsync();
+            bool isPictureSaved = await UploadMessagePicture(message.MessagePicture, oldMessage.Id);
+
+            if (result > 0)
+            {
+                ViewData["MessageData"] = "Meddelande sparat.";
+                if (isPictureSaved)
+                {
+                    ViewData["MessageData"] = "Meddelande och bild sparad.";
+                }
+            }
+            else
+            {
+                ViewData["MessageData"] = "Meddelande ej sparat!!";
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult EditMessage(int id)
+        {
+            var message = context.Messages.Where(o => o.Id == id).SingleOrDefault();
+            MessageVM messageContains = new MessageVM
+            {
+                Title = message.Title,
+                MessageBody = message.MessageBody,
+                OnFirstPage = message.OnFirstPage,
+                IsEdit = true,
+                Receiver = message.Receiver,
+                Groups = context.Groups.Select(o => o.GroupName).ToList(),
+                Id = id
+            };
+
+            var user = context.Users.Where(o => o.UserName == User.Identity.Name).SingleOrDefault();
+
+            if (message.Sender == user.Id)
+            {
+                return PartialView("_EditorPartial", messageContains);
+            }
+
+            //Just nu kommer man till index, vi vill komma till den fliken vi var i.
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

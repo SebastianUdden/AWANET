@@ -9,6 +9,8 @@ namespace AWANET.ViewModels
 {
     public class MessageVM
     {
+        public bool IsEdit { get; set; }
+
         public int Id { get; set; }
         public string UserRole { get; set; }
         public string Sender { get; set; }
