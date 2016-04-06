@@ -1,4 +1,9 @@
-﻿function editUserInfo(e) {
+﻿$.ajaxSetup({
+    // Disable caching of AJAX responses
+    cache: false
+});
+
+function editUserInfo(e) {
     //e.preventDefault();
     $("#loader").show();
     $.post("/account/EditDetails", {

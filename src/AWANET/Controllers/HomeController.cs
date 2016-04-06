@@ -195,8 +195,9 @@ namespace AWANET.ViewModels
 
         public IActionResult JoinGroup()
         {
+            var user = context.Users.Where(x => x.UserName == User.Identity.Name).SingleOrDefault();
             var groupHandler = new GroupHandler();
-            var groupVMList = groupHandler.GetAllGroupVMs(context);
+            var groupVMList = groupHandler.GetAllGroupVMs(context, user.Id);
             return PartialView("_GroupPartial", groupVMList);
         }
 

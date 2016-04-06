@@ -1,6 +1,7 @@
 ﻿using AWANET.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,13 +27,26 @@ namespace AWANET.Models
 
         }
 
-        public List<GroupVM> GetAllGroupVMs(AWAnetContext context)
+        public List<GroupVM> GetAllGroupVMs(AWAnetContext context, string userID)
         {
-            return context.Groups.Where(o => o.IsOpen == true).Select(o => new GroupVM
+            var listOfGroupIDConnectedToUser = context.UserGroups
+                .Where(u => u.UserId == userID)
+                .Select(o => o.GroupId)
+                .ToList();
+            foreach (var item in listOfGroupIDConnectedToUser)
             {
-                Id = o.Id,
-                GroupName = o.GroupName
-            }).ToList();
+                 Debug.WriteLine(item);
+            }
+            var ListofGroupVM = context.Groups
+                .Where(o => o.IsOpen == true && !(listOfGroupIDConnectedToUser.Contains(o.Id)))
+                .Select(o => new GroupVM
+                {
+                    Id = o.Id,
+                    GroupName = o.GroupName
+                }).ToList();
+            
+            
+            return ListofGroupVM;
         }
     }
 }

@@ -44,15 +44,18 @@
             <form asp-controller="Home" asp-action="JoinGroup" enctype="multipart/form-data" id="joinGroupForm">
                 <div class="modal-body">
                     <div class="dropdown has-feedback">
-                       <datalist id="Groups">
-                         @foreach (var GroupVM in Model)
-                         {
-                            <option class="GroupsClass" id="@GroupVM.Id" value="@GroupVM.GroupName" />
-                         }
-                       </datalist>
-
-                        <input type="text" list="Groups" id="groupInput" />
-                        <div id="errorMessageGroup"></div>
+                        <datalist class="logoColorBackground" id="Groups">
+                            @foreach (var GroupVM in Model)
+                            {
+                                <option class="GroupsClass" id="@GroupVM.Id" value="@GroupVM.GroupName" />
+                            }
+                        </datalist>
+                       
+                        <div>
+                            
+                            <input style="width:40%" class="form-control" type="text" placeholder="Välj grupp" list="Groups" id="groupInput" />@*<i class="glyphicon glyphicon-triangle-bottom form-control-feedback"></i>*@
+                            <div id="errorMessageGroup"></div>
+                        </div>
                     </div>
                 </div>
 
