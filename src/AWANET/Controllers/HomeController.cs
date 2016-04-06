@@ -33,9 +33,9 @@ namespace AWANET.ViewModels
         // GET: /<controller>/
         public IActionResult Index(int id = 1)
         {
-            var userId = context.Users.Where(x => x.UserName == User.Identity.Name).SingleOrDefault();
+            var user = context.Users.Where(x => x.UserName == User.Identity.Name).SingleOrDefault();
             GroupHandler groupHandler = new GroupHandler();
-            var listOfGroupVM = groupHandler.GetUserGroups(context, userId.Id);
+            var listOfGroupVM = groupHandler.GetUserGroups(context, user.Id);
             List<string> listOfGroupNames = new List<string>();
 
             foreach (var group in listOfGroupVM)
@@ -56,6 +56,7 @@ namespace AWANET.ViewModels
                     MessageBody = o.MessageBody,
                     TimeCreated = o.TimeCreated,
                     ImageLink = o.ImageLink != String.Empty ? o.ImageLink : String.Empty,
+                    IsCurrentUser = o.Sender == user.Id ? true : false
                 }).OrderByDescending(o => o.TimeCreated).ToList();
             }
             else
@@ -70,13 +71,10 @@ namespace AWANET.ViewModels
                     MessageBody = o.MessageBody,
                     TimeCreated = o.TimeCreated,
                     ImageLink = o.ImageLink != String.Empty ? o.ImageLink : String.Empty,
+                    IsCurrentUser = o.Sender == user.Id ? true : false
                 }).OrderByDescending(o => o.TimeCreated).ToList();
             }
             // Sortera på id
-
-
-
-
             foreach (var message in listMessages)
             {
                 var temp = context.UserDetails.Where(u => u.Id == message.Sender).SingleOrDefault();
@@ -94,7 +92,6 @@ namespace AWANET.ViewModels
             HomeVM homeVM = new HomeVM();
             homeVM.GroupVMList = listOfGroupVM;
             homeVM.MessageVMList = listMessages;
-
 
             return View(homeVM);
         }
@@ -213,6 +210,21 @@ namespace AWANET.ViewModels
             });
             context.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public IActionResult RemoveMessage(int id)
+        {
+            var message = context.Messages.Where(o => o.Id == id).SingleOrDefault();
+            var user = context.Users.Where(o => o.UserName == User.Identity.Name).SingleOrDefault();
+
+            if (User.IsInRole("Admin") || message.Sender == user.Id)
+            {
+                context.Messages.Remove(message);
+                context.SaveChanges();
+            }
+
+            //Just nu kommer man till index, vi vill komma till den fliken vi var i.
+            return RedirectToAction(nameof(Index));
         }
     }
 }

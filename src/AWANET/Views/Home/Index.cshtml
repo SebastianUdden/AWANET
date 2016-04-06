@@ -31,10 +31,10 @@
                             @message.Title
                         </h3>
 
-
-                        @if (User.IsInRole("Admin"))
+                        @if (User.IsInRole("Admin") || message.IsCurrentUser)
                         {
-                            <a href="/Admin/RemoveMessage/@message.Id"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a href="/Home/RemoveMessage/@message.Id"><span class="glyphicon glyphicon-trash"></span></a>
+                            
                         }
                     </div>
 

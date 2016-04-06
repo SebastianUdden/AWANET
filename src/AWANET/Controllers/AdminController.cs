@@ -84,7 +84,6 @@ namespace AWANET.ViewModels
             MailSender.SendTo(model.EMail, password);
             return RedirectToAction(nameof(AdminController.CreateUser));
         }
-
         public async Task<IActionResult> AdminTemp()
         {
             var rmgr = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context), null, null, null, null, null);

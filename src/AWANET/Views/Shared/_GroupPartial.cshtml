@@ -2,36 +2,6 @@
 
 <script src="~/scripts/jquery.validate.min.js"></script>
 <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
-<script>
-    //tinymce.init({
-    //    selector: '#mytextarea',
-    //    height: "400",
-    //    fontsize_format: '12pt',
-    //    toolbar: 'undo redo bold italic bullist numlist outdent indent code',
-    //    menubar: ''
-    //});
-
-    //$(document).on('change', '.btn-file :file', function () {
-    //    var input = $(this),
-    //        numFiles = input.get(0).files ? input.get(0).files.length : 1,
-    //        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-    //    input.trigger('fileselect', [numFiles, label]);
-    //});
-
-    //$(document).ready(function () {
-    //    $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
-
-    //        var input = $(this).parents('.input-group').find(':text'),
-    //            log = numFiles > 1 ? numFiles + ' files selected' : label;
-
-    //        if (input.length) {
-    //            input.val(log);
-    //        } else {
-    //            if (log) alert(log);
-    //        }
-    //    });
-    //});
-</script>
 
 <div class="modal fade" id="joinGroupModal" tabindex="-1" role="dialog" aria-labelledby="joinGroupModal-label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -40,7 +10,6 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="joinGroupModal-label">Gå med i grupp</h4>
             </div>
-
             <form asp-controller="Home" asp-action="JoinGroup" enctype="multipart/form-data" id="joinGroupForm">
                 <div class="modal-body">
                     <div class="dropdown has-feedback">
@@ -50,23 +19,12 @@
                                 <option class="GroupsClass" id="@GroupVM.Id" value="@GroupVM.GroupName" />
                             }
                         </datalist>
-                       
                         <div>
-                            
                             <input style="width:40%" class="form-control" type="text" placeholder="Välj grupp" list="Groups" id="groupInput" />@*<i class="glyphicon glyphicon-triangle-bottom form-control-feedback"></i>*@
                             <div id="errorMessageGroup"></div>
                         </div>
                     </div>
                 </div>
-
-                @*
-                    Om groupInput == GroupVM.GroupName
-                        Ta ut GroupVM.Id
-                    var groupId = GroupVM.Id;
-
-                    skicka med groupId => ConfirmGroupJoin(groupId);
-                *@
-
                 <div class="modal-footer">
                     <div style="float:left; width:40%">
                         @if (ViewData["messageStatus"] != null)

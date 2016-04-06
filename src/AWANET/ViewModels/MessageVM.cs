@@ -14,6 +14,7 @@ namespace AWANET.ViewModels
         public string Sender { get; set; }
         public string FullName { get; set; }
         public DateTime TimeCreated { get; set; }
+        public bool IsCurrentUser { get; set; }
 
         [Required(ErrorMessage ="Meddelandet får inte vara tomt")]
         public string MessageBody { get; set; }
