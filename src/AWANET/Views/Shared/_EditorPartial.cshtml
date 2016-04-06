@@ -40,13 +40,13 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="messageModal-label">Skriv inlägg</h4>
             </div>
-            @{ string aspAction = "postMessage";}
+            @{ string aspAction = "/home/postMessage";}
             @if (Model.IsEdit)
             {
-                aspAction = "editMessage/" + Model.Id;
+                aspAction = "/home/EditMessage/" + Model.Id;
             }
 
-            <form asp-controller="Home" asp-action="@aspAction" enctype="multipart/form-data" id="newMessageForm">
+            <form action="@aspAction" method="post" enctype="multipart/form-data" id="newMessageForm">
                 <div class="modal-body">
                     <label asp-for="Title"></label>
                     <div style="width:40%">

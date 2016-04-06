@@ -72,6 +72,7 @@ function ConfirmUserCreation() {
         $("#createUserForm").submit();
     }
 }
+
 function ConfirmMessagePost() {
     var list = document.getElementById('listReceiver');
     var inputValue = $("#receiver").val();
@@ -198,6 +199,15 @@ function editMessageModal(id) {
         $("#editor").html(data);
         $.validator.unobtrusive.parse($("#messageModal"));
         $("#messageModal").modal('show');
+        $("#loader").hide();
+    });
+}
+
+function RemoveMessage(messageId,groupId) {
+    $("#loader").show();
+
+    $.post("/Home/RemoveMessage", { 'id': messageId, 'groupId':groupId }, function (data) {
+        window.location.href = '/home/index/' + groupId;
         $("#loader").hide();
     });
 }

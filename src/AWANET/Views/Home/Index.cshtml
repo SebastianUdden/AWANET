@@ -1,37 +1,37 @@
 ﻿@model HomeVM
-
-<div class="container">
-    <div class="col-lg-9">
-        <ul class="nav nav-tabs">
-            @foreach (var group in Model.GroupVMList)
+<div id="reloadPage">
+    <div class="container">
+        <div class="col-lg-9">
+            <ul class="nav nav-tabs">
+                @foreach (var group in Model.GroupVMList)
             {
 
-                <li><a class="logoColorBackground" href="/home/index/@group.Id">@group.GroupName</a></li>
-            }
-            <li><a class="logoColorBackground" onclick="showGroupModal()">+</a></li>
-        </ul>
-    </div>
-    <div class="col-lg-3">
-        <ul class="nav nav-tabs navbar-right">
-            <li>
-                <a class="logoColorBackground" onclick="showMessageModal()">Skriv meddelande <span class="glyphicon glyphicon-pencil"></span></a>
-            </li>
-
-        </ul>
+                    <li><a class="logoColorBackground" href="/home/index/@group.Id">@group.GroupName</a></li>
+                }
+                <li><a class="logoColorBackground" onclick="showGroupModal()">+</a></li>
+            </ul>
         </div>
-        
+        <div class="col-lg-3">
+            <ul class="nav nav-tabs navbar-right">
+                <li>
+                    <a class="logoColorBackground" onclick="showMessageModal()">Skriv meddelande <span class="glyphicon glyphicon-pencil"></span></a>
+                </li>
+
+            </ul>
+        </div>
+
         <div class="list-group-item-heading">
             <br />
             @foreach (var message in Model.MessageVMList)
             {
                 <div class="container">
-                    <div style="margin-left:15px; margin-bottom:1%; margin-top:3%" >
-                        
+                    <div style="margin-left:15px; margin-bottom:1%; margin-top:3%">
+
                         <b style="font-size:x-large">@message.Title</b>
 
                         @if (User.IsInRole("Admin") || message.IsCurrentUser)
                         {
-                            <a href="/Home/RemoveMessage/@message.Id"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a onclick="RemoveMessage(@message.Id,@Model.PageId)"><span class="glyphicon glyphicon-trash"></span></a>
                             if (message.IsCurrentUser)
                             {
                                 <a href="#"><span class="glyphicon glyphicon-pencil" onclick="editMessageModal(@message.Id)"></span></a>
@@ -100,7 +100,7 @@
                         <h5>
                             @message.TimeCreated <span class="glyphicon glyphicon-time"></span>
                         </h5>
-                        
+
 
                     </div>
                 </div>
@@ -108,3 +108,4 @@
                         }
         </div>
     </div>
+</div>

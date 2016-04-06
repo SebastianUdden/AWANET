@@ -9,5 +9,6 @@ namespace AWANET.ViewModels
     {
         public List<MessageVM> MessageVMList { get; set; }
         public List<GroupVM> GroupVMList { get; set; }
+        public int PageId { get; set; }
     }
 }

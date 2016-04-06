@@ -90,6 +90,7 @@ namespace AWANET.ViewModels
             }
 
             HomeVM homeVM = new HomeVM();
+            homeVM.PageId = id;
             homeVM.GroupVMList = listOfGroupVM;
             homeVM.MessageVMList = listMessages;
 
@@ -212,7 +213,7 @@ namespace AWANET.ViewModels
             return RedirectToAction("Index");
         }
 
-        public IActionResult RemoveMessage(int id)
+        public IActionResult RemoveMessage(int id,int groupId)
         {
             var message = context.Messages.Where(o => o.Id == id).SingleOrDefault();
             var user = context.Users.Where(o => o.UserName == User.Identity.Name).SingleOrDefault();
@@ -224,7 +225,7 @@ namespace AWANET.ViewModels
             }
 
             //Just nu kommer man till index, vi vill komma till den fliken vi var i.
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("index",new { id=groupId});
         }
 
         [HttpPost]
