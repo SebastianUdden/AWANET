@@ -135,6 +135,7 @@ namespace AWANET.ViewModels
                 var newGroup = new Group();
                 newGroup.GroupName = message.Receiver;
                 newGroup.CreatorId = context.Users.Where(o => o.UserName == User.Identity.Name).Select(o => o.Id).SingleOrDefault();
+                newGroup.IsOpen = true;
                 context.Groups.Add(newGroup);
                 context.SaveChanges();
                 context.UserGroups.Add(new UserGroup
@@ -248,6 +249,7 @@ namespace AWANET.ViewModels
                 var newGroup = new Group();
                 newGroup.GroupName = message.Receiver;
                 newGroup.CreatorId = context.Users.Where(o => o.UserName == User.Identity.Name).Select(o => o.Id).SingleOrDefault();
+                newGroup.IsOpen = true;
                 context.Groups.Add(newGroup);
                 context.SaveChanges();
                 context.UserGroups.Add(new UserGroup
