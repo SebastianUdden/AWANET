@@ -311,7 +311,19 @@ namespace AWANET.ViewModels
 
         public IActionResult Chat()
         {
-            return View();
+            var user = context.Users.Where(o => o.UserName == User.Identity.Name).SingleOrDefault();
+            var model = context.UserDetails.Where(o => o.Id == user.Id).SingleOrDefault();
+            ChatUserVM chatUser = new ChatUserVM();
+
+            chatUser.TimeStamp = DateTime.Now.ToString("HH:mm");
+            chatUser.Fullname = model.FirstName + " " + model.LastName;
+
+            if (chatUser.Fullname.Length < 2)
+            {
+                chatUser.Fullname = user.UserName;
+            }
+
+            return View(chatUser);
         }
 
         public async Task<IActionResult> PostComment(CommentVM comment, int id)
