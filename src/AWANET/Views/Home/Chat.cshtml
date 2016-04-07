@@ -1,0 +1,48 @@
+﻿<div class="text-center">
+    <h2 class="logoColorFont">awaChat</h2>
+    <br />
+    <div><input id=input class="form-control" placeholder="Chatruta" /></div>
+    <br />
+    <h4 class="logoColorFont">Meddelandeflöde</h4>
+    <div id=box class="fixChat"></div>
+</div>
+
+<script src=http://cdn.pubnub.com/pubnub.min.js></script>
+<script>
+    (function () {
+        var box = PUBNUB.$('box'), input = PUBNUB.$('input'), channel = 'chat';
+        PUBNUB.subscribe({
+            channel: channel,
+            callback: function (text) { box.innerHTML = ('' + text).replace(/[<>]/g, '') + '<br>' + box.innerHTML }
+        });
+        PUBNUB.bind('keyup', input, function (e) {
+            (e.keyCode || e.charCode) === 13 && PUBNUB.publish({
+                channel: channel, message: input.value, x: (input.value = '')
+            })
+        })
+    })()</script>
+
+@*<script>
+        (function () {
+            var PUBNUB_AWANET = PUBNUB.init({
+                publish_key: 'pub-c-bcb1a68e-148d-4438-a83b-f6c5cf2613b2',
+                subscribe_key: 'sub-c-405cabee-fc8f-11e5-ba5f-0619f8945a4f'
+            });
+
+            PUBNUB_AWANET.subscribe({
+                channel: 'demo_tutorial',
+                callback: function (text) { box.innerHTML = ('' + text).replace(/[<>]/g, '') + '<br>' + box.innerHTML }
+            });
+
+            PUBNUB_AWANET.publish({
+                channel: 'demo_tutorial',
+                message: { "color": "blue" }
+            });
+
+            PUBNUB.bind('keyup', input, function (e) {
+                (e.keyCode || e.charCode) === 13 && PUBNUB.publish({
+                    channel: channel, message: input.value, x: (input.value = '')
+                })
+            })
+        })()
+    </script>*@
