@@ -134,11 +134,12 @@ namespace AWANET.ViewModels
             ModelState.AddModelError("errormessage", result.Errors.First().Description);
             return false;
         }
-
+        [AllowAnonymous]
         public IActionResult ResetPassword()
         {
             return View();
         }
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> ResetPassword(ResetPasswordVM model)
         {
