@@ -216,7 +216,17 @@ function RemoveMessage(messageId, groupId) {
         $("#loader").hide();
     });
 }
-
+function postComment(messageId) {
+    $("#loader").show();
+    var commentBody = "#textarea" + messageId;
+    var comment = $(commentBody).val();
+    var loadArea = '#loadComment' + messageId;
+    $.post("/Home/PostComment", { 'id': messageId, 'commentBody': comment }, function (data) {
+        alert(data);
+        $(loadArea).html(data);
+        $("#loader").hide();
+    });
+}
 //Om groupInput == GroupVM.GroupName
 //Ta ut GroupVM.Id
 //var groupId = GroupVM.Id;

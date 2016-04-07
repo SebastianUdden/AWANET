@@ -56,7 +56,8 @@ namespace AWANET.ViewModels
                     MessageBody = o.MessageBody,
                     TimeCreated = o.TimeCreated,
                     ImageLink = o.ImageLink != String.Empty ? o.ImageLink : String.Empty,
-                    IsCurrentUser = o.Sender == user.Id ? true : false
+                    IsCurrentUser = o.Sender == user.Id ? true : false,
+                    Comments = GetComments(o.Id)
                 }).OrderByDescending(o => o.TimeCreated).ToList();
             }
             else
@@ -71,7 +72,8 @@ namespace AWANET.ViewModels
                     MessageBody = o.MessageBody,
                     TimeCreated = o.TimeCreated,
                     ImageLink = o.ImageLink != String.Empty ? o.ImageLink : String.Empty,
-                    IsCurrentUser = o.Sender == user.Id ? true : false
+                    IsCurrentUser = o.Sender == user.Id ? true : false,
+                    Comments = GetComments(o.Id)
                 }).OrderByDescending(o => o.TimeCreated).ToList();
             }
             // Sortera på id
@@ -100,6 +102,7 @@ namespace AWANET.ViewModels
 
             return View(homeVM);
         }
+
         [AllowAnonymous]
         public IActionResult Redirect()
         {
@@ -327,24 +330,22 @@ namespace AWANET.ViewModels
 
             return View(chatUser);
         }
-
-        public async Task<IActionResult> PostComment(CommentVM comment, int id)
+        
+        public async Task<IActionResult> PostComment(string commentBody, int id)
         {
 
-            if (!ModelState.IsValid)
-            {
-                return Content("false");
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Content("false");
+            //}
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             var userId = await userManager.GetUserIdAsync(user);
             
             Comment newComment = new Comment();
             newComment.SenderId = user.Id;
-            newComment.CommentBody = comment.CommentBody;
+            newComment.CommentBody = commentBody;
             newComment.PostId = id;
             newComment.TimeStamp = DateTime.Now;
-            
-
             
             context.Comments.Add(newComment);
             var result = await context.SaveChangesAsync();
@@ -358,7 +359,26 @@ namespace AWANET.ViewModels
                 ViewData["MessageData"] = "Kommentar ej sparad!";
             }
 
-            return RedirectToAction(nameof(Index));
+            return PartialView("_CommentPartial", GetComments(id));
         }
+
+        public CommentsVM GetComments(int messageId)
+        {
+            var comments = context.Comments.Where(o => o.PostId == messageId).ToList();
+            var commentsVM = new CommentsVM();
+            commentsVM.CommentList = new List<CommentVM>();
+            commentsVM.ParentMessageId = messageId;
+
+            foreach (var comment in comments)
+            {
+                var tmp = new CommentVM();
+                tmp.CommentBody = comment.CommentBody;
+                tmp.SenderName = context.UserDetails.Where(o => o.Id == comment.SenderId).Select(x => x.FirstName + " " + x.LastName).SingleOrDefault();
+                tmp.TimeStamp = comment.TimeStamp;
+                commentsVM.CommentList.Add(tmp);
+            }
+            return commentsVM;
+        }
+
     }
 }

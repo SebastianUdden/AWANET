@@ -15,7 +15,7 @@
         var box = PUBNUB.$('box'), input = PUBNUB.$('input'), channel = 'chat';
         PUBNUB.subscribe({
             channel: channel,
-            callback: function (text) { box.innerHTML = ('@Model.Fullname' + ', ' + '@Model.TimeStamp: ' + text).replace(/[<>]/g, '') + '<br>' + box.innerHTML }
+            callback: function (text) { box.innerHTML = ('@Model.TimeStamp: ' + text).replace(/[<>]/g, '') + '<br>' + box.innerHTML }
         });
         PUBNUB.bind('keyup', input, function (e) {
             (e.keyCode || e.charCode) === 13 && PUBNUB.publish({

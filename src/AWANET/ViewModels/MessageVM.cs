@@ -35,6 +35,6 @@ namespace AWANET.ViewModels
         public string Title { get; set; }
         public IFormFile MessagePicture { get; set; }
         public List<string> Groups { get; set; }
-        public List<CommentVM> Comments { get; set; }
+        public CommentsVM Comments { get; set; }
     }
 }

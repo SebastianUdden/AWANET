@@ -114,11 +114,17 @@
 
                     </div>
                 </div>
-                @Html.Partial("_CommentPartial", message.Comments)
 
-                <br />
-                <hr />
-                }
+                        string loadArea = "loadComment" + message.Id;
+
+
+                        <div id="@loadArea">
+                            @Html.Partial("_CommentPartial", message.Comments)
+                        </div>
+
+                        <br />
+                        <hr />
+                        }
         </div>
     </div>
 </div>
