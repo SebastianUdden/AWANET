@@ -19,10 +19,15 @@ namespace AWANET.ViewModels
         public bool IsCurrentUser { get; set; }
 
         [Required(ErrorMessage ="Meddelandet får inte vara tomt")]
+        [StringLength(7000, MinimumLength = 10, ErrorMessage = "Titeln måste vara 4 till 50 tecken lång.")]
+
         public string MessageBody { get; set; }
         public string ImageLink { get; set; }
         [Display(Name = "På förstasidan?")]
         public bool OnFirstPage { get; set; }
+
+        [Display(Name = "Mottagargrupp")]
+        [Required(ErrorMessage = "Du måste välja mottagargrupp")]
         public string Receiver { get; set; }
         [Display(Name = "Rubrik")]
         [Required(ErrorMessage ="Fyll i en titel")]
