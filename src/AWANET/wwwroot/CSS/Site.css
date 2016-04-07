@@ -150,6 +150,15 @@
     .ourJumbotron2 hr {
         border-color: #ebeae8;
     }
-    .label{
-        opacity:0.7 !important;
-    }
+
+.label {
+    opacity: 0.7 !important;
+}
+
+.awaActive {
+    color: #00AA3C !important;
+}
+
+.customHover > li > a:hover {
+    background-color: black;
+}
