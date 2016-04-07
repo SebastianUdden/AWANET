@@ -304,5 +304,10 @@ namespace AWANET.ViewModels
             //Just nu kommer man till index, vi vill komma till den fliken vi var i.
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult Chat()
+        {
+            return View();
+        }
     }
 }

@@ -4,9 +4,19 @@
         <div class="col-lg-9">
             <ul class="nav nav-tabs">
                 @foreach (var group in Model.GroupVMList)
-            {
-
-                    <li><a class="logoColorBackground" href="/home/index/@group.Id">@group.GroupName</a></li>
+                {
+                    @if (group.Id == Model.PageId)
+                    {
+                        <li class="awaActive active">
+                            <a href="/home/index/@group.Id">@group.GroupName</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="customHover">
+                            <a class="logoColorBackground" href="/home/index/@group.Id">@group.GroupName</a>
+                        </li>
+                    }
                 }
                 <li><a class="logoColorBackground" onclick="showGroupModal()">+</a></li>
             </ul>
@@ -105,6 +115,7 @@
                     </div>
                 </div>
                 <br />
+                <hr />
                         }
         </div>
     </div>

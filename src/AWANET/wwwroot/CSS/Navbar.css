@@ -18,6 +18,7 @@
     color: rgba(0, 170, 60, 1);
     background-color: rgba(255, 255, 255, 1);
 }
+
 #custom-bootstrap-menu.navbar-default .navbar-nav>.active>a,
 #custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:hover,
 #custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:focus {
