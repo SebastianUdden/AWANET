@@ -1,21 +1,26 @@
 ﻿@model ChatUserVM
 
 <div class="text-center">
+    @{
+        string userAndTime = Model.Fullname + ", " + Model.TimeStamp + ": ";
+    }
+    <label id="nameLabel">@userAndTime</label>
     <h2 class="logoColorFont">awaChat</h2>
     <br />
     <div><input id=input class="form-control" placeholder="Chatruta" /></div>
     <br />
     <h4 class="logoColorFont">Meddelandeflöde</h4>
-    <div id=box class="fixChat"></div>
+    <div id="box" class="fixChat"></div>
 </div>
 
 <script src=http://cdn.pubnub.com/pubnub.min.js></script>
 <script>
     (function () {
+        var name = $('#nameLabel').text();
         var box = PUBNUB.$('box'), input = PUBNUB.$('input'), channel = 'chat';
         PUBNUB.subscribe({
             channel: channel,
-            callback: function (text) { box.innerHTML = ('@Model.TimeStamp: ' + text).replace(/[<>]/g, '') + '<br>' + box.innerHTML }
+            callback: function (text) { box.innerHTML = (name + text).replace(/[<>]/g, '') + '<br>' + box.innerHTML }
         });
         PUBNUB.bind('keyup', input, function (e) {
             (e.keyCode || e.charCode) === 13 && PUBNUB.publish({

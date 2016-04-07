@@ -43,6 +43,9 @@ namespace AWANET.Controllers
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             await userManager.RemoveFromRoleAsync(user, "Default");
             await userManager.AddToRoleAsync(user, "User");
+            
+            GroupHandler grp = new GroupHandler();
+            grp.AddToStartGroup(context, user.Id);
 
             //await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
