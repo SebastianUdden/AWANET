@@ -5,16 +5,21 @@
     string targetToggle = "#" + target;
     string textArea = "textarea" + Model.ParentMessageId; 
 }
-<div class="container">
-    <div><button type="button" class="btn btn-info" data-toggle="collapse" data-target="@targetToggle">Kommentarer<span class="badge">@Model.CommentList.Count()</span></button></div>
-    <div id="@target" class="collapse col-lg-5">
+<div class="container" style="margin-left:15px;position:relative">
+    <br />
+    @*<a href="#">Comments <span class="badge">10</span></a><br>*@
+
+    <div><a data-toggle="collapse" data-target="@targetToggle">Kommentarer <span class="badge">@Model.CommentList.Count()</span></a></div>
+    <div id="@target" class="collapse col-lg-5 commentClass">
+        <br />
         @foreach (var comment in Model.CommentList)
         {
-            <p>@comment.SenderName</p>
+            <p style="color:#00aa3c">@comment.SenderName, @comment.TimeStamp</p>
             <p>@comment.CommentBody</p>
-            <p>@comment.TimeStamp</p>
+            <hr />
         }
         <textarea id="@textArea" class="form-control"></textarea>
+        <br />
         <button class="btn logoColorBackground" onclick="postComment(@Model.ParentMessageId)">Kommentera</button>
     </div>
 </div>
