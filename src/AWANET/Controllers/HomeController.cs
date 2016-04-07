@@ -86,6 +86,10 @@ namespace AWANET.ViewModels
                         .SingleOrDefault();
 
                     message.FullName = temp.FirstName + " " + temp.LastName;
+                    if (message.FullName.Length < 2)
+                    {
+                        message.FullName = "Användare";
+                    }
                 }
             }
 
