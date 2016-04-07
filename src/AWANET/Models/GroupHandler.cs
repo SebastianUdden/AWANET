@@ -48,5 +48,14 @@ namespace AWANET.Models
             
             return ListofGroupVM;
         }
+
+        public void AddToStartGroup(AWAnetContext context, string id)
+        {
+            UserGroup usergroup = new UserGroup();
+            usergroup.GroupId = 1;
+            usergroup.UserId = id;
+            context.UserGroups.Add(usergroup);
+            context.SaveChanges();
+        }
     }
 }
