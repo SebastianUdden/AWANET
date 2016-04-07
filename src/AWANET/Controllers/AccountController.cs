@@ -187,5 +187,6 @@ namespace AWANET.ViewModels
             ViewData["Status"] = "Uppladdning misslyckades!";
             return PartialView("_UploadPicturePartial");
         }
+        
     }
 }
