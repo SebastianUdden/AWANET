@@ -110,6 +110,9 @@
         font-weight: bold;
         cursor: pointer;
     }
+.linkPointer{
+    cursor: pointer;
+}
 
 #arrow {
     color: #808080;

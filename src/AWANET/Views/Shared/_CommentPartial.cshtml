@@ -9,7 +9,7 @@
     <br />
     @*<a href="#">Comments <span class="badge">10</span></a><br>*@
 
-    <div><a data-toggle="collapse" data-target="@targetToggle">Kommentarer <span class="badge">@Model.CommentList.Count()</span></a></div>
+    <div><a class="linkPointer" data-toggle="collapse" data-target="@targetToggle">Kommentarer <span class="badge">@Model.CommentList.Count()</span></a></div>
     <div id="@target" class="collapse col-lg-5 commentClass">
         <br />
         @foreach (var comment in Model.CommentList)
