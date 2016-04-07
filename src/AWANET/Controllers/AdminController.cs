@@ -75,7 +75,7 @@ namespace AWANET.ViewModels
                 UserCategory userCategory = new UserCategory();
                 userCategory.CategoryName = model.CategoryName;
                 context.UserCategory.Add(userCategory);
-                context.SaveChanges(); 
+                context.SaveChanges();
                 userDetail.SemesterId = userCategory.Id;
             }
 
@@ -145,5 +145,24 @@ namespace AWANET.ViewModels
             var model = await contactList.GetAllContacts(context, userManager);
             return PartialView("_ContactListPartial", model);
         }
+
+        //public async  Task<IActionResult> addRole()
+        //{
+        //    var rmgr = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context), null, null, null, null, null);
+        //    var users = context.Users.ToList();
+        //    await rmgr.CreateAsync(new IdentityRole("User"));
+        //    await rmgr.CreateAsync(new IdentityRole("Default"));
+
+        //    foreach (var user in users)
+        //    {
+        //        var tmp = context.UserDetails.Where(o => o.Id == user.Id).SingleOrDefault();
+        //        if (tmp.FirstName == "" || tmp.LastName == "")
+        //            await userManager.AddToRoleAsync(user, "Default");
+        //        else
+        //            await userManager.AddToRoleAsync(user, "User");
+        //    }
+        //    rmgr.Dispose();
+        //    return Content("Baaaam");
+        //}
     }
 }
