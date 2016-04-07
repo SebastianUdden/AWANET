@@ -11,7 +11,6 @@
     <br />
     <h4 class="logoColorFont">Meddelandeflöde</h4>
     <div id="box" class="fixChat"></div>
-
 </div>
 
 <script src=http://cdn.pubnub.com/pubnub.min.js></script>
@@ -23,11 +22,9 @@
             channel: channel,
             callback: function (text) { box.innerHTML = (name + text).replace(/[<>]/g, '') + '<br>' + box.innerHTML }
         });
-        PUBNUB.bind('keyup',input , function (e) {
-
+        PUBNUB.bind('keyup', input, function (e) {
             (e.keyCode || e.charCode) === 13 && PUBNUB.publish({
-
-                channel: channel, message: , x: (input.value = '')
+                channel: channel, message: input.value, x: (input.value = '')
             })
         })
     })()
