@@ -34,7 +34,7 @@ namespace AWANET.Models
                     }
                 }
 
-                return userList;
+                return userList.OrderBy(u=>u.LastName).ToList();
             
         }
 
