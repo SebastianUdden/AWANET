@@ -25,15 +25,16 @@
         return content.length;
     };
     function ValidateCharacterLength() {
+        $('#newMessageForm').valid();
         var min = 10;
         var max = 8000;
         var count = CountCharacters();
         if (count > max) {
-            alert("Max " + max + " tecken tillåten.")
+            $('#scriptError').html("Max " + max + " tecken tillåten.");
             return false;
         }
         else if (count < min) {
-            $("#scriptError").innerHTML('Inlägget måste innehålla minst' + min +'tecken.')
+            $('#scriptError').html('Inlägget måste innehålla minst ' + min + ' tecken.');
             return false
         }
         ConfirmMessagePost()
@@ -111,7 +112,7 @@
                                     Välj Bild&hellip;<input name="messagePicture" id="uploadPicture" type="file" />
                                 </span>
                             </span>
-                            <input type="text" class="form-control" readonly>
+                            <input type="text" class="form-control" readonly />
                         </div>
                         @if (ViewData["messageStatus"] != null)
                         {
@@ -120,7 +121,7 @@
                     </div>
                     <div style="float:right">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Avbryt</button>
-                        <input value="Post" class="btn logoColorBackground" onclick="ConfirmMessagePost()" />
+                        <input value="Post" class="btn logoColorBackground" onclick="ValidateCharacterLength()" />
                     </div>
                 </div>
             </form>
