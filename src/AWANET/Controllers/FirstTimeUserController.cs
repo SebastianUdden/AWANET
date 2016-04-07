@@ -8,19 +8,19 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using AWANET.Models;
 
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace AWANET.Controllers
 {
     public class FirstTimeUserController : Controller
     {
         UserManager<IdentityUser> userManager;
         AWAnetContext context;
+        SignInManager<IdentityUser> signInManager;
 
-        public FirstTimeUserController(UserManager<IdentityUser> userManager, AWAnetContext context)
+        public FirstTimeUserController(UserManager<IdentityUser> userManager, AWAnetContext context, SignInManager<IdentityUser> signInManager)
         {
             this.userManager = userManager;
             this.context = context;
+            this.signInManager = signInManager;
         }
         // GET: /<controller>/
         public IActionResult Index()
@@ -41,11 +41,11 @@ namespace AWANET.Controllers
             //return PartialView("_EditContactDetailsPartial",model);
 
             var user = await userManager.FindByNameAsync(User.Identity.Name);
-            var result1 = await userManager.RemoveFromRoleAsync(user, "Default");
-            var result = await userManager.AddToRoleAsync(user, "User");
+            await userManager.RemoveFromRoleAsync(user, "Default");
+            await userManager.AddToRoleAsync(user, "User");
 
-            return PartialView("_EditContactDetailsPartial", model);
-            //return View();
+            //await signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
         private async Task<string> GetUserId()
         {

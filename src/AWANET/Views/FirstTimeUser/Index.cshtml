@@ -10,12 +10,12 @@
     <div class="container" style="margin:auto">
         <br />
         <br />
-        
+
         <div id="editUserDiv" class="container" style="margin:auto">
             <div style="width:40%;margin:auto">
                 <h1 style="color:#00AA3C">Fyll i dina kontaktuppgifter</h1>
 
-                <form onsubmit="editFirstTimeUserInfo(event);" id="userDetails">
+                <form asp-controller="FirstTimeUser" asp-action="Index">
                     <label asp-for="FirstName"></label>
                     <input asp-for="FirstName" id="firstName" class="form-control">
                     <span asp-validation-for="FirstName"></span>
@@ -43,12 +43,12 @@
                     <div asp-validation-summary="ValidationSummary.ModelOnly"></div>
 
                     @if (ViewData["Message"] != null)
-            {
+                    {
                         <div class="logoColorFont">Dina kontaktuppgifter uppdaterades. Du har nu tillgång till hela AWANet ☺</div>
                     }
 
                     <div class="modal-footer">
-                        <input id="submitChanges" class="btn btn-success" value="Spara kontaktuppgifter" onclick="editFirstTimeUserInfo(event)" />
+                        <input id="submitChanges" class="btn btn-success" value="Spara kontaktuppgifter" type="submit" />
                     </div>
                 </form>
             </div>
