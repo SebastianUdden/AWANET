@@ -313,5 +313,38 @@ namespace AWANET.ViewModels
         {
             return View();
         }
+
+        public async Task<IActionResult> PostComment(CommentVM comment, int id)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return Content("false");
+            }
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            var userId = await userManager.GetUserIdAsync(user);
+            
+            Comment newComment = new Comment();
+            newComment.SenderId = user.Id;
+            newComment.CommentBody = comment.CommentBody;
+            newComment.PostId = id;
+            newComment.TimeStamp = DateTime.Now;
+            
+
+            
+            context.Comments.Add(newComment);
+            var result = await context.SaveChangesAsync();
+
+            if (result > 0)
+            {
+                ViewData["MessageData"] = "Kommentar sparad.";
+            }
+            else
+            {
+                ViewData["MessageData"] = "Kommentar ej sparad!";
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

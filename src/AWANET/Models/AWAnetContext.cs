@@ -14,6 +14,7 @@ namespace AWANET.Models
         public DbSet<Message> Messages { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -23,7 +24,7 @@ namespace AWANET.Models
             builder.Entity<Message>().ToTable("Messages");
             builder.Entity<UserGroup>().ToTable("UserGroups");
             builder.Entity<Group>().ToTable("Groups");
-
+            builder.Entity<Comment>().ToTable("Comments");
         }
     }
 }
