@@ -76,7 +76,7 @@
                         <h4>@message.UserRole</h4>
 
                         @if (message.UserRole == "Academic Work")
-                {
+                        {
                             <h3>
                                 <span class="label logoColorBackground">
                                     @message.FullName
@@ -114,25 +114,11 @@
 
                     </div>
                 </div>
-                        //Comment
-                        @if (message.Comments.Count() > 0)
-                        {
+                @Html.Partial("_CommentPartial", message.Comments)
 
-                            <div class="container">
-                                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Kommentarer<span class="badge">@message.Comments.Count()</span></button>
-                                <div id="demo" class="collapse">
-                                    @foreach (var comment in message.Comments)
-                                    {
-                                        <p>@comment.SenderName</p>
-                                        <p>@comment.CommentBody</p>
-                                        <p>@comment.TimeStamp</p>
-                                    }
-                                </div>
-                            </div>
-                        }
-                        <br />
-                        <hr />
-                        }
+                <br />
+                <hr />
+                }
         </div>
     </div>
 </div>

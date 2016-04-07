@@ -1,0 +1,12 @@
+﻿@model List<CommentVM>
+<div class="container">
+    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Kommentarer<span class="badge">@Model.Count()</span></button>
+    <div id="demo" class="collapse">
+        @foreach (var comment in Model)
+        {
+            <p>@comment.SenderName</p>
+                            <p>@comment.CommentBody</p>
+                            <p>@comment.TimeStamp</p>
+        }
+    </div>
+</div>
