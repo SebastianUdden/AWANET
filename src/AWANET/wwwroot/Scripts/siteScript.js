@@ -74,25 +74,30 @@ function ConfirmUserCreation() {
 }
 
 function ConfirmMessagePost() {
-    var list = document.getElementById('listReceiver');
-    var inputValue = $("#receiver").val();
-    var isNew = true;
+    tinyMCE.triggerSave();
+    $.validator.unobtrusive.parse($("#newMessageForm"));
+    if ($('#newMessageForm').valid()) {
 
-    $("#listReceiver li").each(function () {
-        if ($(this).attr('id') == inputValue) {
-            isNew = false;
+        var list = document.getElementById('listReceiver');
+        var inputValue = $("#receiver").val();
+        var isNew = true;
+
+        $("#listReceiver li").each(function () {
+            if ($(this).attr('id') == inputValue) {
+                isNew = false;
+            }
+        });
+
+        if (isNew) {
+            var resultCategory = confirm("Vill du skapa ett nytt gruppflöde? Ditt nya gruppflöde är " + inputValue + ".");
+            if (resultCategory) {
+                $("#newMessageForm").submit();
+            }
+
         }
-    });
-
-    if (isNew) {
-        var resultCategory = confirm("Vill du skapa ett nytt gruppflöde? Ditt nya gruppflöde är " + inputValue + ".");
-        if (resultCategory) {
+        else {
             $("#newMessageForm").submit();
         }
-
-    }
-    else {
-        $("#newMessageForm").submit();
     }
 }
 
@@ -203,10 +208,10 @@ function editMessageModal(id) {
     });
 }
 
-function RemoveMessage(messageId,groupId) {
+function RemoveMessage(messageId, groupId) {
     $("#loader").show();
 
-    $.post("/Home/RemoveMessage", { 'id': messageId, 'groupId':groupId }, function (data) {
+    $.post("/Home/RemoveMessage", { 'id': messageId, 'groupId': groupId }, function (data) {
         window.location.href = '/home/index/' + groupId;
         $("#loader").hide();
     });

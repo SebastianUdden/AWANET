@@ -54,12 +54,14 @@
                     </div>
                     <br />
                     <span asp-validation-for="Title"></span>
+                    <span asp-validation-for="MessageBody"></span>
                     <textarea id="mytextarea" asp-for="MessageBody"></textarea>
+                    <span asp-validation-for="MessageBody"></span>
                     <label asp-for="OnFirstPage"></label>
                     <input asp-for="OnFirstPage" />
                     <div class="dropdown has-feedback">
                         <label asp-for="Receiver"></label>
-                        <input asp-for="Receiver" type="text" id="receiver" placeholder="Mottagare" class="form-control dropdown-menu-right dropdown-toggle" data-toggle="dropdown" data-val="true" name="Receiver" /><i id="arrow" class="glyphicon glyphicon-triangle-bottom form-control-feedback"></i>
+                        <input asp-for="Receiver" type="text" id="receiver" placeholder="Mottagargrupp" class="form-control dropdown-menu-right dropdown-toggle" data-toggle="dropdown" data-val="true" name="Receiver" /><i id="arrow" class="glyphicon glyphicon-triangle-bottom form-control-feedback"></i>
                         <span asp-validation-for="Receiver"></span>
                         <ul id="listReceiver" class="dropdown-menu">
                             @foreach (var c in Model.Groups)

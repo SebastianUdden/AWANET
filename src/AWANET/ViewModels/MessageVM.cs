@@ -19,7 +19,7 @@ namespace AWANET.ViewModels
         public bool IsCurrentUser { get; set; }
 
         [Required(ErrorMessage ="Meddelandet får inte vara tomt")]
-        [StringLength(7000, MinimumLength = 10, ErrorMessage = "Titeln måste vara 4 till 50 tecken lång.")]
+        [StringLength(7000, MinimumLength = 10, ErrorMessage = "Meddelandet måste vara minst 10 tecken.")]
 
         public string MessageBody { get; set; }
         public string ImageLink { get; set; }
@@ -30,8 +30,8 @@ namespace AWANET.ViewModels
         [Required(ErrorMessage = "Du måste välja mottagargrupp")]
         public string Receiver { get; set; }
         [Display(Name = "Rubrik")]
-        [Required(ErrorMessage ="Fyll i en titel")]
-        [StringLength(50, MinimumLength = 4, ErrorMessage = "Titeln måste vara 4 till 50 tecken lång.")]
+        [Required(ErrorMessage ="Fyll i en rubrik")]
+        [StringLength(50, MinimumLength = 4, ErrorMessage = "Rubriken måste vara 4 till 50 tecken lång.")]
         public string Title { get; set; }
         public IFormFile MessagePicture { get; set; }
         public List<string> Groups { get; set; }
