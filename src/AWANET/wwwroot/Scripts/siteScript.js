@@ -19,6 +19,22 @@ function editUserInfo(e) {
         //$("#accordionDetails").accordion().activate(3);
     });
 }
+function editFirstTimeUserInfo(e) {
+    //e.preventDefault();
+    $("#loader").show();
+    $.post("/firsttimeuser/index", {
+        'FirstName': $('#firstName').val(),
+        'LastName': $('#lastName').val(),
+        'Phone': $('#phone').val(),
+        'Street': $('#street').val(),
+        'Zip': $('#zip').val(),
+        'City': $('#city').val()
+    }, function (partial) {
+        $("#editUserDiv").html(partial);
+        $("#loader").hide();
+        //$("#accordionDetails").accordion().activate(3);
+    });
+}
 
 function editPassword(e) {
     //e.preventDefault();

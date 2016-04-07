@@ -15,7 +15,7 @@ using System.IO;
 
 namespace AWANET.ViewModels
 {
-    [Authorize]
+    [Authorize(Roles= "User")]
     public class HomeController : Controller
     {
         IHostingEnvironment _environment;

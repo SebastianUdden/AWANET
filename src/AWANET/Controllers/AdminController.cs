@@ -58,7 +58,7 @@ namespace AWANET.ViewModels
                 return View(model);
             }
             var userId = await userManager.GetUserIdAsync(newUser);
-
+            await userManager.AddToRoleAsync(newUser, "Default");
             var category = context.UserCategory.Where(x => x.CategoryName == model.CategoryName).SingleOrDefault();
 
             UserDetail userDetail = new UserDetail();

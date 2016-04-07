@@ -12,8 +12,9 @@ using Microsoft.AspNet.Authorization;
 
 namespace AWANET.Controllers
 {
-    [Authorize]
-    public class ContactListController : Controller
+    [Authorize(Roles ="User")]
+    
+        public class ContactListController : Controller
     {
         UserManager<IdentityUser> userManager;
         AWAnetContext context;
