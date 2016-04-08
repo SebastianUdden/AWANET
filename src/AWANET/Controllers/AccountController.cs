@@ -175,7 +175,7 @@ namespace AWANET.ViewModels
                 }
                 //Kolla resultat på mailutskicket??
                 //Metod som skickar ett lösenord till specificerad emailadress
-                MailSender.SendTo(model.EMail, password);
+                MailSender.SendTo(model.EMail, password, true);
                 return RedirectToAction(nameof(Login));
             }
             ModelState.AddModelError("error", "Hittar ej E-post");

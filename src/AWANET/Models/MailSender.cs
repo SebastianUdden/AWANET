@@ -10,7 +10,7 @@ namespace AWANET.Models
 {
     public static class MailSender
     {
-        public static void SendTo(string address,string password)
+        public static void SendTo(string address, string password, bool isReset)
         {
             //lägga in kontroll av formatet för att säkra E-post
             try
@@ -36,9 +36,16 @@ namespace AWANET.Models
                 //skapa body i mailet.
 
                 //Lägger in namn , adresser och telefonnummer i mailet.
-                mail.Body = $"Välkommen till AWAnet! Ditt användarnamn är {address}.\n Ditt lösenord är {password}";
-                
-                mail.Body += "\nFramtiden är här ☺";
+                if (isReset)
+                {
+                    mail.Body = $"Lösenordet är återställt! Ditt användarnamn är {address}.\nDitt nya lösenord är {password}";
+                }
+                else
+                {
+                    mail.Body = $"Välkommen till AWAnet! Ditt användarnamn är {address}.\nDitt lösenord är {password}";
+                }
+
+                mail.Body += "\nFramtiden är här ☺ \n\n\t http://awanet.azurewebsites.net";
                 //Skicka mail!
                 client.SendAsync(mail, null);
             }

@@ -84,7 +84,7 @@ namespace AWANET.ViewModels
             //Kolla resultat på mailutskicket??
             //Metod som skickar ett lösenord till specificerad emailadress
             
-            MailSender.SendTo(model.EMail, password);
+            MailSender.SendTo(model.EMail, password,false);
             return View(model);
         }
         public async Task<IActionResult> AdminTemp()
