@@ -13,7 +13,7 @@
                     @if (group.Id == Model.PageId)
                     {
                         <li class="awaActive active" style="float:left;color:black">
-                            <a href="/home/index/@group.Id">@group.GroupName <span class="glyphicon glyphicon-remove" onclick="removeTab(@group.Id, event)"></span></a>
+                            <a href="/home/index/@group.Id">@group.GroupName <span style="margin-left:10px" class="glyphicon glyphicon-remove linkPointer" onclick="removeTab(@group.Id, event)"></span></a>
                             @*<a href="/home/removeUserFromGroup/@group.Id"><span class="glyphicon glyphicon-remove"></span></a>*@
                             @*<div style="float:left;padding:10px;color:black" class="awaActive active">
                                 </div>*@
@@ -22,7 +22,7 @@
                     else
                     {
                         <li class="customHover" style="float:left;color:white;">
-                            <a href="/home/index/@group.Id" class="logoColorBackground">@group.GroupName <span class="glyphicon glyphicon-remove" onclick="removeTab(@group.Id, event)"></span></a>
+                            <a href="/home/index/@group.Id" class="logoColorBackground">@group.GroupName   <span class="glyphicon glyphicon-remove linkPointer" style="margin-left:10px" onclick="removeTab(@group.Id, event)"></span></a>
                             @*<a href="/home/index/@group.Id">@group.GroupName</a>
                             <a href="/home/removeUserFromGroup/@group.Id"><span class="glyphicon glyphicon-remove"></span></a>*@
                             @*<div style="float:left;padding:10px;color:white;" class="logoColorBackground">
@@ -53,7 +53,7 @@
 
                         @if (User.IsInRole("Admin") || message.IsCurrentUser)
                         {
-                            <a onclick="RemoveMessage(@message.Id,@Model.PageId)"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a class="linkPointer" onclick="RemoveMessage(@message.Id,@Model.PageId)"><span class="glyphicon glyphicon-trash"></span></a>
                             if (message.IsCurrentUser)
                             {
                                 <a href="#"><span class="glyphicon glyphicon-pencil" onclick="editMessageModal(@message.Id)"></span></a>
