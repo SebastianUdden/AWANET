@@ -7,7 +7,7 @@
 <div id="reloadPage">
     <div class="container">
         <div class="col-lg-9">
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs nav-customtab">
                 @foreach (var group in Model.GroupVMList)
                 {
                     @if (group.Id == Model.PageId)
@@ -126,14 +126,11 @@
 
                     </div>
                 </div>
-
                         string loadArea = "loadComment" + message.Id;
-
 
                         <div id="@loadArea">
                             @Html.Partial("_CommentPartial", message.Comments)
                         </div>
-
                         <br />
                         <hr />
                         }

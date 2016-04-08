@@ -190,3 +190,7 @@
     background-color:#f8f8f8;
     box-shadow:6px 6px 3px RGBA(0,0,0,0.1);
 }
+
+ul.nav-customtab a:hover { 
+    background-color: #00de4f !important; 
+}
