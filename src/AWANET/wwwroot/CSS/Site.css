@@ -194,3 +194,7 @@
 ul.nav-customtab a:hover { 
     background-color: #00de4f !important; 
 }
+
+ul.nav-customtab #activeTab:hover{
+    background-color: white !important; 
+}

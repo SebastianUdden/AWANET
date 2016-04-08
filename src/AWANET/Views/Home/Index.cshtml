@@ -15,14 +15,14 @@
                         if (group.Id == 1)
                         {
                             <li class="awaActive active" style="float:left;color:black">
-                                <a href="/home/index/@group.Id">@group.GroupName</a>
+                                <a id="activeTab" href="/home/index/@group.Id">@group.GroupName</a>
                             </li>
                         }
                         else
                         {
-                        <li class="awaActive active" style="float:left;color:black">
-                            <a href="/home/index/@group.Id">@group.GroupName <span style="margin-left:10px" class="glyphicon glyphicon-remove linkPointer" onclick="removeTab(@group.Id, event)"></span></a>
-                        </li>
+                            <li class="awaActive active" style="float:left;color:black;">
+                                <a id="activeTab" href="/home/index/@group.Id">@group.GroupName <span style="margin-left:10px" class="glyphicon glyphicon-remove linkPointer" onclick="removeTab(@group.Id, event)"></span></a>
+                            </li>
                         }
 
                     }
@@ -30,9 +30,9 @@
                     {
                         if (group.Id == 1)
                         {
-                        <li class="customHover" style="float:left;color:white;">
-                            <a href="/home/index/@group.Id" class="logoColorBackground">@group.GroupName</a>
-                        </li>
+                            <li class="customHover" style="float:left;color:white;">
+                                <a href="/home/index/@group.Id" class="logoColorBackground">@group.GroupName</a>
+                            </li>
                         }
                         else
                         {
