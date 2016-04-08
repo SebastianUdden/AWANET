@@ -8,23 +8,37 @@
                     @if (group.Id == Model.PageId)
                     {
                         <li class="awaActive active">
-                            <a href="/home/index/@group.Id">@group.GroupName</a>
+                            <div>
+                                <div style="float:left;padding:10px;color:black" class="awaActive active">
+                                    <a href="/home/index/@group.Id">@group.GroupName</a>
+                                </div>
+                                <div style="float:left;padding:10px;color:black" class="awaActive active">
+                                    <a href="/home/removeUserFromGroup/@group.Id"><span class="glyphicon glyphicon-remove"></span></a>
+                                </div>
+                            </div>
                         </li>
                     }
                     else
                     {
                         <li class="customHover">
-                            <a class="logoColorBackground" href="/home/index/@group.Id">@group.GroupName</a>
+                            <div>
+                                <div style="float:left;padding:10px;color:white;" class="logoColorBackground">
+                                    <a href="/home/index/@group.Id">@group.GroupName</a>
+                                </div>
+                                <div style="float:left;padding:10px;color:white;" class="logoColorBackground">
+                                    <a href="/home/removeUserFromGroup/@group.Id"><span class="glyphicon glyphicon-remove"></span></a>
+                                </div>
+                            </div>
                         </li>
                     }
                 }
-                <li><a class="logoColorBackground" onclick="showGroupModal()">+</a></li>
+                <li><a class="logoColorBackground linkPointer" onclick="showGroupModal()">+</a></li>
             </ul>
         </div>
         <div class="col-lg-3">
             <ul class="nav nav-tabs navbar-right">
                 <li>
-                    <a class="logoColorBackground" onclick="showMessageModal()">Skapa inlägg <span class="glyphicon glyphicon-pencil"></span></a>
+                    <a class="logoColorBackground linkPointer" onclick="showMessageModal()">Skapa inlägg <span class="glyphicon glyphicon-pencil"></span></a>
                 </li>
 
             </ul>

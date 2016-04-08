@@ -15,7 +15,7 @@ using System.IO;
 
 namespace AWANET.ViewModels
 {
-    [Authorize(Roles= "User")]
+    [Authorize(Roles = "User")]
     public class HomeController : Controller
     {
         IHostingEnvironment _environment;
@@ -221,7 +221,7 @@ namespace AWANET.ViewModels
             return RedirectToAction("Index");
         }
 
-        public IActionResult RemoveMessage(int id,int groupId)
+        public IActionResult RemoveMessage(int id, int groupId)
         {
             var message = context.Messages.Where(o => o.Id == id).SingleOrDefault();
             var user = context.Users.Where(o => o.UserName == User.Identity.Name).SingleOrDefault();
@@ -233,7 +233,7 @@ namespace AWANET.ViewModels
             }
 
             //Just nu kommer man till index, vi vill komma till den fliken vi var i.
-            return RedirectToAction("index",new { id=groupId});
+            return RedirectToAction("index", new { id = groupId });
         }
 
         [HttpPost]
@@ -330,7 +330,7 @@ namespace AWANET.ViewModels
 
             return View(chatUser);
         }
-        
+
         public async Task<IActionResult> PostComment(string commentBody, int id)
         {
 
@@ -340,13 +340,13 @@ namespace AWANET.ViewModels
             //}
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             var userId = await userManager.GetUserIdAsync(user);
-            
+
             Comment newComment = new Comment();
             newComment.SenderId = user.Id;
             newComment.CommentBody = commentBody;
             newComment.PostId = id;
             newComment.TimeStamp = DateTime.Now;
-            
+
             context.Comments.Add(newComment);
             var result = await context.SaveChangesAsync();
 
@@ -379,6 +379,12 @@ namespace AWANET.ViewModels
             }
             return commentsVM;
         }
-
+        public async Task<IActionResult> removeUserFromGroup(int id)
+        {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            GroupHandler groupHandler = new GroupHandler();
+            groupHandler.RemoveFromGroup(context, user.Id, id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
