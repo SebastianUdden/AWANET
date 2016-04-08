@@ -11,6 +11,10 @@
         <div class="container text-center" style="margin:auto">
             <br />
             <br />
+            @if (ViewData["FirstTime"] != null)
+            {
+                <div class="logoColorFont"><h3>Dina användaruppgifter är uppdaterade,<br /> Var god logga in igen för att ta del av sidan</h3></div>
+            }
             <h1 style="color:#00AA3C">Inloggning</h1>
             <div style="width:32%; margin:auto">
                 <form asp-controller="Account" asp-action="Login">

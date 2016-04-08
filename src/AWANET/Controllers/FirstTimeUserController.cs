@@ -46,9 +46,8 @@ namespace AWANET.Controllers
             
             GroupHandler grp = new GroupHandler();
             grp.AddToStartGroup(context, user.Id);
-
             //await signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account" , new { id = 2 });
         }
         private async Task<string> GetUserId()
         {

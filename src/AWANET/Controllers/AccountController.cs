@@ -43,8 +43,12 @@ namespace AWANET.ViewModels
         }
         // GET: /<controller>/
         [AllowAnonymous]
-        public IActionResult Login()
+        public IActionResult Login(int id = 1)
         {
+            if (id!= 1)
+            {
+                ViewData["FirstTime"] = "1";
+            }
             return View();
         }
 
