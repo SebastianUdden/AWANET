@@ -43,8 +43,12 @@ namespace AWANET.ViewModels
         }
         // GET: /<controller>/
         [AllowAnonymous]
-        public IActionResult Login()
+        public IActionResult Login(int id = 1)
         {
+            if (id!= 1)
+            {
+                ViewData["FirstTime"] = "1";
+            }
             return View();
         }
 
@@ -171,7 +175,7 @@ namespace AWANET.ViewModels
                 }
                 //Kolla resultat på mailutskicket??
                 //Metod som skickar ett lösenord till specificerad emailadress
-                MailSender.SendTo(model.EMail, password);
+                MailSender.SendTo(model.EMail, password, true);
                 return RedirectToAction(nameof(Login));
             }
             ModelState.AddModelError("error", "Hittar ej E-post");

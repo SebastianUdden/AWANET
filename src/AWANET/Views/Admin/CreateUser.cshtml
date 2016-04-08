@@ -7,7 +7,7 @@
 <div class="extraTopPadding">
     <h1 class="logoColorFont">Skapa ny användare</h1>
 
-    <form asp-controller="Admin" asp-action="CreateUser" id="createUserForm" >
+    <form asp-controller="Admin" asp-action="CreateUser" id="createUserForm">
         <div asp-validation-summary="ValidationSummary.ModelOnly"></div>
         <label asp-for="EMail">E-post</label>
         <input asp-for="EMail" class="form-control" placeholder="elev@academy.se" />
@@ -28,5 +28,9 @@
         <br />
         <br />
         <input value="Skapa användare" class="btn logoColorBackground" onclick="ConfirmUserCreation()" />
+        @if (ViewData["UserCreated"] != null)
+            {
+            <div class="logoColorFont"><h4>Användaren skapades.</h4></div>
+        }
     </form>
 </div>

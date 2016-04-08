@@ -50,6 +50,8 @@ namespace AWANET.ViewModels
             string password = CreatePassword.CreateNewPassword();
             IdentityUser newUser = new IdentityUser(model.EMail);
             var result = await userManager.CreateAsync(newUser, password);
+            var list = context.UserCategory.Select(o => o.CategoryName).ToList();
+            model.CategoryList = list;
 
             //Returnerar ett felmeddelande och vy-modellen ifall skapandet av användare misslyckats
             if (!result.Succeeded)
@@ -78,11 +80,12 @@ namespace AWANET.ViewModels
                 context.SaveChanges();
                 userDetail.SemesterId = userCategory.Id;
             }
-
+            ViewData["UserCreated"] = "1";
             //Kolla resultat på mailutskicket??
             //Metod som skickar ett lösenord till specificerad emailadress
-            MailSender.SendTo(model.EMail, password);
-            return RedirectToAction(nameof(AdminController.CreateUser));
+            
+            MailSender.SendTo(model.EMail, password,false);
+            return View(model);
         }
         public async Task<IActionResult> AdminTemp()
         {

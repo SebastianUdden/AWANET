@@ -228,12 +228,26 @@ namespace AWANET.ViewModels
 
             if (User.IsInRole("Admin") || message.Sender == user.Id)
             {
+                int  removedComments = RemoveComments(id);
                 context.Messages.Remove(message);
                 context.SaveChanges();
             }
 
             //Just nu kommer man till index, vi vill komma till den fliken vi var i.
             return RedirectToAction("index", new { id = groupId });
+        }
+
+        private int RemoveComments(int id)
+        {
+            var comments = context.Comments.Where(o => o.PostId == id).ToList();
+            int counter = 0;
+            foreach (var comment in comments)
+            {
+                context.Comments.Remove(comment);
+                counter++;
+            }
+            context.SaveChanges();
+            return counter;
         }
 
         [HttpPost]
