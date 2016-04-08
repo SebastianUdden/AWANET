@@ -210,7 +210,7 @@ function JoinGroup(gid) {
 
     $.post("/Home/JoinGroup", { 'id': gid }, function (data) {
         location.reload();
-        $("#loader").hide();
+        //$("#loader").hide();
     });
 }
 
@@ -240,6 +240,15 @@ function postComment(messageId) {
     $.post("/Home/PostComment", { 'id': messageId, 'commentBody': comment }, function (data) {
         $(loadArea).html(data);
         $("#loader").hide();
+    });
+}
+
+function removeTab(id, e) {
+    $("#loader").show();
+    e.preventDefault();
+    $.post("/Home/removeUserFromGroup", { 'id': id }, function (data) {
+        window.location.href = '/home/index/';
+        //$("#loader").hide();
     });
 }
 //Om groupInput == GroupVM.GroupName

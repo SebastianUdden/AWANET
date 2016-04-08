@@ -379,12 +379,12 @@ namespace AWANET.ViewModels
             }
             return commentsVM;
         }
-        public async Task<IActionResult> removeUserFromGroup(int id)
+        public async Task<bool> removeUserFromGroup(int id)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             GroupHandler groupHandler = new GroupHandler();
             groupHandler.RemoveFromGroup(context, user.Id, id);
-            return RedirectToAction(nameof(Index));
+            return true;
         }
     }
 }

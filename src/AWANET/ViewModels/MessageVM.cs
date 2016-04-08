@@ -28,6 +28,7 @@ namespace AWANET.ViewModels
 
         [Display(Name = "Mottagargrupp")]
         [Required(ErrorMessage = "Du måste välja mottagargrupp")]
+        [StringLength(15, MinimumLength = 3, ErrorMessage = "Gruppens namn måste vara minst 3 tecken och max 15")]
         public string Receiver { get; set; }
         [Display(Name = "Rubrik")]
         [Required(ErrorMessage ="Fyll i en rubrik")]
