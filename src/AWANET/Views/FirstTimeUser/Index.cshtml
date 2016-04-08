@@ -1,0 +1,57 @@
+﻿@model EditContactDetailsVM
+@{
+    Layout = "_LoginLayout";
+}
+<head>
+    <script src="~/scripts/sitescript.js"></script>
+    <title>Fyll i kontaktuppgifter</title>
+</head>
+<body>
+    <div class="container" style="margin:auto">
+        <br />
+        <br />
+
+        <div id="editUserDiv" class="container" style="margin:auto">
+            <div style="width:40%;margin:auto">
+                <h1 style="color:#00AA3C">Fyll i dina kontaktuppgifter</h1>
+
+                <form asp-controller="FirstTimeUser" asp-action="Index">
+                    <label asp-for="FirstName"></label>
+                    <input asp-for="FirstName" id="firstName" class="form-control">
+                    <span asp-validation-for="FirstName"></span>
+                    <br />
+                    <label asp-for="LastName"></label>
+                    <input asp-for="LastName" id="lastName" class="form-control">
+                    <span asp-validation-for="LastName"></span>
+                    <br />
+                    <label asp-for="Phone"></label>
+                    <input asp-for="Phone" id="phone" class="form-control">
+                    <span asp-validation-for="Phone"></span>
+                    <br />
+                    <label asp-for="Street"></label>
+                    <input asp-for="Street" id="street" class="form-control">
+                    <span asp-validation-for="Street"></span>
+                    <br />
+                    <label asp-for="Zip"></label>
+                    <input asp-for="Zip" id="zip" class="form-control">
+                    <span asp-validation-for="Zip"></span>
+                    <br />
+                    <label asp-for="City"></label>
+                    <input asp-for="City" id="city" class="form-control">
+                    <span asp-validation-for="City"></span>
+                    <br />
+                    <div asp-validation-summary="ValidationSummary.ModelOnly"></div>
+
+                    @if (ViewData["Message"] != null)
+                    {
+                        <div class="logoColorFont">Dina kontaktuppgifter uppdaterades. Du har nu tillgång till hela AWANet ☺</div>
+                    }
+
+                    <div class="modal-footer">
+                        <input id="submitChanges" class="btn btn-success" value="Spara kontaktuppgifter" type="submit" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>

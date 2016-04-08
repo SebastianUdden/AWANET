@@ -15,7 +15,7 @@ using System.IO;
 
 namespace AWANET.ViewModels
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     public class HomeController : Controller
     {
         IHostingEnvironment _environment;
@@ -56,7 +56,8 @@ namespace AWANET.ViewModels
                     MessageBody = o.MessageBody,
                     TimeCreated = o.TimeCreated,
                     ImageLink = o.ImageLink != String.Empty ? o.ImageLink : String.Empty,
-                    IsCurrentUser = o.Sender == user.Id ? true : false
+                    IsCurrentUser = o.Sender == user.Id ? true : false,
+                    Comments = GetComments(o.Id)
                 }).OrderByDescending(o => o.TimeCreated).ToList();
             }
             else
@@ -71,7 +72,8 @@ namespace AWANET.ViewModels
                     MessageBody = o.MessageBody,
                     TimeCreated = o.TimeCreated,
                     ImageLink = o.ImageLink != String.Empty ? o.ImageLink : String.Empty,
-                    IsCurrentUser = o.Sender == user.Id ? true : false
+                    IsCurrentUser = o.Sender == user.Id ? true : false,
+                    Comments = GetComments(o.Id)
                 }).OrderByDescending(o => o.TimeCreated).ToList();
             }
             // Sortera på id
@@ -100,6 +102,7 @@ namespace AWANET.ViewModels
 
             return View(homeVM);
         }
+
         [AllowAnonymous]
         public IActionResult Redirect()
         {
@@ -135,6 +138,7 @@ namespace AWANET.ViewModels
                 var newGroup = new Group();
                 newGroup.GroupName = message.Receiver;
                 newGroup.CreatorId = context.Users.Where(o => o.UserName == User.Identity.Name).Select(o => o.Id).SingleOrDefault();
+                newGroup.IsOpen = true;
                 context.Groups.Add(newGroup);
                 context.SaveChanges();
                 context.UserGroups.Add(new UserGroup
@@ -217,7 +221,7 @@ namespace AWANET.ViewModels
             return RedirectToAction("Index");
         }
 
-        public IActionResult RemoveMessage(int id,int groupId)
+        public IActionResult RemoveMessage(int id, int groupId)
         {
             var message = context.Messages.Where(o => o.Id == id).SingleOrDefault();
             var user = context.Users.Where(o => o.UserName == User.Identity.Name).SingleOrDefault();
@@ -229,7 +233,7 @@ namespace AWANET.ViewModels
             }
 
             //Just nu kommer man till index, vi vill komma till den fliken vi var i.
-            return RedirectToAction("index",new { id=groupId});
+            return RedirectToAction("index", new { id = groupId });
         }
 
         [HttpPost]
@@ -248,6 +252,7 @@ namespace AWANET.ViewModels
                 var newGroup = new Group();
                 newGroup.GroupName = message.Receiver;
                 newGroup.CreatorId = context.Users.Where(o => o.UserName == User.Identity.Name).Select(o => o.Id).SingleOrDefault();
+                newGroup.IsOpen = true;
                 context.Groups.Add(newGroup);
                 context.SaveChanges();
                 context.UserGroups.Add(new UserGroup
@@ -311,27 +316,37 @@ namespace AWANET.ViewModels
 
         public IActionResult Chat()
         {
-            return View();
+            var user = context.Users.Where(o => o.UserName == User.Identity.Name).SingleOrDefault();
+            var model = context.UserDetails.Where(o => o.Id == user.Id).SingleOrDefault();
+            ChatUserVM chatUser = new ChatUserVM();
+
+            chatUser.TimeStamp = DateTime.Now.ToString("HH:mm");
+            chatUser.Fullname = model.FirstName + " " + model.LastName;
+
+            if (chatUser.Fullname.Length < 2)
+            {
+                chatUser.Fullname = user.UserName;
+            }
+
+            return View(chatUser);
         }
 
-        public async Task<IActionResult> PostComment(CommentVM comment, int id)
+        public async Task<IActionResult> PostComment(string commentBody, int id)
         {
 
-            if (!ModelState.IsValid)
-            {
-                return Content("false");
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Content("false");
+            //}
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             var userId = await userManager.GetUserIdAsync(user);
-            
+
             Comment newComment = new Comment();
             newComment.SenderId = user.Id;
-            newComment.CommentBody = comment.CommentBody;
+            newComment.CommentBody = commentBody;
             newComment.PostId = id;
             newComment.TimeStamp = DateTime.Now;
-            
 
-            
             context.Comments.Add(newComment);
             var result = await context.SaveChangesAsync();
 
@@ -344,6 +359,31 @@ namespace AWANET.ViewModels
                 ViewData["MessageData"] = "Kommentar ej sparad!";
             }
 
+            return PartialView("_CommentPartial", GetComments(id));
+        }
+
+        public CommentsVM GetComments(int messageId)
+        {
+            var comments = context.Comments.Where(o => o.PostId == messageId).ToList();
+            var commentsVM = new CommentsVM();
+            commentsVM.CommentList = new List<CommentVM>();
+            commentsVM.ParentMessageId = messageId;
+
+            foreach (var comment in comments)
+            {
+                var tmp = new CommentVM();
+                tmp.CommentBody = comment.CommentBody;
+                tmp.SenderName = context.UserDetails.Where(o => o.Id == comment.SenderId).Select(x => x.FirstName + " " + x.LastName).SingleOrDefault();
+                tmp.TimeStamp = comment.TimeStamp;
+                commentsVM.CommentList.Add(tmp);
+            }
+            return commentsVM;
+        }
+        public async Task<IActionResult> removeUserFromGroup(int id)
+        {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            GroupHandler groupHandler = new GroupHandler();
+            groupHandler.RemoveFromGroup(context, user.Id, id);
             return RedirectToAction(nameof(Index));
         }
     }

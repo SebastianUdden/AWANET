@@ -1,4 +1,6 @@
 ﻿using AWANET.ViewModels;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -47,6 +49,29 @@ namespace AWANET.Models
             
             
             return ListofGroupVM;
+        }
+
+        public void AddToStartGroup(AWAnetContext context, string id)
+        {
+            UserGroup usergroup = new UserGroup();
+            usergroup.GroupId = 1;
+            usergroup.UserId = id;
+            context.UserGroups.Add(usergroup);
+            context.SaveChanges();
+        }
+        public bool RemoveFromGroup(AWAnetContext context,string userId, int groupId)
+        {
+
+            UserGroup userGroup = context.UserGroups
+                .Where(o => o.GroupId == groupId && o.UserId == userId)
+                .SingleOrDefault();
+
+            context.UserGroups.Remove(userGroup);
+            var result = context.SaveChanges();
+            if (result > 0)
+                return true;
+            else
+                return false;
         }
     }
 }

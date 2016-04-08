@@ -1,26 +1,38 @@
-﻿<div class="text-center">
+﻿@model ChatUserVM
+
+<div class="text-center">
+
     <h2 class="logoColorFont">awaChat</h2>
     <br />
     <div><input id=input class="form-control" placeholder="Chatruta" /></div>
     <br />
     <h4 class="logoColorFont">Meddelandeflöde</h4>
-    <div id=box class="fixChat"></div>
+    <div id="box" class="fixChat"></div>
 </div>
 
-<script src=http://cdn.pubnub.com/pubnub.min.js></script>
+<script src=http://cdn.pubnub.com/pubnub.js></script>
 <script>
     (function () {
-        var box = PUBNUB.$('box'), input = PUBNUB.$('input'), channel = 'chat';
+        var box = PUBNUB.$('box'), input = PUBNUB.$('input'), channel = 'chatAwAnEters';
         PUBNUB.subscribe({
             channel: channel,
-            callback: function (text) { box.innerHTML = ('' + text).replace(/[<>]/g, '') + '<br>' + box.innerHTML }
+            callback: function (text) { box.innerHTML = (name + text).replace(/[<>]/g, '') + '<br>' + box.innerHTML }
         });
         PUBNUB.bind('keyup', input, function (e) {
+            var timenow = time();
             (e.keyCode || e.charCode) === 13 && PUBNUB.publish({
-                channel: channel, message: input.value, x: (input.value = '')
+                channel: channel, message: (input.value = "@Model.Fullname " + timenow + ": " + input.value), x: (input.value = '')
             })
-        })
-    })()</script>
+        }) 
+    })()
+
+    function time() {
+        var d = new Date();
+        h = (d.getHours() < 10 ? '0' : '') + d.getHours();
+        m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+        return h + ":" + m;
+    }
+</script>
 
 @*<script>
         (function () {

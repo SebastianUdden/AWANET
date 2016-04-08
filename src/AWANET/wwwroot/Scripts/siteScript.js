@@ -19,6 +19,22 @@ function editUserInfo(e) {
         //$("#accordionDetails").accordion().activate(3);
     });
 }
+function editFirstTimeUserInfo(e) {
+    //e.preventDefault();
+    $("#loader").show();
+    $.post("/firsttimeuser/index", {
+        'FirstName': $('#firstName').val(),
+        'LastName': $('#lastName').val(),
+        'Phone': $('#phone').val(),
+        'Street': $('#street').val(),
+        'Zip': $('#zip').val(),
+        'City': $('#city').val()
+    }, function (partial) {
+        $("#editUserDiv").html(partial);
+        $("#loader").hide();
+        //$("#accordionDetails").accordion().activate(3);
+    });
+}
 
 function editPassword(e) {
     //e.preventDefault();
@@ -216,7 +232,16 @@ function RemoveMessage(messageId, groupId) {
         $("#loader").hide();
     });
 }
-
+function postComment(messageId) {
+    $("#loader").show();
+    var commentBody = "#textarea" + messageId;
+    var comment = $(commentBody).val();
+    var loadArea = '#loadComment' + messageId;
+    $.post("/Home/PostComment", { 'id': messageId, 'commentBody': comment }, function (data) {
+        $(loadArea).html(data);
+        $("#loader").hide();
+    });
+}
 //Om groupInput == GroupVM.GroupName
 //Ta ut GroupVM.Id
 //var groupId = GroupVM.Id;

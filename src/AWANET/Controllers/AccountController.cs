@@ -18,7 +18,7 @@ using System.Threading;
 
 namespace AWANET.ViewModels
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     public class AccountController : Controller
     {
         // Använder Identity-ramverket
@@ -47,6 +47,7 @@ namespace AWANET.ViewModels
         {
             return View();
         }
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM loginvm)
@@ -64,9 +65,16 @@ namespace AWANET.ViewModels
                 loginvm.Password = "";
                 return View(loginvm);
             }
-            // Skickar användaren till home, första variabeln är IAction, andra är Controller
-            return RedirectToAction("Index", "Home");
+
+            var user = context.Users.Where(o => o.UserName == loginvm.EMail).SingleOrDefault();
+            var isInRole = await userManager.IsInRoleAsync(user, "Default");
+
+            if (isInRole)
+                return RedirectToAction("Index", "FirstTimeUser");
+            else
+                return RedirectToAction("Index", "Home");
         }
+
         public IActionResult Logout()
         {
             // Metod för att logga ut användaren.
@@ -187,5 +195,6 @@ namespace AWANET.ViewModels
             ViewData["Status"] = "Uppladdning misslyckades!";
             return PartialView("_UploadPicturePartial");
         }
+        
     }
 }

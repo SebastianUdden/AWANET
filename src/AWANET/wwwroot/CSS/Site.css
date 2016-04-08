@@ -110,6 +110,9 @@
         font-weight: bold;
         cursor: pointer;
     }
+.linkPointer{
+    cursor: pointer;
+}
 
 #arrow {
     color: #808080;
@@ -177,4 +180,13 @@
 
 .customHover > li > a:hover {
     background-color: black;
+}
+
+.commentClass{
+    border-radius:5px;
+    padding:5px;
+    z-index:50;
+    position:absolute !important;
+    background-color:#f8f8f8;
+    box-shadow:6px 6px 3px RGBA(0,0,0,0.1);
 }
